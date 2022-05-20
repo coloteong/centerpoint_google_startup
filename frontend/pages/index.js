@@ -4,6 +4,7 @@ import Header from '../components/Header';
 import List from '../components/List';
 import Map from '../components/Map';
 import PlaceDetail from '../components/PlaceDetail';
+import { getPlacesData } from "./api";
 
 const places = [
   {name: 'Sample Place1'},
@@ -25,6 +26,13 @@ useEffect(() => {
     });
 
   }, [])
+
+
+  useEffect(() => {
+    getPlacesData().then((data) => {
+      console.log(data);
+    });
+  },[]);
 
   return (
   <Flex
