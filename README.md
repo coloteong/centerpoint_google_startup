@@ -6,6 +6,17 @@ Our project aims to help users find the closest location for meetups for people 
 
 
 ## Tools Used
+Google Places API - Mainly used to get location coordinates and attributes of user-chosen locations and generate final chosen location by our application
+
+
+## Languages Used
+Python - Backend algorithm to obtain locations, calculate best meetup location
+
+
+## Packages Used
+- requests
+- pandas
+
 
 ## Collaborators:
 1. Candy Salome Lim
