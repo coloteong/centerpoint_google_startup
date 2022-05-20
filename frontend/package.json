@@ -16,6 +16,7 @@
     "@material-ui/lab": "^4.0.0-alpha.61",
     "@react-google-maps/api": "^2.10.3",
     "axios": "^0.27.2",
+    "cors": "^2.8.5",
     "framer-motion": "^6.3.3",
     "google-map-react": "^2.1.10",
     "next": "12.1.6",

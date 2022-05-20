@@ -4,6 +4,8 @@ import Header from '../components/Header';
 import List from '../components/List';
 import Map from '../components/Map';
 import PlaceDetail from '../components/PlaceDetail';
+import { getPlacesData } from "./api";
+import Head from 'next/head';
 
 const places = [
   {name: 'Sample Place1'},
@@ -26,6 +28,13 @@ useEffect(() => {
 
   }, [])
 
+
+  // useEffect(() => {
+  //   getPlacesData().then((data) => {
+  //     console.log(data);
+  //   });
+  // },[]);
+
   return (
   <Flex
     justifyContent={'center'}
@@ -36,6 +45,11 @@ useEffect(() => {
     maxWidth={'100vw'}
     position={'relative'}
   >
+
+    <Head>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyDPRi8jxCGzccPR34SkCjnEOh8F6ZKK_q0"></script>
+    </Head>
+    
     <Header 
       setType={setType}
       setRatings ={setRatings}

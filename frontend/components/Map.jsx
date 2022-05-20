@@ -20,26 +20,12 @@ import {
 
 import { useRef, useState } from 'react'
 
-// const Map = ({coordinates, setCoordinates}) => {
-//   return (
-//     <Box width={'full'} height={'full'}>
-//       <GoogleMapReact
-//       bootstrapURLKeys={{ key: "AIzaSyDPRi8jxCGzccPR34SkCjnEOh8F6ZKK_q0" }}
-//       defaultCenter={coordinates}
-//       center={coordinates}
-//       defaultZoom={10}
-//       margin={[50, 50, 50, 50]}
-//       options={""}
-//       onChange={() => {}}
-//       onChildClick={() => {}}
-//       >
-//       </GoogleMapReact>
-//     </Box>
-//   );
-// };
+
+import { onLoad } from "./Header";
 
 function Map({coordinates, setCoordinates}) {
   const { isLoaded } = useJsApiLoader({
+    // googleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY,
     googleMapsApiKey: 'AIzaSyDPRi8jxCGzccPR34SkCjnEOh8F6ZKK_q0',
     libraries: ['places'],
   })
@@ -74,6 +60,8 @@ function Map({coordinates, setCoordinates}) {
           }}
           onLoad={map => setMap(map)}
         >
+           <Marker onLoad={onLoad} position={coordinates} />
+
         </GoogleMap>
         </Box>
     </Flex>

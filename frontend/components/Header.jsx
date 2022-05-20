@@ -12,9 +12,9 @@ import {
   Stack
 } from "@chakra-ui/react";
 
-import {AutoComplete} from '@react-google-maps/api'
-import { Rating } from "@material-ui/lab";
-import React from 'react'
+import {Autocomplete} from '@react-google-maps/api'
+import { React, useRef, useState } from 'react'
+
 
 import {
   BiSearch,
@@ -27,7 +27,26 @@ import {
   BiRun
 } from 'react-icons/bi'
 
+
+
+
 const Header = ({ setType, setRatings, setCoordinates }) => {
+
+
+  /** @type React.MutableRefObject<HTMLInputElement> */
+  const originRef = useRef();
+
+  const [autocomplete, setAutocomplete] = useState(null);
+
+  const onLoad = (autoC) => setAutocomplete(autoC);
+
+  const onPlaceChanged = () => {
+    const lat = autocomplete.getPlace().geometry.location.lat();
+
+    const lng = autocomplete.getPlace().geometry.location.lng();
+    setCoordinates({ lat, lng });
+  };
+
   return (
     <Flex 
       position={"absolute"}
@@ -39,7 +58,7 @@ const Header = ({ setType, setRatings, setCoordinates }) => {
       zIndex={101}
     >
       <Flex>
-        {/* <AutoComplete> */}
+      <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
         <InputGroup width={"35vw"} shadow="lg">
             <InputRightElement
               pointerEvents={"none"}
@@ -48,7 +67,7 @@ const Header = ({ setType, setRatings, setCoordinates }) => {
 
             <Input
               type={"text"}
-              placeholder="Type in location here..."
+              placeholder="Location 1"
               variant={"filled"}
               fontSize={18}
               bg={"white"}
@@ -56,9 +75,33 @@ const Header = ({ setType, setRatings, setCoordinates }) => {
               _hover={{ bg: "whiteAlpha.800" }}
               _focus={{ bg: "whiteAlpha.800" }}
               _placeholder={{ color: "gray.700" }}
+              ref = {originRef}
             />
           </InputGroup>
-        {/* </AutoComplete> */}
+        </Autocomplete>
+
+        <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
+        <InputGroup width={"35vw"} shadow="lg">
+            <InputRightElement
+              pointerEvents={"none"}
+              children={<BiSearch color="gray" fontSize={20} />}
+            />
+
+            <Input
+              type={"text"}
+              placeholder="Location 2"
+              variant={"filled"}
+              fontSize={18}
+              bg={"white"}
+              color={"gray.700"}
+              _hover={{ bg: "whiteAlpha.800" }}
+              _focus={{ bg: "whiteAlpha.800" }}
+              _placeholder={{ color: "gray.700" }}
+              ref = {originRef}
+            />
+          </InputGroup>
+        </Autocomplete>
+
 
         <Flex // choose purpose
         alignItems={'center'}
@@ -127,7 +170,6 @@ const Header = ({ setType, setRatings, setCoordinates }) => {
             </CheckboxGroup>
             </MenuList>
           </Menu>
-
 
           <BiChevronDown fontSize={25}
           // down arrow
