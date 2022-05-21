@@ -21,9 +21,10 @@ import {
 import { useRef, useState } from 'react'
 
 
-import { onLoad } from "./Header";
+import {onLoad} from "./Header";
 
 function Map({coordinates, setCoordinates}) {
+
   const { isLoaded } = useJsApiLoader({
     // googleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY,
     googleMapsApiKey: 'AIzaSyDPRi8jxCGzccPR34SkCjnEOh8F6ZKK_q0',
@@ -47,8 +48,8 @@ function Map({coordinates, setCoordinates}) {
       <Box position='absolute' left={0} top={0} h='100%' w='100%'>
         {/* Google Map Box */}
         <GoogleMap
-          center={coordinates}
-          defaultCenter={coordinates}
+          center={{lat : 1.3496, lng: 103.8198}}
+          defaultCenter={{lat : 1.3496, lng: 103.8198}}
           margin={[50, 50, 50, 50]}
           zoom={15}
           mapContainerStyle={{ width: '100%', height: '100%' }}
@@ -58,10 +59,17 @@ function Map({coordinates, setCoordinates}) {
             mapTypeControl: false,
             // fullscreenControl: false,
           }}
-          onLoad={map => setMap(map)}
+          onLoad={map => setMap(map)} 
         >
-           <Marker onLoad={onLoad} position={coordinates} />
 
+          {coordinates.map((coordinate, idx) => {
+            if(idx != 0){
+              return (<Marker position={coordinate} id = {idx} />)
+            }
+          })}
+
+           
+     
         </GoogleMap>
         </Box>
     </Flex>
