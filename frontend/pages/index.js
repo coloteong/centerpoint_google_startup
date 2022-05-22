@@ -17,6 +17,7 @@ const places = [
 const Home = () => {
   //const [coordinates, setCoordinates] = useState({lat: 48.8584, lng: 2.2945});
   const [coordinates, setCoordinates] = useState([]);
+  const [locations, setLocations] = useState([]);
   const [type, setType] = useState('restaurants');
   const [ratings, setRatings] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -56,6 +57,8 @@ useEffect(() => {
       setRatings ={setRatings}
       coordinates = {coordinates}
       setCoordinates = {setCoordinates} 
+      locations = {locations}
+      setLocations={setLocations}
     />
     {/* <List places= {places} isLoading={isLoading} /> */}
 
@@ -63,6 +66,8 @@ useEffect(() => {
       cooredinates = {coordinates} 
       setCoordinates={setCoordinates}
       coordinates={coordinates}
+      locations = {locations}
+
     />
 
     {/* <PlaceDetail/> */}

@@ -30,7 +30,7 @@ import {
 
 
 
-const Header = ({ setType, setRatings, coordinates, setCoordinates }) => {
+const Header = ({ setType, setRatings, coordinates, setCoordinates,locations, setLocations}) => {
 
 
   /** @type React.MutableRefObject<HTMLInputElement> */
@@ -38,7 +38,6 @@ const Header = ({ setType, setRatings, coordinates, setCoordinates }) => {
 
   const [isOpen, setIsOpen] = useState(false);
   const [autocomplete, setAutocomplete] = useState(null);
-  const [locations, setLocations] = useState([]);
 
   const onLoad = (autoC) => setAutocomplete(autoC);
   const onPlaceChanged = () => {
@@ -49,10 +48,11 @@ const Header = ({ setType, setRatings, coordinates, setCoordinates }) => {
       setCoordinates(temp)
       //setCoordinates({ lat, lng });
 
-      console.log(autocomplete.getPlace())
-      console.log(typeof locations)
+      // console.log(autocomplete.getPlace())
       temp = locations.concat(autocomplete.getPlace())
-      setLocations(temp)
+      locations = temp
+      setLocations(locations)
+      console.log(locations)
       // locations.map(e=>{
       //   console.log(e)
       // })

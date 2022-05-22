@@ -8,6 +8,7 @@ import {
   Marker,
   Autocomplete,
   DirectionsRenderer,
+  InfoWindow
 } from '@react-google-maps/api'
 
 
@@ -23,19 +24,23 @@ import { useRef, useState } from 'react'
 
 import {onLoad} from "./Header";
 
-function Map({coordinates, setCoordinates}) {
+function Map({coordinates, setCoordinates,locations}) {
 
-  const { isLoaded } = useJsApiLoader({
-    // googleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY,
-    googleMapsApiKey: 'AIzaSyDPRi8jxCGzccPR34SkCjnEOh8F6ZKK_q0',
-    libraries: ['places'],
-  })
+  // const { isLoaded } = useJsApiLoader({
+  //   // googleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY,
+  //   googleMapsApiKey: 'AIzaSyDPRi8jxCGzccPR34SkCjnEOh8F6ZKK_q0',
+  //   libraries: ['places'],
+  // })
+      // locations.map(e=>{
+      //   console.log(e.geometry.location.lat())
+      // })
+
 
   const [map, setMap] = useState(/** @type google.maps.Map */ (null))
 
-  if (!isLoaded) {
-    return <SkeletonText />
-  }
+  // if (!isLoaded) {
+  //   return <SkeletonText />
+  // }
 
   return (
     <Flex
@@ -62,9 +67,18 @@ function Map({coordinates, setCoordinates}) {
           onLoad={map => setMap(map)} 
         >
 
-          {coordinates.map((coordinate, idx) => {
-            if(idx != 0){
-              return (<Marker position={coordinate} id = {idx} />)
+          {locations.map((location, idx) => {
+      
+            if(idx >= 0){
+              console.log(location.geometry.location)
+              return (
+                <div>
+              <Marker position={{lat: location.geometry.location.lat(), lng:location.geometry.location.lng() }} id = {idx} title = {location.name } label = '😮' draggable = {true} >
+
+              </Marker>
+              </div>
+              )
+ 
             }
           })}
 
