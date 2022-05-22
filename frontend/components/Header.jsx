@@ -34,7 +34,7 @@ const Header = ({ setType, setRatings, coordinates, setCoordinates,locations, se
 
 
   /** @type React.MutableRefObject<HTMLInputElement> */
-  let location1 = useRef();
+  let enterLocation = useRef();
 
   const [isOpen, setIsOpen] = useState(false);
   const [autocomplete, setAutocomplete] = useState(null);
@@ -57,7 +57,7 @@ const Header = ({ setType, setRatings, coordinates, setCoordinates,locations, se
       //   console.log(e)
       // })
 
-      location1.current.value = null;
+      enterLocation.current.value = null;
 
     }
 
@@ -85,15 +85,15 @@ const Header = ({ setType, setRatings, coordinates, setCoordinates,locations, se
 
               <Input
                 type={"text"}
-                placeholder="Location 1"
+                placeholder="Enter location.."
                 variant={"filled"}
                 fontSize={18}
                 bg={"white"}
                 color={"gray.700"}
                 _hover={{ bg: "whiteAlpha.800" }}
                 _focus={{ bg: "whiteAlpha.800" }}
-                _placeholder={{ color: "gray.700" }}
-                ref={location1}
+                _placeholder={{ color: "gray.400" }}
+                ref={enterLocation}
               />
             </InputGroup>
           </Autocomplete>
