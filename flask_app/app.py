@@ -1,4 +1,4 @@
-from flask import Flask, request, flash, send_file
+from flask import Flask, request, flash, send_file, render_template
 from werkzeug.utils import secure_filename
 from datetime import datetime
 import os
@@ -33,6 +33,31 @@ def downloadHandler (filename, mode):
 	elif(mode == 'toFrontend'):
 		path = uploadFrontendFolder + filename
 	return send_file(path, as_attachment = True)
+
+def renderResult(result):
+	if (result == '')
+		str = 'Upload failed'
+	else
+		str = 'Upload completed'
+	flash (str)
+	return str
+
+@app.route('/upload', methods = ["GET"])
+def uploadhome():
+	return render_template("index.html")
+
+@app.route('/upload', methods = ["POST"])
+def uploadBackendHTML():
+	result = ''
+	result = uploadToBackend()
+	str = renderResult(result)
+	return render_template("index.html", prompt = str)
+def uploadFrontendHTML():
+	result = ''
+	result = uploadToFrontend()
+	str = renderResult(result)
+	return render_template("index.html", prompt = str)
+
 
 @app.route('/upload/backend', methods = ["POST"])
 def uploadToBackend():
