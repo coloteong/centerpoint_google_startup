@@ -66,3 +66,14 @@ def determine_final_google_location(candidate_location_dict):
     json_locations = locations_sorted_rating.to_json(orient = "index")
     return json_locations  
 
+def get_multiple_coordinates_from_json(json_file_path):
+    f = open(json_file_path)
+    trial = json.load(f)
+    coordinate_list = []
+    for i in range(len(trial)):
+        print(trial[i]['geometry']['location'])
+        coordinates = trial[i]['geometry']['location']
+        latitude = coordinates['lat']
+        longitude = coordinates['lng']
+        coordinate_list.append((latitude, longitude))
+    return coordinate_list
