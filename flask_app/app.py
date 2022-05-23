@@ -9,6 +9,17 @@ uploadBackendFolder = './uploads/backend/'
 uploadFrontendFolder = './uploads/frontend/'
 ALLOWED_EXTENSIONS = {'json'}
 
+
+@app.route('/')
+def start():
+	return "test"
+
+
+@app.route('/tired')
+def tired():
+	return "test2"
+
+
 def allowed_file(filename):
 	return '.' in filename and \
 		filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
@@ -35,9 +46,9 @@ def downloadHandler (filename, mode):
 	return send_file(path, as_attachment = True)
 
 def renderResult(result):
-	if (result == '')
+	if (result == ''):
 		str = 'Upload failed'
-	else
+	else:
 		str = 'Upload completed'
 	flash (str)
 	return str
@@ -87,5 +98,7 @@ def downloadFromFrontend():
 	file = downloadHandler(filename, 'toFrontend')
 	return file
 
+
 if(__name__ == "__main__"):
-	app.run(debug = True, host = '0.0.0.0', port = 8000)
+	app.run(debug = True)
+	# app.run(debug = True, host = '0.0.0.0', port = 8000)
