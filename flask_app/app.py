@@ -16,13 +16,12 @@ app.config['SESSION_TYPE'] = 'filesystem'
 app.config['SECRET_KEY'] = SECRET_KEY
 
 #We should remove all these routing before submission of code
-@app.route('/')
-def start():
-	return "test"
 
-@app.route('/tired')
-def tired():
-	return "test2"
+
+@app.route('/test' , methods = ["GET","POST"])
+def test():
+	return{ "x": 4 }
+
 
 #Keep the codes below
 def allowed_file(filename):
@@ -122,3 +121,4 @@ def downloadFromFrontend():
 
 if(__name__ == "__main__"):
 	app.run(debug = True, host = '0.0.0.0', port = 8000)
+
