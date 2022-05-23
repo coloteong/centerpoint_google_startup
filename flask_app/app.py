@@ -2,24 +2,29 @@ from flask import Flask, request, flash, send_file, render_template
 from werkzeug.utils import secure_filename
 from datetime import datetime
 import os
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 uploadBackendFolder = './uploads/backend/'
 uploadFrontendFolder = './uploads/frontend/'
 ALLOWED_EXTENSIONS = {'json'}
+SECRET_KEY = 'NUdOUiBTdGFuZGFsb25lIEFjY2Vzcw=='
 
+app.config['SESSION_TYPE'] = 'filesystem'
+app.config['SECRET_KEY'] = SECRET_KEY
 
+#We should remove all these routing before submission of code
 @app.route('/')
 def start():
 	return "test"
-
 
 @app.route('/tired')
 def tired():
 	return "test2"
 
-
+#Keep the codes below
 def allowed_file(filename):
 	return '.' in filename and \
 		filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
@@ -28,6 +33,7 @@ def uploadHandler (jsonFile, mode):
 	#Check if file exist
 	if jsonFile.filename == '':
 		flash('No file uploaded')
+		return ''
 	#If the uploaded file is in json format
 	if jsonFile and allowed_file(jsonFile.filename):
 		filename = secure_filename(jsonFile.filename)
@@ -36,7 +42,9 @@ def uploadHandler (jsonFile, mode):
 		elif (mode == 'toFrontend'):
 			path = uploadFrontendFolder + filename
 		jsonFile.save(os.path.join(path))
-	return filename
+		return filename
+	else:
+		return ''
 
 def downloadHandler (filename, mode):
 	if(mode == 'toBackend'):
@@ -59,30 +67,43 @@ def uploadhome():
 
 @app.route('/upload', methods = ["POST"])
 def uploadBackendHTML():
-	result = ''
+	result = ""
 	result = uploadToBackend()
 	str = renderResult(result)
+	#Note: Current code display result on /upload/backend, not here
 	return render_template("index.html", prompt = str)
 def uploadFrontendHTML():
-	result = ''
+	result = ""
 	result = uploadToFrontend()
 	str = renderResult(result)
+	#Note: Current code display result on /upload/frontend, not here
 	return render_template("index.html", prompt = str)
-
 
 @app.route('/upload/backend', methods = ["POST"])
 def uploadToBackend():
 	if 'file' not in request.files:
 		flash('No file part')
+		return
 	jsonFile = request.files['file']
 	filename = uploadHandler(jsonFile, 'toBackend')
+	if (filename == ''):
+		str = 'ERROR'
+	else:
+		str = 'SUCCESS'
+	return str
 
 @app.route('/upload/frontend', methods = ["POST"])
 def uploadToFrontend():
 	if 'file' not in request.files:
 		flash('No file part')
+		return
 	jsonFile = request.files['file']
 	filename = uploadHandler(jsonFile, 'toFrontend')
+	if(filename == ''):
+		str = 'ERROR'
+	else:
+		str = 'SUCCESS'
+	return str
 
 @app.route('/download/backend', methods = ["GET"])
 def downloadFromBackend():

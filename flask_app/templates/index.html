@@ -7,12 +7,12 @@
 	<body>
 		<h1 class="text-center">JSON Files Upload Only</h1>
 		<form class="p-3 text-center" action="/upload/frontend", method="post", enctype="multipart/form-data">
-			<input class="form-control" type="file" name="Upload to frontend">
-			<input class="btn btn-primary mt-3" type="submit" value="Upload">
+			<input class="form-control" type="file" name="file">
+			<input class="btn btn-primary mt-3" type="submit" value="Upload to frontend">
 		</form>
 		<form class="p-3 text-center" action="/upload/backend", method="post", enctype="multipart/form-data">
-			<input class="form-control" type="file" name="Upload to backend">
-			<input class="btn btn-primary mt-3" type="submit" value="Upload">
+			<input class="form-control" type="file" name="file">
+			<input class="btn btn-primary mt-3" type="submit" value="Upload to backend">
 		</form>
 		{% if str %}
 			<p class="text-center"> Status of Upload: {{str}}</p>
