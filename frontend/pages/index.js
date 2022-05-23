@@ -30,6 +30,23 @@ useEffect(() => {
 
   }, [])
 
+  useEffect(() => {
+    fetch("http://192.168.1.95:8000/test",{
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      }})
+    .then(async response => {
+      try {
+       const data = await response.json()
+       console.log( data)
+     } catch(error) {
+       console.log('Error happened here!')
+       console.error(error)
+     }
+    })
+  }, []);
+  
 
   // useEffect(() => {
   //   getPlacesData().then((data) => {
