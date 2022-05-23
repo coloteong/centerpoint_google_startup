@@ -35,9 +35,9 @@ def downloadHandler (filename, mode):
 	return send_file(path, as_attachment = True)
 
 def renderResult(result):
-	if (result == '')
+	if (result == ''):
 		str = 'Upload failed'
-	else
+	else:
 		str = 'Upload completed'
 	flash (str)
 	return str
