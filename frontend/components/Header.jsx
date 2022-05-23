@@ -10,11 +10,11 @@ import {
   Checkbox,
   CheckboxGroup,
   Stack,
-  Button
+  Button,
 } from "@chakra-ui/react";
 
-import { Autocomplete } from '@react-google-maps/api'
-import { React, useRef, useState } from 'react'
+import { Autocomplete } from "@react-google-maps/api";
+import { React, useRef, useState } from "react";
 
 import {
   BiSearch,
@@ -25,14 +25,17 @@ import {
   BiHeartCircle,
   BiDirections,
   BiRun,
-  BiXCircle
-} from 'react-icons/bi'
+  BiXCircle,
+} from "react-icons/bi";
 
-
-
-const Header = ({ setType, setRatings, coordinates, setCoordinates,locations, setLocations}) => {
-
-
+const Header = ({
+  setType,
+  setRatings,
+  coordinates,
+  setCoordinates,
+  locations,
+  setLocations,
+}) => {
   /** @type React.MutableRefObject<HTMLInputElement> */
   let enterLocation = useRef();
 
@@ -44,25 +47,33 @@ const Header = ({ setType, setRatings, coordinates, setCoordinates,locations, se
     if (autocomplete !== null) {
       const lat = autocomplete.getPlace().geometry.location.lat();
       const lng = autocomplete.getPlace().geometry.location.lng();
-      let temp = coordinates.concat({ lat, lng })
-      setCoordinates(temp)
+      let temp = coordinates.concat({ lat, lng });
+      setCoordinates(temp);
       //setCoordinates({ lat, lng });
 
       // console.log(autocomplete.getPlace())
-      temp = locations.concat(autocomplete.getPlace())
-      locations = temp
-      setLocations(locations)
-      console.log(locations)
+      temp = locations.concat(autocomplete.getPlace());
+      locations = temp;
+      setLocations(locations);
+      //console.log(locations);
       // locations.map(e=>{
       //   console.log(e)
       // })
 
       enterLocation.current.value = null;
-
     }
-
-  }
-
+  };
+  const handleDelete = (event) => {
+    event.preventDefault();
+    //change list of locations displayed in webapp
+    let tempLocations = [];
+    locations.forEach((location) => {
+      if (location.name != event.target.textContent) {
+        tempLocations.push(location);
+      }
+    });
+    setLocations(tempLocations);
+  };
 
   return (
     <div>
@@ -99,77 +110,96 @@ const Header = ({ setType, setRatings, coordinates, setCoordinates,locations, se
           </Autocomplete>
 
           <Flex // choose purpose
-            alignItems={'center'}
-            justifyContent={'center'}
+            alignItems={"center"}
+            justifyContent={"center"}
           >
             <Flex
-              alignItems={'center'}
-              justifyContent={'center'}
+              alignItems={"center"}
+              justifyContent={"center"}
               px={4}
               py={2}
               bg={"white"}
-              rounded={'full'}
+              rounded={"full"}
               ml={4} // margin left
               shadow="lg"
-              cursor={'pointer'}
+              cursor={"pointer"}
             >
               <Menu closeOnSelect={false}>
-                < BiFilter fontSize={25} />
-                <MenuButton transition="all 0.2s" borderRadius={'md'}>
+                <BiFilter fontSize={25} />
+                <MenuButton transition="all 0.2s" borderRadius={"md"}>
                   Choose Purpose
                 </MenuButton>
                 <MenuList alignItems={"left"}>
-                  <CheckboxGroup colorScheme='green' defaultValue={['']}>
-                    <Stack ml={4} direction='column'>
-                      <MenuItem
-                        display={"flex"}
-                        alignItems={"left"}
-                      >
-                        <Checkbox fontSize={20} color='gray.700' mr={2} value='Food'>Food</Checkbox>
+                  <CheckboxGroup colorScheme="green" defaultValue={[""]}>
+                    <Stack ml={4} direction="column">
+                      <MenuItem display={"flex"} alignItems={"left"}>
+                        <Checkbox
+                          fontSize={20}
+                          color="gray.700"
+                          mr={2}
+                          value="Food"
+                        >
+                          Food
+                        </Checkbox>
                         <BiRestaurant fontSize={25} />
                       </MenuItem>
 
-                      <MenuItem
-                        display={"flex"}
-                        alignItems={"left"}
-                      >
-                        <Checkbox fontSize={20} color='gray.700' mr={2} value='Shopping'>Shopping</Checkbox>
+                      <MenuItem display={"flex"} alignItems={"left"}>
+                        <Checkbox
+                          fontSize={20}
+                          color="gray.700"
+                          mr={2}
+                          value="Shopping"
+                        >
+                          Shopping
+                        </Checkbox>
                         <BiShoppingBag fontSize={25} />
                       </MenuItem>
 
-                      <MenuItem
-                        display={"flex"}
-                        alignItems={"left"}
-                      >
-                        <Checkbox fontSize={20} color='gray.700' mr={2} value='Date'>Date</Checkbox>
+                      <MenuItem display={"flex"} alignItems={"left"}>
+                        <Checkbox
+                          fontSize={20}
+                          color="gray.700"
+                          mr={2}
+                          value="Date"
+                        >
+                          Date
+                        </Checkbox>
                         <BiHeartCircle fontSize={25} />
                       </MenuItem>
 
-                      <MenuItem
-                        display={"flex"}
-                        alignItems={"left"}
-                      >
-                        <Checkbox fontSize={20} color='gray.700' mr={2} value='Exercise'>Exercise</Checkbox>
+                      <MenuItem display={"flex"} alignItems={"left"}>
+                        <Checkbox
+                          fontSize={20}
+                          color="gray.700"
+                          mr={2}
+                          value="Exercise"
+                        >
+                          Exercise
+                        </Checkbox>
                         <BiRun fontSize={25} />
                       </MenuItem>
 
-                      <MenuItem
-                        display={"flex"}
-                        alignItems={"left"}
-                      >
-                        <Checkbox fontSize={20} color='gray.700' mr={2} value='Explore'>Explore</Checkbox>
+                      <MenuItem display={"flex"} alignItems={"left"}>
+                        <Checkbox
+                          fontSize={20}
+                          color="gray.700"
+                          mr={2}
+                          value="Explore"
+                        >
+                          Explore
+                        </Checkbox>
                         <BiDirections fontSize={25} />
                       </MenuItem>
-
                     </Stack>
                   </CheckboxGroup>
                 </MenuList>
               </Menu>
 
-              <BiChevronDown fontSize={25}
-              // down arrow
+              <BiChevronDown
+                fontSize={25}
+                // down arrow
               />
-
             </Flex>
           </Flex>
         </Flex>
@@ -187,20 +217,23 @@ const Header = ({ setType, setRatings, coordinates, setCoordinates,locations, se
         px={2}
         py={12}
       >
-
-        {locations.map(location => {
+        {locations.map((location, idx) => {
           return (
-            <Button rightIcon={<BiXCircle />} colorScheme='blue' variant='outline'>
-             {location.name}
+            <Button
+              rightIcon={<BiXCircle />}
+              colorScheme="blue"
+              variant="outline"
+              id = {idx}
+              onClick = {handleDelete}
+            >
+              {location.name}
             </Button>
-          )
+          );
         })}
-
 
         {/* <BiXCircle fontSize={25} /> */}
       </Flex>
     </div>
-
   );
 };
 
