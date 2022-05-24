@@ -1,6 +1,7 @@
-from flask import Flask, request, flash, send_file, render_template
+from flask import Flask, request, flash, send_file, render_template, Response
 from werkzeug.utils import secure_filename
 from datetime import datetime
+import json
 import os
 from flask_cors import CORS
 
@@ -20,7 +21,20 @@ app.config['SECRET_KEY'] = SECRET_KEY
 
 @app.route('/test' , methods = ["GET","POST"])
 def test():
-	return{ "x": 4 }
+    	
+	data = request.get_json()
+	# ADD ALGO HERE :-)
+	for location in data:
+		#Each location is a dictionary
+		#print(type(location))
+		for key,value in location.items():
+			#print('these are the keys:' + key)
+			pass
+	
+	# Returns the request back to client
+	# Flask cannot return lists; converts the list into a JSON string
+	return Response(json.dumps(data), mimetype='application/json')
+
 
 
 #Keep the codes below

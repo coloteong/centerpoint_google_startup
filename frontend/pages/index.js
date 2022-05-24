@@ -72,8 +72,6 @@ useEffect(() => {
     <Header 
       setType={setType}
       setRatings ={setRatings}
-      coordinates = {coordinates}
-      setCoordinates = {setCoordinates} 
       locations = {locations}
       setLocations={setLocations}
     />

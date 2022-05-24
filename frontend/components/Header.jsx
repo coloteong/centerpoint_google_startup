@@ -11,6 +11,7 @@ import {
   CheckboxGroup,
   Stack,
   Button,
+  Box
 } from "@chakra-ui/react";
 
 import { Autocomplete } from "@react-google-maps/api";
@@ -28,37 +29,27 @@ import {
   BiXCircle,
 } from "react-icons/bi";
 
-const Header = ({
-  setType,
-  setRatings,
-  coordinates,
-  setCoordinates,
-  locations,
-  setLocations,
-}) => {
+const Header = ({ setType, setRatings, locations, setLocations }) => {
   /** @type React.MutableRefObject<HTMLInputElement> */
   let enterLocation = useRef();
 
   const [isOpen, setIsOpen] = useState(false);
   const [autocomplete, setAutocomplete] = useState(null);
+  const restriction = { country: "sg" };
+  const [loading, setLoading] = useState(false);
+  const [purpose, setPurpose] = useState([]);
+  const [results, setResults] = useState(null);
 
   const onLoad = (autoC) => setAutocomplete(autoC);
   const onPlaceChanged = () => {
     if (autocomplete !== null) {
       const lat = autocomplete.getPlace().geometry.location.lat();
       const lng = autocomplete.getPlace().geometry.location.lng();
-      let temp = coordinates.concat({ lat, lng });
-      setCoordinates(temp);
-      //setCoordinates({ lat, lng });
 
       // console.log(autocomplete.getPlace())
-      temp = locations.concat(autocomplete.getPlace());
+      let temp = locations.concat(autocomplete.getPlace());
       locations = temp;
       setLocations(locations);
-      //console.log(locations);
-      // locations.map(e=>{
-      //   console.log(e)
-      // })
 
       enterLocation.current.value = null;
     }
@@ -75,6 +66,29 @@ const Header = ({
     setLocations(tempLocations);
   };
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log("handleSubmit")
+    fetch("http://127.0.0.1:5000/test", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(locations),
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+        //setResults(data)
+      })
+      .catch((error) => {
+        console.error(error);
+        console.log("error");
+      });
+  };
+
   return (
     <div>
       <Flex
@@ -87,7 +101,11 @@ const Header = ({
         zIndex={101}
       >
         <Flex>
-          <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
+          <Autocomplete
+            onLoad={onLoad}
+            onPlaceChanged={onPlaceChanged}
+            restrictions={restriction}
+          >
             <InputGroup width={"35vw"} shadow="lg">
               <InputRightElement
                 pointerEvents={"none"}
@@ -108,8 +126,8 @@ const Header = ({
               />
             </InputGroup>
           </Autocomplete>
-
-          <Flex // choose purpose
+          {/**Purpose dropdown list*/}
+          <Flex
             alignItems={"center"}
             justifyContent={"center"}
           >
@@ -130,7 +148,7 @@ const Header = ({
                   Choose Purpose
                 </MenuButton>
                 <MenuList alignItems={"left"}>
-                  <CheckboxGroup colorScheme="green" defaultValue={[""]}>
+                  <CheckboxGroup colorScheme="green" defaultValue={purpose}>
                     <Stack ml={4} direction="column">
                       <MenuItem display={"flex"} alignItems={"left"}>
                         <Checkbox
@@ -203,7 +221,12 @@ const Header = ({
             </Flex>
           </Flex>
         </Flex>
+
+        <Flex>
+          <Button onClick={handleSubmit}>Submit</Button>
+        </Flex>
       </Flex>
+      {/**Selected locations*/}
       <Flex
         direction={"column"}
         bg={"whiteAlpha.900"}
@@ -217,21 +240,45 @@ const Header = ({
         px={2}
         py={12}
       >
+        {/**Submit button*/}
         {locations.map((location, idx) => {
           return (
             <Button
               rightIcon={<BiXCircle />}
               colorScheme="blue"
               variant="outline"
-              id = {idx}
-              onClick = {handleDelete}
+              key={idx}
+              onClick={handleDelete}
             >
               {location.name}
             </Button>
           );
         })}
 
-        {/* <BiXCircle fontSize={25} /> */}
+      {/* <BiXCircle fontSize={25} /> */}
+      </Flex>
+      {/**Results list*/}
+      <Flex
+        direction={"column"}
+        bg={"white"}
+        width={"37vw"}
+        height="50vh"
+        position={"absolute"}
+        left={0}
+        top={250}
+        zIndex={1} // above the map
+        overflow="hidden"
+        px={2}
+        py={12}
+      >
+        {results && results.map((result, idx)=>{
+          <Box key = {idx}>
+            Hello
+            {result.name}
+          </Box>
+        })}
+
+
       </Flex>
     </div>
   );
