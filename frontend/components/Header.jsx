@@ -78,7 +78,9 @@ const Header = ({ setType, setRatings, locations, setLocations, avgcoordinates, 
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log("handleSubmit")
-    fetch("http://10.148.0.4:8000/test", {
+
+    fetch("http://127.0.0.1:8000/test", {
+    // fetch("http://10.148.0.4:8000/test", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -147,7 +149,7 @@ const Header = ({ setType, setRatings, locations, setLocations, avgcoordinates, 
               py={2}
               bg={"white"}
               rounded={"full"}
-              ml={4} // margin left
+              ml={8} // margin left
               shadow="lg"
               cursor={"pointer"}
             >
@@ -232,7 +234,12 @@ const Header = ({ setType, setRatings, locations, setLocations, avgcoordinates, 
         </Flex>
 
         <Flex>
-          <Button onClick={handleSubmit}>Submit</Button>
+            {/**Submit button*/}
+          <Button 
+            bg={"white"} 
+            ml={4} // margin left
+            onClick={handleSubmit}
+          >Submit</Button>
         </Flex>
       </Flex>
       {/**Selected locations*/}
@@ -249,7 +256,7 @@ const Header = ({ setType, setRatings, locations, setLocations, avgcoordinates, 
         px={2}
         py={12}
       >
-        {/**Submit button*/}
+        {/**Remove location*/}
         {locations.map((location, idx) => {
           return (
             <Button
