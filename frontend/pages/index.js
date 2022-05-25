@@ -15,12 +15,9 @@ const places = [
 ];
 
 const Home = () => {
-  //const [coordinates, setCoordinates] = useState({lat: 48.8584, lng: 2.2945});
   const [avgcoordinates, setAvgcoordinates] = useState([]);
   const [locations, setLocations] = useState([]);
-  const [type, setType] = useState('restaurants');
-  const [ratings, setRatings] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  const [directionsResponse, setDirectionsResponse] = useState([])
 
 useEffect(() => {
   // fetch user current location by prompting
@@ -72,19 +69,19 @@ useEffect(() => {
     </Head>
     
     <Header 
-      setType={setType}
-      setRatings ={setRatings}
       locations = {locations}
       setLocations={setLocations}
       avgcoordinates = {avgcoordinates} 
       setAvgcoordinates = {setAvgcoordinates}
+      directionsResponse = {directionsResponse}
+      setDirectionsResponse = {setDirectionsResponse}
     />
     {/* <List places= {places} isLoading={isLoading} /> */}
 
     <Map
       avgcoordinates = {avgcoordinates} 
       locations = {locations}
-
+      directionsResponse = {directionsResponse}
     />
 
     {/* <PlaceDetail/> */}

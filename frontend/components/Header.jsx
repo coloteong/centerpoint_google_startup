@@ -29,7 +29,7 @@ import {
   BiXCircle,
 } from "react-icons/bi";
 
-const Header = ({ setType, setRatings, locations, setLocations, avgcoordinates, setAvgcoordinates }) => {
+const Header = ({ locations, setLocations, avgcoordinates, setAvgcoordinates, directionsResponse, setDirectionsResponse }) => {
   /** @type React.MutableRefObject<HTMLInputElement> */
   let enterLocation = useRef();
 
@@ -75,9 +75,10 @@ const Header = ({ setType, setRatings, locations, setLocations, avgcoordinates, 
     setLocations(tempLocations);
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  async function handleSubmit() {
+    // event.preventDefault();
     console.log("handleSubmit")
+    // fetch("http://127.0.0.1:8000/test", {
     fetch("http://centerpoint.lohseng.com:8000/test", {
       method: "POST",
       headers: {
@@ -96,6 +97,29 @@ const Header = ({ setType, setRatings, locations, setLocations, avgcoordinates, 
         console.error(error);
         console.log("error");
       });
+      
+      //  should appear at second post not here
+      if (locations.length >= 2) {
+  
+        let testResults = [];
+  
+        for (let i = 1; i <= locations.length-1; i++) {
+          console.log(i)
+          const directionsService = new google.maps.DirectionsService()
+          const test = await directionsService.route({
+            origin: locations[i].geometry.location,
+            destination: locations[0].geometry.location,
+  
+            travelMode: google.maps.TravelMode.DRIVING,
+          })
+          testResults.push(test)
+  
+        }
+        setDirectionsResponse(testResults)
+        console.log(testResults)
+  
+      }
+
   };
 
   return (

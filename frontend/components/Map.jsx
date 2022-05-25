@@ -56,10 +56,7 @@ function Map({ avgcoordinates, locations, directionsResponse }) {
   //   return <SkeletonText />
   // }
 
-const colours = ["red", "orange", "yellow", "green", "blue", "indigo", "violet"];
-
-
-
+  const colours = ["red", "orange", "pink", "green", "blue", "indigo", "violet"];
 
   return (
     <Flex
@@ -88,7 +85,14 @@ const colours = ["red", "orange", "yellow", "green", "blue", "indigo", "violet"]
         //   map.getZoom();
         // }}
         >
-          {avgcoordinates && (
+
+          <Circle
+            center={avgcoordinates}
+            radius={300}
+            options={farOptions}
+          />
+
+          {/* {avgcoordinates && (
             <>
               <Circle
                 center={avgcoordinates}
@@ -106,18 +110,16 @@ const colours = ["red", "orange", "yellow", "green", "blue", "indigo", "violet"]
                 options={farOptions}
               />
             </>
-          )}
-
+          )} */}
 
           {directionsResponse.map((direction, idx) => {
             if (idx >= 0) {
               return (
-                <DirectionsRenderer directions={direction}  
-                // polylineOptions= { editable = true} 
-                options={{
-                  polylineOptions: {strokeColor:colours[idx]},
-                  markerOptions: { icon: "null", opacaity: 0}
-                }}
+                <DirectionsRenderer directions={direction}
+                  options={{
+                    polylineOptions: { strokeColor: colours[idx] },
+                    markerOptions: { icon: "null", opacaity: 0 }
+                  }}
                 />
               );
             }
