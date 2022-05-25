@@ -29,7 +29,7 @@ import {
   BiXCircle,
 } from "react-icons/bi";
 
-const Header = ({ setType, setRatings, locations, setLocations }) => {
+const Header = ({ setType, setRatings, locations, setLocations, avgcoordinates, setAvgcoordinates }) => {
   /** @type React.MutableRefObject<HTMLInputElement> */
   let enterLocation = useRef();
 
@@ -52,7 +52,16 @@ const Header = ({ setType, setRatings, locations, setLocations }) => {
       setLocations(locations);
 
       enterLocation.current.value = null;
-    }
+      
+      let latAll = null;
+      let lngAll = null;
+      locations.forEach((location) => {
+        latAll += location.geometry.location.lat()
+        lngAll += location.geometry.location.lng()
+      })
+      setAvgcoordinates({lat: latAll/locations.length, lng: lngAll/locations.length})
+
+    }s
   };
   const handleDelete = (event) => {
     event.preventDefault();
@@ -138,7 +147,7 @@ const Header = ({ setType, setRatings, locations, setLocations }) => {
               py={2}
               bg={"white"}
               rounded={"full"}
-              ml={4} // margin left
+              ml={8} // margin left
               shadow="lg"
               cursor={"pointer"}
             >
@@ -223,7 +232,12 @@ const Header = ({ setType, setRatings, locations, setLocations }) => {
         </Flex>
 
         <Flex>
-          <Button onClick={handleSubmit}>Submit</Button>
+            {/**Submit button*/}
+          <Button 
+            bg={"white"} 
+            ml={4} // margin left
+            onClick={handleSubmit}
+          >Submit</Button>
         </Flex>
       </Flex>
       {/**Selected locations*/}
@@ -240,7 +254,7 @@ const Header = ({ setType, setRatings, locations, setLocations }) => {
         px={2}
         py={12}
       >
-        {/**Submit button*/}
+        {/**Remove location*/}
         {locations.map((location, idx) => {
           return (
             <Button

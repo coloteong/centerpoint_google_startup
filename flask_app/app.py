@@ -27,6 +27,11 @@ app.config['SECRET_KEY'] = SECRET_KEY
 #We should remove all these routing before submission of code
 
 
+@app.route('/testing' , methods = ["GET","POST"])
+def test2():
+	return{"x": 4}
+
+
 @app.route('/test' , methods = ["GET","POST"])
 def test():
     	

@@ -16,7 +16,7 @@ const places = [
 
 const Home = () => {
   //const [coordinates, setCoordinates] = useState({lat: 48.8584, lng: 2.2945});
-  const [coordinates, setCoordinates] = useState([]);
+  const [avgcoordinates, setAvgcoordinates] = useState([]);
   const [locations, setLocations] = useState([]);
   const [type, setType] = useState('restaurants');
   const [ratings, setRatings] = useState("");
@@ -24,9 +24,11 @@ const Home = () => {
 
 useEffect(() => {
   // fetch user current location by prompting
-    navigator.geolocation.getCurrentPosition(({coords: {latitude, longitude}}) => {
-      setCoordinates([{lat: latitude, lng: longitude}]);
-    });
+    // navigator.geolocation.getCurrentPosition(({coords: {latitude, longitude}}) => {
+    //   avgcoordinates = {lat: latitude, lng: longitude}
+      avgcoordinates = {lat: 1.347, lng: 103.79}
+      setAvgcoordinates(avgcoordinates);
+    // });
 
   }, [])
 
@@ -74,13 +76,13 @@ useEffect(() => {
       setRatings ={setRatings}
       locations = {locations}
       setLocations={setLocations}
+      avgcoordinates = {avgcoordinates} 
+      setAvgcoordinates = {setAvgcoordinates}
     />
     {/* <List places= {places} isLoading={isLoading} /> */}
 
     <Map
-      cooredinates = {coordinates} 
-      setCoordinates={setCoordinates}
-      coordinates={coordinates}
+      avgcoordinates = {avgcoordinates} 
       locations = {locations}
 
     />
