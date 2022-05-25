@@ -132,13 +132,15 @@ def test():
 		#f = open(json_file_path)
 		#trial = json.load(f)
 		coordinate_list = []
-		for i in range(len(data)):
-			print(data[i]['geometry']['location'])
-			coordinates = data[i]['geometry']['location']
+		location_data = data['locations']
+		purpose = data['purpose']
+		for i in range(len(location_data)):
+			print(location_data[i]['geometry']['location'])
+			coordinates = location_data[i]['geometry']['location']
 			latitude = coordinates['lat']
 			longitude = coordinates['lng']
 			coordinate_list.append((latitude, longitude))
-		return coordinate_list
+		return coordinate_list, purpose
 
 	def distance_between_two_points(loc1, loc2):
 		return geopy.distance.geodesic(loc1, loc2).km
