@@ -1,5 +1,4 @@
 import React from "react";
-import GoogleMapReact from "google-map-react";
 
 import {
   useJsApiLoader,
@@ -16,8 +15,7 @@ import { useRef, useState } from "react";
 
 import { onLoad } from "./Header";
 
-function Map({ coordinates, setCoordinates, locations }) {
-  const dummyCoordinates = { lat: 1.3496, lng: 103.8198 };
+function Map({  avgcoordinates, locations }) {
   const [markerCoordinate, setMarkerCoordinate] = useState();
   const [map, setMap] = useState(/** @type google.maps.Map */ (null));
 
@@ -70,10 +68,9 @@ function Map({ coordinates, setCoordinates, locations }) {
       <Box position="absolute" left={0} top={0} h="100%" w="100%">
         {/* Google Map Box */}
         <GoogleMap
-          center={dummyCoordinates}
-          defaultCenter={dummyCoordinates}
+          center={avgcoordinates}
           margin={[50, 50, 50, 50]}
-          zoom={15}
+          zoom={12}
           mapContainerStyle={{ width: "100%", height: "100%" }}
           options={{
             // zoomControl: false, //true
@@ -82,21 +79,25 @@ function Map({ coordinates, setCoordinates, locations }) {
             // fullscreenControl: false,
           }}
           onLoad={(map) => setMap(map)}
+
+          onZoomChanged={ () => () => {
+            map.getZoom();
+          }}
         >
-          {dummyCoordinates && (
+          {avgcoordinates && (
             <>
               <Circle
-                center={dummyCoordinates}
+                center={avgcoordinates}
                 radius={1500}
                 options={closeOptions}
               />
               <Circle
-                center={dummyCoordinates}
+                center={avgcoordinates}
                 radius={3000}
                 options={middleOptions}
               />
               <Circle
-                center={dummyCoordinates}
+                center={avgcoordinates}
                 radius={4500}
                 options={farOptions}
               />

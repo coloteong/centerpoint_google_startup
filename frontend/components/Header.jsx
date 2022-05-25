@@ -29,7 +29,7 @@ import {
   BiXCircle,
 } from "react-icons/bi";
 
-const Header = ({ setType, setRatings, locations, setLocations }) => {
+const Header = ({ setType, setRatings, locations, setLocations, avgcoordinates, setAvgcoordinates }) => {
   /** @type React.MutableRefObject<HTMLInputElement> */
   let enterLocation = useRef();
 
@@ -52,6 +52,15 @@ const Header = ({ setType, setRatings, locations, setLocations }) => {
       setLocations(locations);
 
       enterLocation.current.value = null;
+      
+      let latAll = null;
+      let lngAll = null;
+      locations.forEach((location) => {
+        latAll += location.geometry.location.lat()
+        lngAll += location.geometry.location.lng()
+      })
+      setAvgcoordinates({lat: latAll/locations.length, lng: lngAll/locations.length})
+
     }
   };
   const handleDelete = (event) => {
