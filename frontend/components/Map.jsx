@@ -15,9 +15,8 @@ import { useRef, useState } from "react";
 
 import { onLoad } from "./Header";
 
-function Map({  avgcoordinates, locations }) {
-  const [markerCoordinate, setMarkerCoordinate] = useState();
-  const [map, setMap] = useState(/** @type google.maps.Map */ (null));
+function Map({ avgcoordinates, locations, directionsResponse }) {
+  const [map, setMap] = useState(/** @type google.maps.Map */(null));
 
   // if (!isLoaded) {
   //   return <SkeletonText />
@@ -57,6 +56,11 @@ function Map({  avgcoordinates, locations }) {
   //   return <SkeletonText />
   // }
 
+const colours = ["red", "orange", "yellow", "green", "blue", "indigo", "violet"];
+
+
+
+
   return (
     <Flex
       position="relative"
@@ -80,9 +84,9 @@ function Map({  avgcoordinates, locations }) {
           }}
           onLoad={(map) => setMap(map)}
 
-          onZoomChanged={ () => () => {
-            map.getZoom();
-          }}
+        // onZoomChanged={ () => () => {
+        //   map.getZoom();
+        // }}
         >
           {avgcoordinates && (
             <>
@@ -103,6 +107,21 @@ function Map({  avgcoordinates, locations }) {
               />
             </>
           )}
+
+
+          {directionsResponse.map((direction, idx) => {
+            if (idx >= 0) {
+              return (
+                <DirectionsRenderer directions={direction}  
+                // polylineOptions= { editable = true} 
+                options={{
+                  polylineOptions: {strokeColor:colours[idx]},
+                  markerOptions: { icon: "null", opacaity: 0}
+                }}
+                />
+              );
+            }
+          })}
 
           {locations.map((location, idx) => {
             if (idx >= 0) {
