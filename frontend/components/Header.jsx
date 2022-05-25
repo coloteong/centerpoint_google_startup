@@ -69,7 +69,7 @@ const Header = ({ setType, setRatings, locations, setLocations }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log("handleSubmit")
-    fetch("http://10.148.0.4:8000/test", {
+    fetch("http://centerpoint.lohseng.com:8000/test", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

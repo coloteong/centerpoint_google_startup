@@ -5,6 +5,14 @@ import json
 import os
 from flask_cors import CORS
 
+#algorithm packages
+import requests
+import json
+import pandas as pd
+import geopy.distance
+
+
+
 app = Flask(__name__)
 CORS(app)
 
@@ -23,7 +31,114 @@ app.config['SECRET_KEY'] = SECRET_KEY
 def test():
     	
 	data = request.get_json()
+	print(data)
+
 	# ADD ALGO HERE :-)
+	def check_opening_hours(candidate_location_dict):
+		candidate_location_dict['opening_hours'] = candidate_location_dict['opening_hours'].astype(str)
+		candidate_location_dict = candidate_location_dict[candidate_location_dict["opening_hours"].str.contains('True') == True]
+		return candidate_location_dict
+
+	# function to convert address to (lat, long) format
+	def get_coordinates_from_address(address_string):
+		formatted_dict = json.loads(address_string)
+		# this part so hardcoded .. TODO: try to fix if possible
+		formatted_dict = formatted_dict['candidates'][0]
+		formatted_dict = formatted_dict['geometry']
+		location_coordinates = formatted_dict['location']
+		latitude = location_coordinates['lat']
+		longitude = location_coordinates['lng']
+		return (latitude,longitude)
+
+	# function to get raw (x,y) value of initial centre point
+	def find_central_point(location_list):
+		# location_list is a list of tuples (x,y) of coordinates
+		total_x = 0
+		total_y = 0
+		count = 0
+		for point in location_list:
+			total_x += point[0]
+			total_y += point[1]
+			count += 1
+		# return a tuple of (x,y) coordinates 
+		return (total_x/count, total_y/count)
+
+	# function to use google API to get possible locations in json dictionary format
+	def find_candidate_google_locations(central_point, purpose):
+		# first, make the url string from the given central_point
+		radius = 50
+		no_of_locations = 0
+		while radius < 1000 and no_of_locations < 5:
+			url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + str(central_point[0]) + "%2C" + str(central_point[1]) + "&radius=" + str(radius) + "&type=" + str(purpose) + "&key=AIzaSyDPRi8jxCGzccPR34SkCjnEOh8F6ZKK_q0"
+			print(url)
+			payload={}
+			headers = {}
+			response = requests.request("GET", url, headers=headers, data=payload)
+			candidate_locations = response.text
+			formatted_candidate_locations = json.loads(candidate_locations)
+			print(formatted_candidate_locations)
+			result_df = pd.DataFrame.from_dict(formatted_candidate_locations['results'])
+			# add checking for whether location is open
+			result_df = check_opening_hours(result_df)
+			no_of_locations = result_df.shape[0]
+			print("no of locations =", no_of_locations)
+			radius += 50
+		return result_df
+
+    # function to add distance from central column to dataframe with all locations
+    # returns the same dataframe with extra column
+	def get_distances_from_central(locations_sorted_rating, central_point):
+		geometry_list = locations_sorted_rating['geometry'].tolist()
+		coordinate_list = []
+		for i in range(len(geometry_list)):
+			coordinates = geometry_list[i]['location']
+			latitude = coordinates['lat']
+			longitude = coordinates['lng']
+			coordinate_list.append((latitude, longitude))
+		distance_list = []
+		for item in coordinate_list:
+			distance_list.append(distance_between_two_points(item, central_point))
+		locations_sorted_rating['Distance from centre'] = distance_list
+		return locations_sorted_rating
+
+	# function to parse multiple coordinates from a json containing multiple locations
+	# returns list of tuples of (lang, long) type
+	def get_multiple_coordinates_from_json(json_file_path):
+		f = open(json_file_path)
+		trial = json.load(f)
+		coordinate_list = []
+		for i in range(len(trial)):
+			print(trial[i]['geometry']['location'])
+			coordinates = trial[i]['geometry']['location']
+			latitude = coordinates['lat']
+			longitude = coordinates['lng']
+			coordinate_list.append((latitude, longitude))
+		return coordinate_list
+
+	def distance_between_two_points(loc1, loc2):
+		return geopy.distance.geodesic(loc1, loc2).km
+
+	def convert_dict_to_json(input_dict):
+		json_locations = input_dict.to_json(orient = "index")
+		return json_locations
+
+	# function to rank locations, get top 5, and return the locations in dict format
+	# candidate_location_dict is a dictionary from a json file
+	def determine_final_google_location(candidate_location_dict, central_point):
+		# clean the dictionary to get a nice list of all locations
+		# dataframe includes name, rating, operating hrs, address, image
+		result_df = pd.DataFrame.from_dict(candidate_location_dict)
+		dataframe_locations = result_df[['name', 'rating', 'opening_hours', 'vicinity', 'geometry', 'photos']]
+		locations_sorted_rating = dataframe_locations.sort_values(by = 'rating', ascending = False)
+		locations_sorted_rating = locations_sorted_rating.head(5)
+		locations_sorted_rating = get_distances_from_central(locations_sorted_rating, central_point)
+		print(locations_sorted_rating)
+		json_formatted_locations = convert_dict_to_json(locations_sorted_rating)
+		return json_formatted_locations
+
+
+
+
 	for location in data:
 		#Each location is a dictionary
 		#print(type(location))

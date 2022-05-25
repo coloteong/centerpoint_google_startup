@@ -31,7 +31,7 @@ useEffect(() => {
   }, [])
 
   useEffect(() => {
-    fetch("http://192.168.1.95:8000/test",{
+    fetch("http://centerpoint.lohseng.com:8000/test",{
       method: "GET",
       headers: {
         "Content-Type": "application/json"
