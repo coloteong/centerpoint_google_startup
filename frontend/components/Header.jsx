@@ -78,7 +78,7 @@ const Header = ({ setType, setRatings, locations, setLocations, avgcoordinates, 
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log("handleSubmit")
-    fetch("http://127.0.0.1:5000/test", {
+    fetch("http://10.148.0.4:8000/test", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -294,3 +294,4 @@ const Header = ({ setType, setRatings, locations, setLocations, avgcoordinates, 
 };
 
 export default Header;
+
