@@ -21,6 +21,7 @@ const Home = () => {
   const [type, setType] = useState('restaurants');
   const [ratings, setRatings] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [results, setResults] = useState(null);
 
 useEffect(() => {
   // fetch user current location by prompting
@@ -31,30 +32,6 @@ useEffect(() => {
     // });
 
   }, [])
-
-  // useEffect(() => {
-  //   fetch("http://centerpoint.lohseng.com:8000/test",{
-  //     method: "GET",
-  //     headers: {
-  //       "Content-Type": "application/json"
-  //     }})
-  //   .then(async response => {
-  //     try {
-  //      const data = await response.json()
-  //      console.log( data)
-  //    } catch(error) {
-  //      console.log('Error happened here!')
-  //      console.error(error)
-  //    }
-  //   })
-  // }, []);
-  
-
-  // useEffect(() => {
-  //   getPlacesData().then((data) => {
-  //     console.log(data);
-  //   });
-  // },[]);
 
   return (
   <Flex
@@ -78,13 +55,16 @@ useEffect(() => {
       setLocations={setLocations}
       avgcoordinates = {avgcoordinates} 
       setAvgcoordinates = {setAvgcoordinates}
+      results = {results}
+      setResults = {setResults}
+      isLoading = {isLoading}
+      setIsLoading = {setIsLoading}
     />
-    {/* <List places= {places} isLoading={isLoading} /> */}
+    {results && <List places= {results} isLoading={isLoading} />}
 
     <Map
       avgcoordinates = {avgcoordinates} 
       locations = {locations}
-
     />
 
     {/* <PlaceDetail/> */}

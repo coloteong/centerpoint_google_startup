@@ -55,7 +55,7 @@ const List = ({places, isLoading}) => {
       >
         <Flex flex={1} overflowY={"scroll"} mt={16} direction={"column"}>
           {places &&
-            places.map((place, i) => <PlaceDetail place={place} key={i} />)}
+            places.locations.map((place, idx) => <PlaceDetail place={place} key={idx} />)}
         </Flex>
       </Flex>
     );

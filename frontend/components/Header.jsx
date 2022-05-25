@@ -36,6 +36,10 @@ const Header = ({
   setLocations,
   avgcoordinates,
   setAvgcoordinates,
+  results,
+  setResults,
+  isLoading,
+  setIsLoading
 }) => {
   /** @type React.MutableRefObject<HTMLInputElement> */
   let enterLocation = useRef();
@@ -43,10 +47,6 @@ const Header = ({
   const [isOpen, setIsOpen] = useState(false);
   const [autocomplete, setAutocomplete] = useState(null);
   const restriction = { country: "sg" };
-  const [loading, setLoading] = useState(false);
-
-  const [results, setResults] = useState(null);
-  const [menuOpen, setMenuOpen] = useState();
 
   const list_of_purpose = [
     "Activities",
@@ -94,7 +94,7 @@ const Header = ({
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(getPurposeDefinition(purpose));
+    //console.log(getPurposeDefinition(purpose));
     let formData = {
       purpose: getPurposeDefinition(purpose),
       locations: locations,
@@ -277,28 +277,6 @@ const Header = ({
         })}
 
         {/* <BiXCircle fontSize={25} /> */}
-      </Flex>
-      {/**Results list*/}
-      <Flex
-        direction={"column"}
-        bg={"white"}
-        width={"37vw"}
-        height="50vh"
-        position={"absolute"}
-        left={0}
-        top={250}
-        zIndex={1} // above the map
-        overflow="hidden"
-        px={2}
-        py={12}
-      >
-        {results &&
-          results.locations.map((result, idx) => {
-            return(<Box key={idx}>
-              {result.name}
-            </Box>);
-            
-          })}
       </Flex>
     </div>
   );
