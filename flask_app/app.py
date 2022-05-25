@@ -79,6 +79,8 @@ def test():
 			print(formatted_candidate_locations)
 			result_df = pd.DataFrame.from_dict(formatted_candidate_locations['results'])
 			# add checking for whether location is open
+			print("Result df: ", list(result_df))
+			# CLAUDIA LOOK AT THIS!!! OI!!!!!
 			# result_df = check_opening_hours(result_df)
 			no_of_locations = result_df.shape[0]
 			print("no of locations =", no_of_locations)
