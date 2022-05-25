@@ -56,7 +56,7 @@ function Map({ avgcoordinates, locations, directionsResponse }) {
   //   return <SkeletonText />
   // }
 
-  const colours = ["red", "orange", "pink", "green", "blue", "indigo", "violet"];
+  const colours = ["red", "gray", "pink", "green", "blue", "indigo", "violet"];
 
   return (
     <Flex

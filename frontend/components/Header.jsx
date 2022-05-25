@@ -67,12 +67,17 @@ const Header = ({ locations, setLocations, avgcoordinates, setAvgcoordinates, di
     event.preventDefault();
     //change list of locations displayed in webapp
     let tempLocations = [];
-    locations.forEach((location) => {
+    locations.forEach((location,idx) => {
       if (location.name != event.target.textContent) {
         tempLocations.push(location);
+      }else{
+      // js help to remove the routes
+        var removeRoute = tempRoutes.splice(idx, 1);
+
       }
     });
     setLocations(tempLocations);
+    setDirectionsResponse(directionsResponse);
   };
 
   async function handleSubmit() {
