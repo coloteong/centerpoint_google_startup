@@ -1,4 +1,4 @@
-from flask import Flask, request, flash, send_file, render_template, Response
+from flask import Flask, request, flash, send_file, render_template, Response, jsonify
 from werkzeug.utils import secure_filename
 from datetime import datetime
 import json
@@ -10,8 +10,6 @@ import requests
 import json
 import pandas as pd
 import geopy.distance
-
-
 
 app = Flask(__name__)
 CORS(app)
@@ -34,10 +32,7 @@ def test2():
 
 @app.route('/test' , methods = ["GET","POST"])
 def test():
-    	
-	data = request.get_json()
-	print(data)
-
+	
 	# ADD ALGO HERE :-)
 	def check_opening_hours(candidate_location_dict):
 		candidate_location_dict['opening_hours'] = candidate_location_dict['opening_hours'].astype(str)
@@ -84,7 +79,7 @@ def test():
 			print(formatted_candidate_locations)
 			result_df = pd.DataFrame.from_dict(formatted_candidate_locations['results'])
 			# add checking for whether location is open
-			result_df = check_opening_hours(result_df)
+			# result_df = check_opening_hours(result_df)
 			no_of_locations = result_df.shape[0]
 			print("no of locations =", no_of_locations)
 			radius += 50
@@ -108,13 +103,13 @@ def test():
 
 	# function to parse multiple coordinates from a json containing multiple locations
 	# returns list of tuples of (lang, long) type
-	def get_multiple_coordinates_from_json(json_file_path):
-		f = open(json_file_path)
-		trial = json.load(f)
+	def get_multiple_coordinates_from_json(data):
+		#f = open(json_file_path)
+		#trial = json.load(f)
 		coordinate_list = []
-		for i in range(len(trial)):
-			print(trial[i]['geometry']['location'])
-			coordinates = trial[i]['geometry']['location']
+		for i in range(len(data)):
+			print(data[i]['geometry']['location'])
+			coordinates = data[i]['geometry']['location']
 			latitude = coordinates['lat']
 			longitude = coordinates['lng']
 			coordinate_list.append((latitude, longitude))
@@ -124,7 +119,7 @@ def test():
 		return geopy.distance.geodesic(loc1, loc2).km
 
 	def convert_dict_to_json(input_dict):
-		json_locations = input_dict.to_json(orient = "index")
+		json_locations = input_dict.to_json(orient = "records")
 		return json_locations
 
 	# function to rank locations, get top 5, and return the locations in dict format
@@ -142,19 +137,32 @@ def test():
 		return json_formatted_locations
 
 
-
-
-	for location in data:
+	#for location in data:
 		#Each location is a dictionary
 		#print(type(location))
-		for key,value in location.items():
+		#for key,value in location.items():
 			#print('these are the keys:' + key)
-			pass
+			#pass
 	
 	# Returns the request back to client
-	# Flask cannot return lists; converts the list into a JSON string
-	return Response(json.dumps(data), mimetype='application/json')
 
+	# Flask cannot return lists; converts the list into a JSON string
+
+	data = request.get_json()
+	output_coord = get_multiple_coordinates_from_json(data)
+	print(output_coord)
+	init_center_point = find_central_point(output_coord)
+	print(init_center_point)
+	init_goog_locs = find_candidate_google_locations(init_center_point, 'restaurant')
+	print(init_goog_locs)
+	final_goog_locs = determine_final_google_location (init_goog_locs, init_center_point)
+	print(final_goog_locs)
+
+	#json_data = convert_dict_to_json(final_goog_locs)
+	#print(json_data)
+
+	return Response(json.dumps(final_goog_locs), mimetype='application/json')
+	#return json_data
 
 
 #Keep the codes below

@@ -32,22 +32,22 @@ useEffect(() => {
 
   }, [])
 
-  useEffect(() => {
-    fetch("http://centerpoint.lohseng.com:8000/test",{
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json"
-      }})
-    .then(async response => {
-      try {
-       const data = await response.json()
-       console.log( data)
-     } catch(error) {
-       console.log('Error happened here!')
-       console.error(error)
-     }
-    })
-  }, []);
+  // useEffect(() => {
+  //   fetch("http://centerpoint.lohseng.com:8000/test",{
+  //     method: "GET",
+  //     headers: {
+  //       "Content-Type": "application/json"
+  //     }})
+  //   .then(async response => {
+  //     try {
+  //      const data = await response.json()
+  //      console.log( data)
+  //    } catch(error) {
+  //      console.log('Error happened here!')
+  //      console.error(error)
+  //    }
+  //   })
+  // }, []);
   
 
   // useEffect(() => {

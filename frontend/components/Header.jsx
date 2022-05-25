@@ -61,7 +61,7 @@ const Header = ({ setType, setRatings, locations, setLocations, avgcoordinates, 
       })
       setAvgcoordinates({lat: latAll/locations.length, lng: lngAll/locations.length})
 
-    }s
+    }
   };
   const handleDelete = (event) => {
     event.preventDefault();
