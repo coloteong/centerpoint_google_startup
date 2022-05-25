@@ -109,7 +109,7 @@ const colours = ["red", "orange", "yellow", "green", "blue", "indigo", "violet"]
           )}
 
 
-          {directionsResponse.map((direction, idx) => {
+          {directionsResponse && directionsResponse.map((direction, idx) => {
             if (idx >= 0) {
               return (
                 <DirectionsRenderer directions={direction}  

@@ -11,7 +11,7 @@ import {
   CheckboxGroup,
   Stack,
   Button,
-  Box
+  Box,
 } from "@chakra-ui/react";
 
 import { Autocomplete } from "@react-google-maps/api";
@@ -29,7 +29,14 @@ import {
   BiXCircle,
 } from "react-icons/bi";
 
-const Header = ({ setType, setRatings, locations, setLocations, avgcoordinates, setAvgcoordinates }) => {
+const Header = ({
+  setType,
+  setRatings,
+  locations,
+  setLocations,
+  avgcoordinates,
+  setAvgcoordinates,
+}) => {
   /** @type React.MutableRefObject<HTMLInputElement> */
   let enterLocation = useRef();
 
@@ -37,9 +44,17 @@ const Header = ({ setType, setRatings, locations, setLocations, avgcoordinates, 
   const [autocomplete, setAutocomplete] = useState(null);
   const restriction = { country: "sg" };
   const [loading, setLoading] = useState(false);
-  const [purpose, setPurpose] = useState([]);
-  const [results, setResults] = useState(null);
 
+  const [results, setResults] = useState(null);
+  const [menuOpen, setMenuOpen] = useState();
+
+  const list_of_purpose = [
+    "Activities",
+    "Food",
+    "Hotels & Staycations",
+    "Sports & Fitness",
+  ];
+  const [purpose, setPurpose] = useState(list_of_purpose[1]);
   const onLoad = (autoC) => setAutocomplete(autoC);
   const onPlaceChanged = () => {
     if (autocomplete !== null) {
@@ -52,15 +67,17 @@ const Header = ({ setType, setRatings, locations, setLocations, avgcoordinates, 
       setLocations(locations);
 
       enterLocation.current.value = null;
-      
+
       let latAll = null;
       let lngAll = null;
       locations.forEach((location) => {
-        latAll += location.geometry.location.lat()
-        lngAll += location.geometry.location.lng()
-      })
-      setAvgcoordinates({lat: latAll/locations.length, lng: lngAll/locations.length})
-
+        latAll += location.geometry.location.lat();
+        lngAll += location.geometry.location.lng();
+      });
+      setAvgcoordinates({
+        lat: latAll / locations.length,
+        lng: lngAll / locations.length,
+      });
     }
   };
   const handleDelete = (event) => {
@@ -77,25 +94,65 @@ const Header = ({ setType, setRatings, locations, setLocations, avgcoordinates, 
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("handleSubmit")
-    fetch("http://centerpoint.lohseng.com:8000/test", {
+    console.log(getPurposeDefinition(purpose));
+    let formData = {
+      purpose: getPurposeDefinition(purpose),
+      locations: locations,
+    };
+
+    // console.log(formData)
+    // console.log(locations)
+    fetch("http://127.0.0.1:5000/testing", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(locations),
+      body: JSON.stringify(formData),
     })
       .then((response) => {
         return response.json();
       })
       .then((data) => {
         console.log(data);
-        //setResults(data)
+        setResults(data)
       })
       .catch((error) => {
         console.error(error);
         console.log("error");
       });
+  };
+
+  const getPurposeDefinition = (p) => {
+    let result = [];
+    const purpose_definitions = [
+      {
+        content: [
+          "amusement_park",
+          "aquarium",
+          "art_gallery",
+          "bowling_alley",
+          "cafe",
+          "movie_theater",
+          "museum",
+          "night_club",
+          "tourist_attraction",
+        ],
+        key: "Activities",
+      },
+      { content: ["cafe", "restaurant"], key: "Food" },
+      { content: ["lodging"], key: "Hotels & Staycations" },
+      { content: ["gym", "park"], key: "Sports & Fitness" },
+    ];
+
+    purpose_definitions.forEach((element) => {
+      if (element.key == p) {
+        element.content.forEach((e)=>{
+          result.push(e);
+        })   
+      }
+    });
+
+    return result;
   };
 
   return (
@@ -136,10 +193,7 @@ const Header = ({ setType, setRatings, locations, setLocations, avgcoordinates, 
             </InputGroup>
           </Autocomplete>
           {/**Purpose dropdown list*/}
-          <Flex
-            alignItems={"center"}
-            justifyContent={"center"}
-          >
+          <Flex alignItems={"center"} justifyContent={"center"}>
             <Flex
               alignItems={"center"}
               justifyContent={"center"}
@@ -151,93 +205,46 @@ const Header = ({ setType, setRatings, locations, setLocations, avgcoordinates, 
               shadow="lg"
               cursor={"pointer"}
             >
-              <Menu closeOnSelect={false}>
-                <BiFilter fontSize={25} />
-                <MenuButton transition="all 0.2s" borderRadius={"md"}>
-                  Choose Purpose
+              <Menu>
+                <MenuButton
+                  //isActive={true}
+                  bg={"white"}
+                  as={Button}
+                  rounded={"full"}
+                  rightIcon={<BiChevronDown fontSize={25} />}
+                >
+                  {purpose}
                 </MenuButton>
-                <MenuList alignItems={"left"}>
-                  <CheckboxGroup colorScheme="green" defaultValue={purpose}>
-                    <Stack ml={4} direction="column">
-                      <MenuItem display={"flex"} alignItems={"left"}>
-                        <Checkbox
-                          fontSize={20}
-                          color="gray.700"
-                          mr={2}
-                          value="Food"
-                        >
-                          Food
-                        </Checkbox>
-                        <BiRestaurant fontSize={25} />
+                <MenuList>
+                  {list_of_purpose.map((purpose, idx) => {
+                    return (
+                      <MenuItem
+                        key={idx}
+                        value={purpose}
+                        onClick={(event) => {
+                          event.preventDefault();
+                          setPurpose(event.target.value);
+                        }}
+                      >
+                        {purpose}
                       </MenuItem>
-
-                      <MenuItem display={"flex"} alignItems={"left"}>
-                        <Checkbox
-                          fontSize={20}
-                          color="gray.700"
-                          mr={2}
-                          value="Shopping"
-                        >
-                          Shopping
-                        </Checkbox>
-                        <BiShoppingBag fontSize={25} />
-                      </MenuItem>
-
-                      <MenuItem display={"flex"} alignItems={"left"}>
-                        <Checkbox
-                          fontSize={20}
-                          color="gray.700"
-                          mr={2}
-                          value="Date"
-                        >
-                          Date
-                        </Checkbox>
-                        <BiHeartCircle fontSize={25} />
-                      </MenuItem>
-
-                      <MenuItem display={"flex"} alignItems={"left"}>
-                        <Checkbox
-                          fontSize={20}
-                          color="gray.700"
-                          mr={2}
-                          value="Exercise"
-                        >
-                          Exercise
-                        </Checkbox>
-                        <BiRun fontSize={25} />
-                      </MenuItem>
-
-                      <MenuItem display={"flex"} alignItems={"left"}>
-                        <Checkbox
-                          fontSize={20}
-                          color="gray.700"
-                          mr={2}
-                          value="Explore"
-                        >
-                          Explore
-                        </Checkbox>
-                        <BiDirections fontSize={25} />
-                      </MenuItem>
-                    </Stack>
-                  </CheckboxGroup>
+                    );
+                  })}
                 </MenuList>
               </Menu>
-
-              <BiChevronDown
-                fontSize={25}
-                // down arrow
-              />
             </Flex>
           </Flex>
         </Flex>
 
         <Flex>
-            {/**Submit button*/}
-          <Button 
-            bg={"white"} 
+          {/**Submit button*/}
+          <Button
+            bg={"white"}
             ml={4} // margin left
             onClick={handleSubmit}
-          >Submit</Button>
+          >
+            Submit
+          </Button>
         </Flex>
       </Flex>
       {/**Selected locations*/}
@@ -269,7 +276,7 @@ const Header = ({ setType, setRatings, locations, setLocations, avgcoordinates, 
           );
         })}
 
-      {/* <BiXCircle fontSize={25} /> */}
+        {/* <BiXCircle fontSize={25} /> */}
       </Flex>
       {/**Results list*/}
       <Flex
@@ -285,18 +292,16 @@ const Header = ({ setType, setRatings, locations, setLocations, avgcoordinates, 
         px={2}
         py={12}
       >
-        {results && results.map((result, idx)=>{
-          <Box key = {idx}>
-            Hello
-            {result.name}
-          </Box>
-        })}
-
-
+        {results &&
+          results.locations.map((result, idx) => {
+            return(<Box key={idx}>
+              {result.name}
+            </Box>);
+            
+          })}
       </Flex>
     </div>
   );
 };
 
 export default Header;
-

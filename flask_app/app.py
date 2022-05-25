@@ -27,6 +27,8 @@ app.config['SECRET_KEY'] = SECRET_KEY
 
 @app.route('/testing' , methods = ["GET","POST"])
 def test2():
+	data = request.get_json()
+	return Response(json.dumps(data), mimetype='application/json')
 	return{"x": 4}
 
 
