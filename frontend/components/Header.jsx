@@ -12,6 +12,12 @@ import {
   Stack,
   Button,
   Box,
+  AccordionPanel,
+  AccordionIcon,
+  AccordionButton,
+  AccordionItem,
+  Accordion
+
 } from "@chakra-ui/react";
 
 import { Autocomplete } from "@react-google-maps/api";
@@ -29,22 +35,25 @@ import {
   BiXCircle,
 } from "react-icons/bi";
 
-const Header = ({
-  setType,
-  setRatings,
-  locations,
-  setLocations,
-  avgcoordinates,
-  setAvgcoordinates,
-  results,
-  setResults,
-  isLoading,
-  setIsLoading
-}) => {
+const Header = ({ locations, setLocations, avgcoordinates, setAvgcoordinates, directionsResponse, setDirectionsResponse, circleoptions, setCircleoptions }) => {
   /** @type React.MutableRefObject<HTMLInputElement> */
   let enterLocation = useRef();
 
-  const [isOpen, setIsOpen] = useState(false);
+  const defaultOptions = {
+    strokeOpacity: 0.5,
+    strokeWeight: 2,
+    center: avgcoordinates,
+    radius: 4000,
+    clickable: false,
+    draggable: false,
+    editable: false,
+    visible: true,
+    zIndex: 1,
+    fillOpacity: 0.05,
+    strokeColor: "#FF5252",
+    fillColor: "#FF5252",
+  };
+
   const [autocomplete, setAutocomplete] = useState(null);
   const restriction = { country: "sg" };
 
@@ -61,7 +70,6 @@ const Header = ({
       const lat = autocomplete.getPlace().geometry.location.lat();
       const lng = autocomplete.getPlace().geometry.location.lng();
 
-      // console.log(autocomplete.getPlace())
       let temp = locations.concat(autocomplete.getPlace());
       locations = temp;
       setLocations(locations);
@@ -71,38 +79,43 @@ const Header = ({
       let latAll = null;
       let lngAll = null;
       locations.forEach((location) => {
-        latAll += location.geometry.location.lat();
-        lngAll += location.geometry.location.lng();
-      });
-      setAvgcoordinates({
-        lat: latAll / locations.length,
-        lng: lngAll / locations.length,
-      });
+        latAll += location.geometry.location.lat()
+        lngAll += location.geometry.location.lng()
+      })
+      setAvgcoordinates({ lat: latAll / locations.length, lng: lngAll / locations.length })
+
     }
   };
   const handleDelete = (event) => {
     event.preventDefault();
     //change list of locations displayed in webapp
     let tempLocations = [];
-    locations.forEach((location) => {
+    locations.forEach((location, idx) => {
       if (location.name != event.target.textContent) {
         tempLocations.push(location);
+        // } else {
+        //   // js help to remove the routes
+        //   var removeRoute = tempRoutes.splice(idx, 1);
       }
     });
     setLocations(tempLocations);
+    setCircleoptions(null)
+    // setDirectionsResponse(directionsResponse);
+
+    if (tempLocations.length === 0) {
+      setAvgcoordinates({ lat: 1.347, lng: 103.79 })
+      setDirectionsResponse([])
+      setCircleoptions(defaultOptions)
+    }
+
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    //console.log(getPurposeDefinition(purpose));
-    let formData = {
-      purpose: getPurposeDefinition(purpose),
-      locations: locations,
-    };
-
-    // console.log(formData)
-    // console.log(locations)
-    fetch("http://127.0.0.1:5000/testing", {
+  async function handleSubmit() {
+    // event.preventDefault();
+    setCircleoptions(null)
+    console.log("handleSubmit")
+    // fetch("http://127.0.0.1:8000/test", {
+    fetch("http://centerpoint.lohseng.com:8000/test", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -120,6 +133,27 @@ const Header = ({
         console.error(error);
         console.log("error");
       });
+
+    //  should appear at second post not here
+    if (locations.length >= 2) {
+
+      let testResults = [];
+
+      for (let i = 1; i <= locations.length - 1; i++) {
+        const directionsService = new google.maps.DirectionsService()
+        const test = await directionsService.route({
+          origin: locations[i].geometry.location,
+          destination: locations[0].geometry.location,
+
+          travelMode: google.maps.TravelMode.DRIVING,
+        })
+
+        testResults.push(test)
+      }
+      setDirectionsResponse(testResults)
+      setCircleoptions(defaultOptions)
+    }
+
   };
 
   const getPurposeDefinition = (p) => {
@@ -157,6 +191,8 @@ const Header = ({
 
   return (
     <div>
+
+      {/* Enter location, choose purpose and submit button*/}
       <Flex
         position={"absolute"}
         top={0}
@@ -167,6 +203,7 @@ const Header = ({
         zIndex={101}
       >
         <Flex>
+          {/* Location input box */}
           <Autocomplete
             onLoad={onLoad}
             onPlaceChanged={onPlaceChanged}
@@ -201,7 +238,7 @@ const Header = ({
               py={2}
               bg={"white"}
               rounded={"full"}
-              ml={8} // margin left
+              ml={5} // margin left
               shadow="lg"
               cursor={"pointer"}
             >
@@ -247,37 +284,71 @@ const Header = ({
           </Button>
         </Flex>
       </Flex>
-      {/**Selected locations*/}
-      <Flex
+
+      {/* Location inputs and suggested places */}
+      <Accordion defaultIndex={[0]} allowMultiple
         direction={"column"}
         bg={"whiteAlpha.900"}
-        width={"37vw"}
-        height="50vh"
+        width={"35vw"}
+        // height="50vh"
         position={"absolute"}
-        left={0}
-        top={0}
+        left={4}
+        top={57}
         zIndex={1} // above the map
         overflow="hidden"
-        px={2}
-        py={12}
+        rounded={"md"}
+      // px={2}
+      // py={12}
       >
-        {/**Remove location*/}
-        {locations.map((location, idx) => {
-          return (
-            <Button
-              rightIcon={<BiXCircle />}
-              colorScheme="blue"
-              variant="outline"
-              key={idx}
-              onClick={handleDelete}
-            >
-              {location.name}
-            </Button>
-          );
-        })}
+        <AccordionItem>
+          <h2>
+            <AccordionButton>
+              <Box flex='1' textAlign='left'>
+                1. Location inputs
+              </Box>
+              <AccordionIcon />
+            </AccordionButton>
+          </h2>
+          <AccordionPanel pb={4}>
 
-        {/* <BiXCircle fontSize={25} /> */}
-      </Flex>
+            {/**Remove location*/}
+            {locations.map((location, idx) => {
+              return (
+                <Button
+                  rightIcon={<BiXCircle />}
+                  colorScheme="blue"
+                  variant="outline"
+                  key={idx}
+                  onClick={handleDelete}
+                >
+                  {location.name}
+                </Button>
+              );
+            })}
+
+          </AccordionPanel>
+        </AccordionItem>
+
+        <AccordionItem>
+          <h2>
+            <AccordionButton>
+              <Box flex='1' textAlign='left'>
+                2. Suggested places
+              </Box>
+              <AccordionIcon />
+            </AccordionButton>
+          </h2>
+          <AccordionPanel pb={4}>
+            {results && results.map((result, idx) => {
+              <Box key={idx}>
+                Hello
+                {result.name}
+              </Box>
+            })}
+          </AccordionPanel>
+        </AccordionItem>
+      </Accordion>
+
     </div>
   );
 };

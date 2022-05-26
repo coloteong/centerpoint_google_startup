@@ -15,13 +15,10 @@ const places = [
 ];
 
 const Home = () => {
-  //const [coordinates, setCoordinates] = useState({lat: 48.8584, lng: 2.2945});
   const [avgcoordinates, setAvgcoordinates] = useState([]);
   const [locations, setLocations] = useState([]);
-  const [type, setType] = useState('restaurants');
-  const [ratings, setRatings] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const [results, setResults] = useState(null);
+  const [directionsResponse, setDirectionsResponse] = useState([]);
+  const [circleoptions, setCircleoptions] = useState(null);
 
 useEffect(() => {
   // fetch user current location by prompting
@@ -49,22 +46,22 @@ useEffect(() => {
     </Head>
     
     <Header 
-      setType={setType}
-      setRatings ={setRatings}
       locations = {locations}
       setLocations={setLocations}
       avgcoordinates = {avgcoordinates} 
       setAvgcoordinates = {setAvgcoordinates}
-      results = {results}
-      setResults = {setResults}
-      isLoading = {isLoading}
-      setIsLoading = {setIsLoading}
+      directionsResponse = {directionsResponse}
+      setDirectionsResponse = {setDirectionsResponse}
+      circleoptions = {circleoptions}
+      setCircleoptions = {setCircleoptions}
     />
     {results && <List places= {results} isLoading={isLoading} />}
 
     <Map
       avgcoordinates = {avgcoordinates} 
       locations = {locations}
+      directionsResponse = {directionsResponse}
+      circleoptions = {circleoptions}
     />
 
     {/* <PlaceDetail/> */}
