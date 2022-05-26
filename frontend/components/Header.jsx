@@ -35,7 +35,7 @@ import {
   BiXCircle,
 } from "react-icons/bi";
 
-const Header = ({ locations, setLocations, avgcoordinates, setAvgcoordinates, directionsResponse, setDirectionsResponse, circleoptions, setCircleoptions }) => {
+const Header = ({ locations, setLocations, avgcoordinates, setAvgcoordinates, directionsResponse, setDirectionsResponse, circleoptions, setCircleoptions, results, setResults }) => {
   /** @type React.MutableRefObject<HTMLInputElement> */
   let enterLocation = useRef();
 
@@ -110,12 +110,16 @@ const Header = ({ locations, setLocations, avgcoordinates, setAvgcoordinates, di
 
   };
 
-  async function handleSubmit() {
-    // event.preventDefault();
+   const  handleSubmit = async (event)=>{
+    event.preventDefault();
+    let formData = {
+      purpose: getPurposeDefinition(purpose),
+      locations: locations,
+    };
     setCircleoptions(null)
-    console.log("handleSubmit")
-    // fetch("http://127.0.0.1:8000/test", {
-    fetch("http://centerpoint.lohseng.com:8000/test", {
+
+    fetch("http://127.0.0.1:5000/test", {
+    //fetch("http://centerpoint.lohseng.com:8000/test", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -153,8 +157,7 @@ const Header = ({ locations, setLocations, avgcoordinates, setAvgcoordinates, di
       setDirectionsResponse(testResults)
       setCircleoptions(defaultOptions)
     }
-
-  };
+  }
 
   const getPurposeDefinition = (p) => {
     let result = [];
@@ -339,7 +342,7 @@ const Header = ({ locations, setLocations, avgcoordinates, setAvgcoordinates, di
             </AccordionButton>
           </h2>
           <AccordionPanel pb={4}>
-            {results && results.map((result, idx) => {
+            {results && results.locations.map((result, idx) => {
               <Box key={idx}>
                 Hello
                 {result.name}

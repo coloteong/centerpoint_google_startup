@@ -71,22 +71,23 @@ def test():
 		radius = 50
 		no_of_locations = 0
 		# list of search phrases for each purpose
-		if purpose == "Activities":
-			searches = ["amusement_park",
-						"aquarium",
-						"art_gallery",
-						"bowling_alley",
-						"cafe",
-						"movie_theater",
-						"museum",
-						"night_club",
-						"tourist_attraction"]	
-		elif purpose == "Food":
-			searches = ["cafe", "restaurant"]
-		elif purpose == "Hotels & Staycations":
-			searches =  ["lodging"]
-		else:
-			searches = ["gym", "park"]
+		searches = purpose
+		# if purpose == "Activities":
+		# 	searches = ["amusement_park",
+		# 				"aquarium",
+		# 				"art_gallery",
+		# 				"bowling_alley",
+		# 				"cafe",
+		# 				"movie_theater",
+		# 				"museum",
+		# 				"night_club",
+		# 				"tourist_attraction"]	
+		# elif purpose == "Food":
+		# 	searches = ["cafe", "restaurant"]
+		# elif purpose == "Hotels & Staycations":
+		# 	searches =  ["lodging"]
+		# else:
+		# 	searches = ["gym", "park"]
 		while radius < 1000 and no_of_locations < 5:
 			# take into account the purpose of the meetup
 			location_data = []
