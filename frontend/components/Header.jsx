@@ -35,10 +35,24 @@ import {
   BiXCircle,
 } from "react-icons/bi";
 
-const Header = ({ locations, setLocations, avgcoordinates, setAvgcoordinates, directionsResponse, setDirectionsResponse }) => {
+const Header = ({ locations, setLocations, avgcoordinates, setAvgcoordinates, directionsResponse, setDirectionsResponse, circleoptions, setCircleoptions }) => {
   /** @type React.MutableRefObject<HTMLInputElement> */
   let enterLocation = useRef();
 
+  const defaultOptions = {
+    strokeOpacity: 0.5,
+    strokeWeight: 2,
+    center: avgcoordinates,
+    radius: 4000,
+    clickable: false,
+    draggable: false,
+    editable: false,
+    visible: true,
+    zIndex: 1,
+    fillOpacity: 0.05,
+    strokeColor: "#FF5252",
+    fillColor: "#FF5252",
+  };
 
   const [autocomplete, setAutocomplete] = useState(null);
   const restriction = { country: "sg" };
@@ -52,7 +66,6 @@ const Header = ({ locations, setLocations, avgcoordinates, setAvgcoordinates, di
       const lat = autocomplete.getPlace().geometry.location.lat();
       const lng = autocomplete.getPlace().geometry.location.lng();
 
-      // console.log(autocomplete.getPlace())
       let temp = locations.concat(autocomplete.getPlace());
       locations = temp;
       setLocations(locations);
@@ -79,15 +92,23 @@ const Header = ({ locations, setLocations, avgcoordinates, setAvgcoordinates, di
         // } else {
         //   // js help to remove the routes
         //   var removeRoute = tempRoutes.splice(idx, 1);
-
       }
     });
     setLocations(tempLocations);
-    setDirectionsResponse(directionsResponse);
+    setCircleoptions(null)
+    // setDirectionsResponse(directionsResponse);
+
+    if (tempLocations.length === 0) {
+      setAvgcoordinates({ lat: 1.347, lng: 103.79 })
+      setDirectionsResponse([])
+      setCircleoptions(defaultOptions)
+    }
+
   };
 
   async function handleSubmit() {
     // event.preventDefault();
+    setCircleoptions(null)
     console.log("handleSubmit")
     // fetch("http://127.0.0.1:8000/test", {
     fetch("http://centerpoint.lohseng.com:8000/test", {
@@ -115,7 +136,6 @@ const Header = ({ locations, setLocations, avgcoordinates, setAvgcoordinates, di
       let testResults = [];
 
       for (let i = 1; i <= locations.length - 1; i++) {
-        console.log(i)
         const directionsService = new google.maps.DirectionsService()
         const test = await directionsService.route({
           origin: locations[i].geometry.location,
@@ -123,12 +143,11 @@ const Header = ({ locations, setLocations, avgcoordinates, setAvgcoordinates, di
 
           travelMode: google.maps.TravelMode.DRIVING,
         })
-        testResults.push(test)
 
+        testResults.push(test)
       }
       setDirectionsResponse(testResults)
-      console.log(testResults)
-
+      setCircleoptions(defaultOptions)
     }
 
   };
@@ -333,12 +352,12 @@ const Header = ({ locations, setLocations, avgcoordinates, setAvgcoordinates, di
             </AccordionButton>
           </h2>
           <AccordionPanel pb={4}>
-          {results && results.map((result, idx) => {
-          <Box key={idx}>
-            Hello
-            {result.name}
-          </Box>
-        })}
+            {results && results.map((result, idx) => {
+              <Box key={idx}>
+                Hello
+                {result.name}
+              </Box>
+            })}
           </AccordionPanel>
         </AccordionItem>
       </Accordion>

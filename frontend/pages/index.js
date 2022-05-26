@@ -17,7 +17,8 @@ const places = [
 const Home = () => {
   const [avgcoordinates, setAvgcoordinates] = useState([]);
   const [locations, setLocations] = useState([]);
-  const [directionsResponse, setDirectionsResponse] = useState([])
+  const [directionsResponse, setDirectionsResponse] = useState([]);
+  const [circleoptions, setCircleoptions] = useState(null);
 
 useEffect(() => {
   // fetch user current location by prompting
@@ -75,6 +76,8 @@ useEffect(() => {
       setAvgcoordinates = {setAvgcoordinates}
       directionsResponse = {directionsResponse}
       setDirectionsResponse = {setDirectionsResponse}
+      circleoptions = {circleoptions}
+      setCircleoptions = {setCircleoptions}
     />
     {/* <List places= {places} isLoading={isLoading} /> */}
 
@@ -82,6 +85,7 @@ useEffect(() => {
       avgcoordinates = {avgcoordinates} 
       locations = {locations}
       directionsResponse = {directionsResponse}
+      circleoptions = {circleoptions}
     />
 
     {/* <PlaceDetail/> */}
