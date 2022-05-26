@@ -46,7 +46,7 @@ const List = ({places, isLoading, getDirectionsToCenterPoint}) => {
       <Flex
       direction={"column"}
       overflowY={"scroll"}
-      height="75vh"
+      height="71vh"
    
       
       >

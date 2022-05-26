@@ -9,7 +9,7 @@ const PlaceDetail = ({ place, getDirectionsToCenterPoint }) => {
   const [ isSelected, setIsSelected ] = useState(false); 
   
 
-  let is_open = (place.opening_hours != null) ? ( (place.opening_hours.open_now)? "Open Now" : "Closed Now" ): "Not available" 
+  let is_open = (place.opening_hours != null) ? ( (place.opening_hours.open_now)? "Open Now" : "Closed Now" ): "Opening hours not available" 
 
   return (
     <Flex
@@ -60,7 +60,7 @@ const PlaceDetail = ({ place, getDirectionsToCenterPoint }) => {
               fontSize={"sm"}
               fontWeight={"500"}
               color={"gray.500"}
-            >{place.user_ratings_total ? `(${place.user_ratings_total})` : "Not available"}</Text>
+            >{place.user_ratings_total ? `(${place.user_ratings_total})` : " Rating not available"}</Text>
             <Text
               fontSize={"sm"}
               fontWeight={"500"}
