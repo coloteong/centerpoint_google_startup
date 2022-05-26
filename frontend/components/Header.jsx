@@ -11,7 +11,13 @@ import {
   CheckboxGroup,
   Stack,
   Button,
-  Box
+  Box,
+  AccordionPanel,
+  AccordionIcon,
+  AccordionButton,
+  AccordionItem,
+  Accordion
+
 } from "@chakra-ui/react";
 
 import { Autocomplete } from "@react-google-maps/api";
@@ -33,7 +39,7 @@ const Header = ({ locations, setLocations, avgcoordinates, setAvgcoordinates, di
   /** @type React.MutableRefObject<HTMLInputElement> */
   let enterLocation = useRef();
 
-  const [isOpen, setIsOpen] = useState(false);
+
   const [autocomplete, setAutocomplete] = useState(null);
   const restriction = { country: "sg" };
   const [loading, setLoading] = useState(false);
@@ -52,14 +58,14 @@ const Header = ({ locations, setLocations, avgcoordinates, setAvgcoordinates, di
       setLocations(locations);
 
       enterLocation.current.value = null;
-      
+
       let latAll = null;
       let lngAll = null;
       locations.forEach((location) => {
         latAll += location.geometry.location.lat()
         lngAll += location.geometry.location.lng()
       })
-      setAvgcoordinates({lat: latAll/locations.length, lng: lngAll/locations.length})
+      setAvgcoordinates({ lat: latAll / locations.length, lng: lngAll / locations.length })
 
     }
   };
@@ -67,12 +73,12 @@ const Header = ({ locations, setLocations, avgcoordinates, setAvgcoordinates, di
     event.preventDefault();
     //change list of locations displayed in webapp
     let tempLocations = [];
-    locations.forEach((location,idx) => {
+    locations.forEach((location, idx) => {
       if (location.name != event.target.textContent) {
         tempLocations.push(location);
-      }else{
-      // js help to remove the routes
-        var removeRoute = tempRoutes.splice(idx, 1);
+        // } else {
+        //   // js help to remove the routes
+        //   var removeRoute = tempRoutes.splice(idx, 1);
 
       }
     });
@@ -102,28 +108,28 @@ const Header = ({ locations, setLocations, avgcoordinates, setAvgcoordinates, di
         console.error(error);
         console.log("error");
       });
-      
-      //  should appear at second post not here
-      if (locations.length >= 2) {
-  
-        let testResults = [];
-  
-        for (let i = 1; i <= locations.length-1; i++) {
-          console.log(i)
-          const directionsService = new google.maps.DirectionsService()
-          const test = await directionsService.route({
-            origin: locations[i].geometry.location,
-            destination: locations[0].geometry.location,
-  
-            travelMode: google.maps.TravelMode.DRIVING,
-          })
-          testResults.push(test)
-  
-        }
-        setDirectionsResponse(testResults)
-        console.log(testResults)
-  
+
+    //  should appear at second post not here
+    if (locations.length >= 2) {
+
+      let testResults = [];
+
+      for (let i = 1; i <= locations.length - 1; i++) {
+        console.log(i)
+        const directionsService = new google.maps.DirectionsService()
+        const test = await directionsService.route({
+          origin: locations[i].geometry.location,
+          destination: locations[0].geometry.location,
+
+          travelMode: google.maps.TravelMode.DRIVING,
+        })
+        testResults.push(test)
+
       }
+      setDirectionsResponse(testResults)
+      console.log(testResults)
+
+    }
 
   };
 
@@ -254,54 +260,88 @@ const Header = ({ locations, setLocations, avgcoordinates, setAvgcoordinates, di
 
               <BiChevronDown
                 fontSize={25}
-                // down arrow
+              // down arrow
               />
             </Flex>
           </Flex>
         </Flex>
 
         <Flex>
-            {/**Submit button*/}
-          <Button 
-            bg={"white"} 
+          {/**Submit button*/}
+          <Button
+            bg={"white"}
             ml={4} // margin left
             onClick={handleSubmit}
           >Submit</Button>
         </Flex>
       </Flex>
-      {/**Selected locations*/}
-      <Flex
+
+
+      <Accordion defaultIndex={[0]} allowMultiple
         direction={"column"}
         bg={"whiteAlpha.900"}
-        width={"37vw"}
-        height="50vh"
+        width={"35vw"}
+        // height="50vh"
         position={"absolute"}
-        left={0}
-        top={0}
+        left={4}
+        top={57}
         zIndex={1} // above the map
         overflow="hidden"
-        px={2}
-        py={12}
+        rounded={"md"}
+      // px={2}
+      // py={12}
       >
-        {/**Remove location*/}
-        {locations.map((location, idx) => {
-          return (
-            <Button
-              rightIcon={<BiXCircle />}
-              colorScheme="blue"
-              variant="outline"
-              key={idx}
-              onClick={handleDelete}
-            >
-              {location.name}
-            </Button>
-          );
-        })}
+        <AccordionItem>
+          <h2>
+            <AccordionButton>
+              <Box flex='1' textAlign='left'>
+                1. Location inputs
+              </Box>
+              <AccordionIcon />
+            </AccordionButton>
+          </h2>
+          <AccordionPanel pb={4}>
+
+            {/**Remove location*/}
+            {locations.map((location, idx) => {
+              return (
+                <Button
+                  rightIcon={<BiXCircle />}
+                  colorScheme="blue"
+                  variant="outline"
+                  key={idx}
+                  onClick={handleDelete}
+                >
+                  {location.name}
+                </Button>
+              );
+            })}
+
+          </AccordionPanel>
+        </AccordionItem>
+
+        <AccordionItem>
+          <h2>
+            <AccordionButton>
+              <Box flex='1' textAlign='left'>
+                2. Suggested places
+              </Box>
+              <AccordionIcon />
+            </AccordionButton>
+          </h2>
+          <AccordionPanel pb={4}>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+            veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+            commodo consequat.
+          </AccordionPanel>
+        </AccordionItem>
+      </Accordion>
 
       {/* <BiXCircle fontSize={25} /> */}
-      </Flex>
+
       {/**Results list*/}
-      <Flex
+      {/* <Flex
         direction={"column"}
         bg={"white"}
         width={"37vw"}
@@ -314,15 +354,15 @@ const Header = ({ locations, setLocations, avgcoordinates, setAvgcoordinates, di
         px={2}
         py={12}
       >
-        {results && results.map((result, idx)=>{
-          <Box key = {idx}>
+        {results && results.map((result, idx) => {
+          <Box key={idx}>
             Hello
             {result.name}
           </Box>
         })}
 
 
-      </Flex>
+      </Flex> */}
     </div>
   );
 };
