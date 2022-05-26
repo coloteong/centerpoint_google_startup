@@ -135,6 +135,8 @@ const Header = ({ locations, setLocations, avgcoordinates, setAvgcoordinates, di
 
   return (
     <div>
+
+      {/* Enter location, choose purpose and submit button*/}
       <Flex
         position={"absolute"}
         top={0}
@@ -145,6 +147,7 @@ const Header = ({ locations, setLocations, avgcoordinates, setAvgcoordinates, di
         zIndex={101}
       >
         <Flex>
+          {/* Location input box */}
           <Autocomplete
             onLoad={onLoad}
             onPlaceChanged={onPlaceChanged}
@@ -182,7 +185,7 @@ const Header = ({ locations, setLocations, avgcoordinates, setAvgcoordinates, di
               py={2}
               bg={"white"}
               rounded={"full"}
-              ml={8} // margin left
+              ml={5} // margin left
               shadow="lg"
               cursor={"pointer"}
             >
@@ -276,7 +279,7 @@ const Header = ({ locations, setLocations, avgcoordinates, setAvgcoordinates, di
         </Flex>
       </Flex>
 
-
+      {/* Location inputs and suggested places */}
       <Accordion defaultIndex={[0]} allowMultiple
         direction={"column"}
         bg={"whiteAlpha.900"}
@@ -330,39 +333,16 @@ const Header = ({ locations, setLocations, avgcoordinates, setAvgcoordinates, di
             </AccordionButton>
           </h2>
           <AccordionPanel pb={4}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-            veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-            commodo consequat.
-          </AccordionPanel>
-        </AccordionItem>
-      </Accordion>
-
-      {/* <BiXCircle fontSize={25} /> */}
-
-      {/**Results list*/}
-      {/* <Flex
-        direction={"column"}
-        bg={"white"}
-        width={"37vw"}
-        height="50vh"
-        position={"absolute"}
-        left={0}
-        top={250}
-        zIndex={1} // above the map
-        overflow="hidden"
-        px={2}
-        py={12}
-      >
-        {results && results.map((result, idx) => {
+          {results && results.map((result, idx) => {
           <Box key={idx}>
             Hello
             {result.name}
           </Box>
         })}
+          </AccordionPanel>
+        </AccordionItem>
+      </Accordion>
 
-
-      </Flex> */}
     </div>
   );
 };
