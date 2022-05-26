@@ -1,18 +1,19 @@
 import { Badge, Flex, Image, Text } from "@chakra-ui/react";
 import { Rating } from "@material-ui/lab";
 import React from "react";
-
 import { IoLocation } from "react-icons/io5";
+import { useEffect, useState } from "react";
 
-const PlaceDetail = ({ place }) => {
+const PlaceDetail = ({ place, getDirectionsToCenterPoint }) => {
 
-  console.log(place)
+  const [ isSelected, setIsSelected ] = useState(false); 
+  
 
-  const isOpen = place.opening_hours.open_now
+  let is_open = (place.opening_hours != null) ? ( (place.opening_hours.open_now)? "Open Now" : "Closed Now" ): "Not available" 
 
   return (
     <Flex
-      bg={"whiteAlpha.900"}
+      bg={ isSelected ? "gray.200" : "whiteAlpha.900" }
       px={4}
       py={2}
       mb={2}
@@ -20,6 +21,9 @@ const PlaceDetail = ({ place }) => {
       direction={"column"}
       alignItems={"start"}
       justifyContent="space-between"
+      onMouseOver={() => {setIsSelected(true)}}
+      onMouseLeave={() => {setIsSelected(false)}}
+      onClick = {() => {getDirectionsToCenterPoint(place)}}
     >
       <Flex justifyContent={"space-between"} width="full">
         <Flex
@@ -56,7 +60,7 @@ const PlaceDetail = ({ place }) => {
               fontSize={"sm"}
               fontWeight={"500"}
               color={"gray.500"}
-            >{`(${place.user_ratings_total})`}</Text>
+            >{place.user_ratings_total ? `(${place.user_ratings_total})` : "Not available"}</Text>
             <Text
               fontSize={"sm"}
               fontWeight={"500"}
@@ -74,25 +78,9 @@ const PlaceDetail = ({ place }) => {
 
           {/* Open status */}
           <Text fontSize={"sm"} fontWeight={"500"} color={"gray.600"}>
-            {isOpen?"Open Now" : "Closed Now"}
+            {is_open}
           </Text>
 
-          {/* dietary_restrictions */}
-          {place?.dietary_restrictions && (
-            <Flex width={"full"} flexWrap={"wrap"}>
-              {place.dietary_restrictions.map((n, i) => (
-                <Badge
-                  colorScheme={"teal"}
-                  cursor={"pointer"}
-                  key={i}
-                  m={1}
-                  fontSize={10}
-                >
-                  {n.name}
-                </Badge>
-              ))}
-            </Flex>
-          )}
         </Flex>
         <Image
           objectFit={"cover"}
@@ -100,14 +88,14 @@ const PlaceDetail = ({ place }) => {
           height={"120px"}
           rounded="lg"
           src={
-            place.photo
-              ? place.photo.images.large.url
-              : "https://explorelompoc.com/wp-content/uploads/2021/06/food_placeholder.jpg"
+            place.photos
+              ? "https:///maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=" + place.photos[0].photo_reference + "&key=" + "AIzaSyDPRi8jxCGzccPR34SkCjnEOh8F6ZKK_q0"
+              : "https://firebasestorage.googleapis.com/v0/b/cz3002-5e843.appspot.com/o/64818931817.png?alt=media"
           }
         />
       </Flex>
 
-      {place?.formatted_address && (
+      {place?.vicinity && (
         <Flex alignItems={"center"} width={"full"} px={1} my={2}>
           <IoLocation fontSize={20} color="gray" />
           <Text
@@ -117,7 +105,7 @@ const PlaceDetail = ({ place }) => {
             color={"gray.700"}
             ml={1}
           >
-            {place.formatted_address}
+            {place.vicinity}
           </Text>
         </Flex>
       )}

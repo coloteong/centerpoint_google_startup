@@ -19,10 +19,6 @@ import { onLoad } from "./Header";
 function Map({ avgcoordinates, locations, directionsResponse, circleoptions }) {
   const [map, setMap] = useState(/** @type google.maps.Map */(null));
 
-  // if (!isLoaded) {
-  //   return <SkeletonText />
-  // }
-
   const colours = ["red", "black", "olive", "green", "blue", "indigo", "violet"];
 
 
@@ -49,20 +45,18 @@ function Map({ avgcoordinates, locations, directionsResponse, circleoptions }) {
           }}
           onLoad={(map) => setMap(map)}
 
-        // onZoomChanged={ () => () => {
-        //   map.getZoom();
-        // }}
         >
 
           {directionsResponse && directionsResponse.map((direction, idx) => {
             if (idx >= 0) {
               return (
-                <div>
+                <div key = {idx}>
                   <DirectionsRenderer directions={direction}
                     options={{
                       polylineOptions: { strokeColor: colours[idx] },
                       markerOptions: { icon: "null", opacaity: 0 }
                     }}
+                    key = {idx}
                   />
                   {circleoptions && (
                   <Circle options={circleoptions} />

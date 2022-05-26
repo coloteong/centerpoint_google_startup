@@ -101,12 +101,14 @@ def test():
 				formatted_candidate_locations = json.loads(candidate_locations)
 				print("Formatted location", formatted_candidate_locations)
 				location_data.append(formatted_candidate_locations)
-			
-			final_loc_df = pd.DataFrame.from_dict(location_data[0])
+			print(":-):", location_data[0]['results'])
+			final_loc_df = pd.DataFrame.from_dict(location_data[0]['results'])
+			print("final_loc_df",final_loc_df)
 			location_data.pop(0)
+			
 			for i in location_data:
-				current_df = pd.DataFrame.from_dict(i)
-				print("current df:", current_df)
+				current_df = pd.DataFrame.from_dict(i['results'])
+				
 				final_loc_df.append(current_df)
 
 			# for reference: https://stackoverflow.com/questions/13784192/creating-an-empty-pandas-dataframe-then-filling-it
@@ -167,7 +169,7 @@ def test():
 		# dataframe includes name, rating, operating hrs, address, image
 		result_df = pd.DataFrame.from_dict(candidate_location_dict)
 		print(result_df)
-		dataframe_locations = result_df[['name', 'rating', 'opening_hours', 'vicinity', 'geometry', 'photos']]
+		dataframe_locations = result_df[['name', 'rating', 'opening_hours', 'vicinity', 'geometry', 'photos', "user_ratings_total"]]
 		locations_sorted_rating = dataframe_locations.sort_values(by = 'rating', ascending = False)
 		locations_sorted_rating = locations_sorted_rating.head(5)
 		locations_sorted_rating = get_distances_from_central(locations_sorted_rating, central_point)

@@ -1,8 +1,10 @@
-import { Box, Flex, SkeletonCircle, SkeletonText } from "@chakra-ui/react";
-import React from 'react'
+import { Box, Flex, SkeletonCircle, SkeletonText, Text } from "@chakra-ui/react";
+import React, { useEffect } from 'react'
 import PlaceDetail from "./PlaceDetail";
 
-const List = ({places, isLoading}) => {
+
+const List = ({places, isLoading, getDirectionsToCenterPoint}) => {
+  places = JSON.parse(places)
   if (isLoading)
     return (
       <Flex
@@ -42,22 +44,40 @@ const List = ({places, isLoading}) => {
 
     return (
       <Flex
-        direction={"column"}
-        bg={"whiteAlpha.900"}
-        width={"37vw"}
-        height="100vh"
-        position={"absolute"}
-        left={0}
-        top={0}
-        zIndex={1}
-        overflow="hidden"
-        px={2}
+      direction={"column"}
+      overflowY={"scroll"}
+      height="75vh"
+   
+      
       >
-        <Flex flex={1} overflowY={"scroll"} mt={16} direction={"column"}>
-          {places &&
-            places.locations.map((place, idx) => <PlaceDetail place={place} key={idx} />)}
-        </Flex>
+             {places  && places.map((place, idx) => {
+            return(
+              <PlaceDetail place = {place} key = {idx} getDirectionsToCenterPoint = {getDirectionsToCenterPoint}/>
+            )
+          })}
       </Flex>
+      // <Flex
+      //   direction={"column"}
+      //   bg={"whiteAlpha.900"}
+      //   width={"37vw"}
+      //   height="100vh"
+      //   position={"absolute"}
+      //   left={0}
+      //   top={40}
+      //   zIndex={1}
+      //   overflow="hidden"
+      //   px={2}
+      // >
+      //   <Flex flex={1} overflowY={"scroll"} mt={16} direction={"column"}>
+          
+      //     {places  && places.map((place, idx) => {
+      //       return(
+      //         <PlaceDetail place = {place} key = {idx} />
+      //       )
+      //     })}
+    
+      //   </Flex>
+      // </Flex>
     );
   };
 
