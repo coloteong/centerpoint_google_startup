@@ -8,6 +8,8 @@ const PlaceDetail = ({ place }) => {
 
   console.log(place)
 
+  const isOpen = place.opening_hours.open_now
+
   return (
     <Flex
       bg={"whiteAlpha.900"}
@@ -54,7 +56,7 @@ const PlaceDetail = ({ place }) => {
               fontSize={"sm"}
               fontWeight={"500"}
               color={"gray.500"}
-            >{`(${place.num_reviews})`}</Text>
+            >{`(${place.user_ratings_total})`}</Text>
             <Text
               fontSize={"sm"}
               fontWeight={"500"}
@@ -72,7 +74,7 @@ const PlaceDetail = ({ place }) => {
 
           {/* Open status */}
           <Text fontSize={"sm"} fontWeight={"500"} color={"gray.600"}>
-            {place.open_now_text}
+            {isOpen?"Open Now" : "Closed Now"}
           </Text>
 
           {/* dietary_restrictions */}
@@ -105,7 +107,7 @@ const PlaceDetail = ({ place }) => {
         />
       </Flex>
 
-      {place?.address && (
+      {place?.formatted_address && (
         <Flex alignItems={"center"} width={"full"} px={1} my={2}>
           <IoLocation fontSize={20} color="gray" />
           <Text
@@ -115,7 +117,7 @@ const PlaceDetail = ({ place }) => {
             color={"gray.700"}
             ml={1}
           >
-            {place.address}
+            {place.formatted_address}
           </Text>
         </Flex>
       )}

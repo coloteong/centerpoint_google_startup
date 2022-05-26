@@ -58,7 +58,7 @@ def test():
 		total_x = 0
 		total_y = 0
 		count = 0
-		for point in location_list:
+		for point in location_list[0]:
 			total_x += point[0]
 			total_y += point[1]
 			count += 1
@@ -101,17 +101,25 @@ def test():
 				formatted_candidate_locations = json.loads(candidate_locations)
 				print("Formatted location", formatted_candidate_locations)
 				location_data.append(formatted_candidate_locations)
+			
+			final_loc_df = pd.DataFrame.from_dict(location_data[0])
+			location_data.pop(0)
+			for i in location_data:
+				current_df = pd.DataFrame.from_dict(i)
+				print("current df:", current_df)
+				final_loc_df.append(current_df)
+
 			# for reference: https://stackoverflow.com/questions/13784192/creating-an-empty-pandas-dataframe-then-filling-it
 			# result_df = pd.DataFrame.from_dict(formatted_candidate_locations['results'])
-			result_df = pd.DataFrame(location_data)
+			# final_loc_df = pd.DataFrame(location_data)
 			# add checking for whether location is open
-			print("Result df: ", list(result_df))
-			# CLAUDIA LOOK AT THIS!!! OI!!!!!
+			print("Result df: ", list(final_loc_df))
+			# CLAUDIA LOOK AT THIS!!! OI!!!!! teehee
 			# result_df = check_opening_hours(result_df)
-			no_of_locations = result_df.shape[0]
+			no_of_locations = final_loc_df.shape[0]
 			print("no of locations =", no_of_locations)
 			radius += 50
-		return result_df
+		return final_loc_df
 
     # function to add distance from central column to dataframe with all locations
     # returns the same dataframe with extra column
@@ -158,6 +166,7 @@ def test():
 		# clean the dictionary to get a nice list of all locations
 		# dataframe includes name, rating, operating hrs, address, image
 		result_df = pd.DataFrame.from_dict(candidate_location_dict)
+		print(result_df)
 		dataframe_locations = result_df[['name', 'rating', 'opening_hours', 'vicinity', 'geometry', 'photos']]
 		locations_sorted_rating = dataframe_locations.sort_values(by = 'rating', ascending = False)
 		locations_sorted_rating = locations_sorted_rating.head(5)
