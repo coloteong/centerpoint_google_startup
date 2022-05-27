@@ -11,6 +11,7 @@ If you would like to reproduce our application locally and make any edits, pleas
 2. `cd frontend/` and then `npm install` to download all dependencies for the frontend.
 3. While in the `frontend` dir, run `npm run dev` to compile all frontend scripts.
 4. In another terminal window, `cd flask_app` and then `python3 app.py` to start the Flask server.
+</br> 
 After that, the URL should be listed in the terminal and clicking on the URL should lead you to the working application.
 
 ## Tools Used
