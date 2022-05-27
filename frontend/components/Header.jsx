@@ -136,7 +136,6 @@ const Header = ({
       purpose: getPurposeDefinition(purpose),
       locations: locations,
     };
-    setCircleoptions(null);
 
     fetch("http://127.0.0.1:8000/test", {
       //fetch("http://centerpoint.lohseng.com:8000/test", {
@@ -151,30 +150,15 @@ const Header = ({
       })
       .then((data) => {
         setResults(data);
+        
+        setCircleoptions(defaultOptions);
       })
       .catch((error) => {
         console.error(error);
         console.log("error");
       });
 
-    //  should appear at second post not here
-    if (locations.length >= 2) {
-      let testResults = [];
-
-      for (let i = 1; i <= locations.length - 1; i++) {
-        const directionsService = new google.maps.DirectionsService();
-        const test = await directionsService.route({
-          origin: locations[i].geometry.location,
-          destination: locations[0].geometry.location,
-
-          travelMode: google.maps.TravelMode.DRIVING,
-        });
-
-        testResults.push(test);
-      }
-      setDirectionsResponse(testResults);
-      setCircleoptions(defaultOptions);
-    }
+     
   };
 
   //Get list of keywords from user selected purpose
@@ -212,9 +196,25 @@ const Header = ({
   };
 
   //Compute directions to centerpoint
-  const getDirectionsToCenterPoint = (place) => {
+  async function getDirectionsToCenterPoint (place) {
     console.log(place.name)
-    alert('turn left and then walk straight')
+    console.log(place)
+    let getDirections = [];
+
+    for (let i = 0; i <= locations.length - 1; i++) {
+      const directionsService = new google.maps.DirectionsService();
+      const test = await directionsService.route({
+        origin: locations[i].geometry.location,
+        destination: place.geometry.location,
+
+        travelMode: google.maps.TravelMode.DRIVING,
+      });
+
+      getDirections.push(test);
+    }
+    setDirectionsResponse(getDirections);
+    // alert('turn left and then walk straight')
+  
   }
   return (
     <div>

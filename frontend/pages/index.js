@@ -72,6 +72,7 @@ const Home = () => {
         locations={locations}
         directionsResponse={directionsResponse}
         circleoptions={circleoptions}
+        results = {results}
       />
 
       {/* <PlaceDetail/> */}

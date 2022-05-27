@@ -16,11 +16,11 @@ import { useRef, useState } from "react";
 
 import { onLoad } from "./Header";
 
-function Map({ avgcoordinates, locations, directionsResponse, circleoptions }) {
+function Map({ avgcoordinates, locations, directionsResponse, circleoptions, results }) {
   const [map, setMap] = useState(/** @type google.maps.Map */(null));
 
   const colours = ["red", "black", "olive", "green", "blue", "indigo", "violet"];
-
+  results = JSON.parse(results)
 
   return (
     <Flex
@@ -50,23 +50,20 @@ function Map({ avgcoordinates, locations, directionsResponse, circleoptions }) {
           {directionsResponse && directionsResponse.map((direction, idx) => {
             if (idx >= 0) {
               return (
-                <div key = {idx}>
+                <div key={idx}>
                   <DirectionsRenderer directions={direction}
                     options={{
                       polylineOptions: { strokeColor: colours[idx] },
                       markerOptions: { icon: "null", opacaity: 0 }
                     }}
-                    key = {idx}
+                    key={idx}
                   />
-                  {circleoptions && (
-                  <Circle options={circleoptions} />
-                  )}
                 </div>
               );
             }
           })}
 
-          {locations.map((location, idx) => {
+          {locations && locations.map((location, idx) => {
             if (idx >= 0) {
               return (
                 <Marker
@@ -77,11 +74,35 @@ function Map({ avgcoordinates, locations, directionsResponse, circleoptions }) {
                   key={idx}
                   title={location.name}
                   label="😮"
-                  // draggable={true}
+                // draggable={true}
                 ></Marker>
               );
             }
           })}
+
+          {results && results.map((result, idx) => {
+            if (idx >= 0) {
+              return (
+                <div>
+                  <Marker
+                    position={{
+                      lat: result.geometry.location.lat,
+                      lng: result.geometry.location.lng,
+                    }}
+                    key={idx}
+                    title={result.name}
+                    icon="https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"
+                  // draggable={true}
+                  ></Marker>
+                  {circleoptions && (
+                    <Circle options={circleoptions} />
+                  )}
+                </div>
+              );
+            }
+
+          })}
+
         </GoogleMap>
       </Box>
     </Flex>
