@@ -23,8 +23,6 @@ app.config['SESSION_TYPE'] = 'filesystem'
 app.config['SECRET_KEY'] = SECRET_KEY
 
 #We should remove all these routing before submission of code
-
-
 @app.route('/testing' , methods = ["GET","POST"])
 def test2():
 	data = request.get_json()
@@ -33,15 +31,15 @@ def test2():
 
 
 @app.route('/test' , methods = ["GET","POST"])
-def test():
-	
-	# ADD ALGO HERE :-)
+def algorithm():
+
+	# Check Opening Hours of the Restaurant
 	def check_opening_hours(candidate_location_dict):
 		candidate_location_dict['opening_hours'] = candidate_location_dict['opening_hours'].astype(str)
 		candidate_location_dict = candidate_location_dict[candidate_location_dict["opening_hours"].str.contains('True') == True]
 		return candidate_location_dict
 
-	# function to convert address to (lat, long) format
+	# Converting address to (lat, long) format
 	def get_coordinates_from_address(address_string):
 		formatted_dict = json.loads(address_string)
 		# this part so hardcoded .. TODO: try to fix if possible
@@ -52,9 +50,9 @@ def test():
 		longitude = location_coordinates['lng']
 		return (latitude,longitude)
 
-	# function to get raw (x,y) value of initial centre point
+	# Getting raw (x,y) value of initial centre point
 	def find_central_point(location_list):
-		# location_list is a list of tuples (x,y) of coordinates
+		# Input location_list: List of tuples (x,y) of coordinates
 		total_x = 0
 		total_y = 0
 		count = 0
@@ -62,15 +60,15 @@ def test():
 			total_x += point[0]
 			total_y += point[1]
 			count += 1
-		# return a tuple of (x,y) coordinates 
+		# Return: Tuple of (x,y) coordinates 
 		return (total_x/count, total_y/count)
 
-	# function to use google API to get possible locations in json dictionary format
+	# Using Google API to get possible locations in json dictionary format
 	def find_candidate_google_locations(central_point, purpose):
-		# first, make the url string from the given central_point
+		# First, make the url string from the given central_point
 		radius = 50
 		no_of_locations = 0
-		# list of search phrases for each purpose
+		# List of search phrases for each purpose
 		searches = purpose
 		# if purpose == "Activities":
 		# 	searches = ["amusement_park",
@@ -89,7 +87,7 @@ def test():
 		# else:
 		# 	searches = ["gym", "park"]
 		while radius < 1000 and no_of_locations < 5:
-			# take into account the purpose of the meetup
+			# Take into account the purpose of the meetup
 			location_data = []
 			for i in searches:
 				url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + str(central_point[0]) + "%2C" + str(central_point[1]) + "&radius=" + str(radius) + "&type=" + str(i) + "&key=AIzaSyDPRi8jxCGzccPR34SkCjnEOh8F6ZKK_q0"
