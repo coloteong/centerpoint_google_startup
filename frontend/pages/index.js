@@ -21,6 +21,8 @@ const Home = () => {
   const [circleoptions, setCircleoptions] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [results, setResults] = useState(null);
+  const [radius, setRadius] = useState(500);
+
 
   useEffect(() => {
     // fetch user current location by prompting
@@ -63,6 +65,8 @@ const Home = () => {
         setResults={setResults}
         isLoading = {isLoading}
         setIsLoading = {setIsLoading}
+        radius = {radius}
+        setRadius = {setRadius}
       />
 
       {/* {results && <List places={results} isLoading={isLoading} />} */}
@@ -71,7 +75,8 @@ const Home = () => {
         avgcoordinates={avgcoordinates}
         locations={locations}
         directionsResponse={directionsResponse}
-        circleoptions={circleoptions}
+        // circleoptions={circleoptions}
+        radius = {radius}
         results = {results}
       />
 

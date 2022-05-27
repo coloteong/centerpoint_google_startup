@@ -35,6 +35,7 @@ import {
   BiRun,
   BiXCircle,
 } from "react-icons/bi";
+import { IoChevronUpSharp } from "react-icons/io5";
 
 const Header = ({
   locations,
@@ -49,24 +50,26 @@ const Header = ({
   setResults,
   isLoading,
   setIsLoading,
+  radius,
+  setRadius
 }) => {
   /** @type React.MutableRefObject<HTMLInputElement> */
   let enterLocation = useRef();
 
-  const defaultOptions = {
-    strokeOpacity: 0.5,
-    strokeWeight: 2,
-    center: avgcoordinates,
-    radius: 4000,
-    clickable: false,
-    draggable: false,
-    editable: false,
-    visible: true,
-    zIndex: 1,
-    fillOpacity: 0.05,
-    strokeColor: "#FF5252",
-    fillColor: "#FF5252",
-  };
+  // const defaultOptions = {
+  //   strokeOpacity: 0.5,
+  //   strokeWeight: 2,
+  //   center: avgcoordinates,
+  //   radius: radius,
+  //   clickable: false,
+  //   draggable: false,
+  //   editable: false,
+  //   visible: true,
+  //   zIndex: 1,
+  //   fillOpacity: 0.05,
+  //   strokeColor: "#FF5252",
+  //   fillColor: "#FF5252",
+  // };
 
   const [autocomplete, setAutocomplete] = useState(null);
   const restriction = { country: "sg" };
@@ -125,7 +128,7 @@ const Header = ({
     if (tempLocations.length === 0) {
       setAvgcoordinates({ lat: 1.347, lng: 103.79 });
       setDirectionsResponse([]);
-      setCircleoptions(defaultOptions);
+      setCircleoptions(null);
     }
   };
 
@@ -138,7 +141,7 @@ const Header = ({
     };
 
     fetch("http://127.0.0.1:8000/test", {
-    // fetch("http://centerpoint.lohseng.com:8000/test", {
+      // fetch("http://centerpoint.lohseng.com:8000/test", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -150,15 +153,23 @@ const Header = ({
       })
       .then((data) => {
         setResults(data);
-        
-        setCircleoptions(defaultOptions);
+
+        let maxRadius = 0;
+        data = JSON.parse(data)
+        data.forEach((place) => {
+
+          if (place.distance_from_center >= maxRadius) {
+            maxRadius = place.distance_from_center;
+          }
+        });
+        setRadius(Math.ceil(maxRadius * 1000) + 5)
       })
       .catch((error) => {
         console.error(error);
         console.log("error");
       });
 
-     
+
   };
 
   //Get list of keywords from user selected purpose
@@ -196,7 +207,7 @@ const Header = ({
   };
 
   //Compute directions to centerpoint
-  async function getDirectionsToCenterPoint (place) {
+  async function getDirectionsToCenterPoint(place) {
     console.log(place.name)
     console.log(place)
     let getDirections = [];
@@ -214,7 +225,7 @@ const Header = ({
     }
     setDirectionsResponse(getDirections);
     // alert('turn left and then walk straight')
-  
+
   }
   return (
     <div>
@@ -325,8 +336,8 @@ const Header = ({
         zIndex={1} // above the map
         overflow="hidden"
         rounded={"md"}
-        // px={2}
-        // py={12}
+      // px={2}
+      // py={12}
       >
         <AccordionItem>
           <h2>
@@ -372,7 +383,7 @@ const Header = ({
           </h2>
           <AccordionPanel pb={4}>
             {results != null ? (
-              <List places={results} isLoading={isLoading} getDirectionsToCenterPoint = {getDirectionsToCenterPoint}  />
+              <List places={results} isLoading={isLoading} getDirectionsToCenterPoint={getDirectionsToCenterPoint} />
             ) : (
               <Text fontSize="md" color="gray">
                 There are no results to display.

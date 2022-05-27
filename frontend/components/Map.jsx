@@ -16,11 +16,27 @@ import { useRef, useState } from "react";
 
 import { onLoad } from "./Header";
 
-function Map({ avgcoordinates, locations, directionsResponse, circleoptions, results }) {
+function Map({ avgcoordinates, locations, directionsResponse, radius, results }) {
   const [map, setMap] = useState(/** @type google.maps.Map */(null));
 
   const colours = ["red", "black", "olive", "green", "blue", "indigo", "violet"];
   results = JSON.parse(results)
+
+  const defaultOptions = {
+    strokeOpacity: 0.5,
+    strokeWeight: 2,
+    center: avgcoordinates,
+    radius: radius,
+    clickable: false,
+    draggable: false,
+    editable: false,
+    visible: true,
+    zIndex: 1,
+    fillOpacity: 0.05,
+    strokeColor: "#FF5252",
+    fillColor: "#FF5252",
+  };
+
 
   return (
     <Flex
@@ -44,7 +60,6 @@ function Map({ avgcoordinates, locations, directionsResponse, circleoptions, res
             // fullscreenControl: false,
           }}
           onLoad={(map) => setMap(map)}
-
         >
 
           {directionsResponse && directionsResponse.map((direction, idx) => {
@@ -94,8 +109,8 @@ function Map({ avgcoordinates, locations, directionsResponse, circleoptions, res
                     icon="https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"
                   // draggable={true}
                   ></Marker>
-                  {circleoptions && (
-                    <Circle options={circleoptions} />
+                  {defaultOptions && (
+                    <Circle options={defaultOptions} />
                   )}
                 </div>
               );
