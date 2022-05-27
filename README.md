@@ -3,8 +3,9 @@ This is our project submission for the Google Startups Hackathon in Singapore.
 Our project aims to help users find the closest location for meetups for people located in different places.
 
 ## Setup Procedure
-Our website is currently hosted on http://www.lohseng.com/centerpoint. If you would like to try our application, just click on the link!
-If you would like to reproduce our application locally and make any edits, please do the following steps:
+Our website is currently hosted on http://www.lohseng.com/centerpoint. If you would like to try our application, just click on the link! </br>
+
+If you would like to reproduce our application locally and make any edits, please do the following steps: 
 #### Note: Please input your own Google API key. For documentation on how to get your own Google API key: https://developers.google.com/maps/documentation/javascript/get-api-key
 1. Make a virtual environment for the project, either conda or venv, and then run `pip install -r requirements.txt` to install all packages needed.
 2. `cd frontend/` and then `npm install` to download all dependencies for the frontend.
