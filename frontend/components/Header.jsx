@@ -51,7 +51,9 @@ const Header = ({
   isLoading,
   setIsLoading,
   radius,
-  setRadius
+  setRadius,
+  zoomLevel,
+  setZoomLevel
 }) => {
   /** @type React.MutableRefObject<HTMLInputElement> */
   let enterLocation = useRef();
@@ -162,7 +164,34 @@ const Header = ({
             maxRadius = place.distance_from_center;
           }
         });
-        setRadius(Math.ceil(maxRadius * 1000) + 5)
+        let newRadius = Math.ceil(maxRadius * 1000) + 5;
+        setRadius(newRadius);
+
+        if (newRadius <= 50){
+          setZoomLevel(22);
+        }else if(newRadius <= 50){
+          setZoomLevel(21);
+        }else if(newRadius <= 100){
+          setZoomLevel(20);
+        }else if(newRadius <= 161){
+          setZoomLevel(19);
+        }else if(newRadius <= 250){
+          setZoomLevel(18);
+        }else if(newRadius <= 500){
+          setZoomLevel(17);
+        }else if(newRadius <= 1000){
+          setZoomLevel(16);
+        }else if(newRadius <= 5000){
+          setZoomLevel(15);
+        }else if(newRadius <= 20000){
+          setZoomLevel(14);
+        }else if(newRadius <= 200000){
+          setZoomLevel(13);
+        }else{
+          setZoomLevel(12);
+        }
+        console.log("largest radius is : " + newRadius);
+        console.log("zoom level is : " + zoomLevel);
       })
       .catch((error) => {
         console.error(error);
@@ -208,10 +237,7 @@ const Header = ({
 
   //Compute directions to centerpoint
   async function getDirectionsToCenterPoint(place) {
-    console.log(place.name)
-    console.log(place)
     let getDirections = [];
-
     for (let i = 0; i <= locations.length - 1; i++) {
       const directionsService = new google.maps.DirectionsService();
       const test = await directionsService.route({
@@ -225,6 +251,7 @@ const Header = ({
     }
     setDirectionsResponse(getDirections);
     // alert('turn left and then walk straight')
+    console.log (getDirections)
 
   }
   return (

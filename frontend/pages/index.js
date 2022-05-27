@@ -22,6 +22,7 @@ const Home = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [results, setResults] = useState(null);
   const [radius, setRadius] = useState(500);
+  const [zoomLevel, setZoomLevel] = useState(12);
 
 
   useEffect(() => {
@@ -67,6 +68,8 @@ const Home = () => {
         setIsLoading = {setIsLoading}
         radius = {radius}
         setRadius = {setRadius}
+        zoomLevel = {zoomLevel}
+        setZoomLevel = {setZoomLevel}
       />
 
       {/* {results && <List places={results} isLoading={isLoading} />} */}
@@ -78,6 +81,7 @@ const Home = () => {
         // circleoptions={circleoptions}
         radius = {radius}
         results = {results}
+        zoomLevel = {zoomLevel}
       />
 
       {/* <PlaceDetail/> */}

@@ -16,7 +16,7 @@ import { useRef, useState } from "react";
 
 import { onLoad } from "./Header";
 
-function Map({ avgcoordinates, locations, directionsResponse, radius, results }) {
+function Map({ avgcoordinates, locations, directionsResponse, radius, results, zoomLevel }) {
   const [map, setMap] = useState(/** @type google.maps.Map */(null));
 
   const colours = ["red", "black", "olive", "green", "blue", "indigo", "violet"];
@@ -51,7 +51,7 @@ function Map({ avgcoordinates, locations, directionsResponse, radius, results })
         <GoogleMap
           center={avgcoordinates}
           margin={[50, 50, 50, 50]}
-          zoom={12}
+          zoom={zoomLevel}
           mapContainerStyle={{ width: "100%", height: "100%" }}
           options={{
             // zoomControl: false, //true
@@ -69,7 +69,8 @@ function Map({ avgcoordinates, locations, directionsResponse, radius, results })
                   <DirectionsRenderer directions={direction}
                     options={{
                       polylineOptions: { strokeColor: colours[idx] },
-                      markerOptions: { icon: "null", opacaity: 0 }
+                      markerOptions: { icon: "null", opacaity: 0 },
+                      preserveViewport : true // disable zooming
                     }}
                     key={idx}
                   />
