@@ -10,6 +10,7 @@ import requests
 import json
 import pandas as pd
 import geopy.distance
+import random
 
 app = Flask(__name__)
 CORS(app)
@@ -125,7 +126,22 @@ def algorithm():
 			# result_df = check_opening_hours(result_df)
 			no_of_locations = final_loc_df.shape[0]
 			print("no of locations =", no_of_locations)
-			radius += 50
+			radius += 100
+			if radius == 1000:
+				if no_of_locations == 0:
+					url = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=" + \
+						str(searches[0]) + \
+						"%20in%20" + \
+						"Singapore%20Orchard&key=AIzaSyCCx4NGMtbdUwEoEkZlnnzkAOZTe4AfQK8"
+					payload={}
+					headers = {}
+					response = requests.request("GET", url, headers=headers, data=payload)
+					candidate_locations = response.text
+					formatted_candidate_locations = json.loads(candidate_locations)
+					final_loc_df = pd.DataFrame.from_dict(formatted_candidate_locations['results'])
+				return final_loc_df
+		# add if statement for 1-4 locations
+		# add another if statement for 0 locations
 		return final_loc_df
 
     # function to add distance from central column to dataframe with all locations
@@ -173,12 +189,16 @@ def algorithm():
 		# clean the dictionary to get a nice list of all locations
 		# dataframe includes name, rating, operating hrs, address, image
 		result_df = pd.DataFrame.from_dict(candidate_location_dict)
-		# print(result_df)
-		dataframe_locations = result_df[['name', 'rating', 'opening_hours', 'vicinity', 'geometry', 'photos', "user_ratings_total"]]
+		print("Result df", list(result_df))
+		# dataframe_locations = result_df[['name', 'rating', 'opening_hours', 'vicinity', 'geometry', 'photos', "user_ratings_total"]]
+		# can this be made dynamic? if any of the column names dont exist, skip
+		dataframe_locations = result_df[['name', 'rating', 'opening_hours', 'geometry', 'photos', "user_ratings_total"]]
 		locations_sorted_rating = dataframe_locations.sort_values(by = 'rating', ascending = False)
 		locations_sorted_rating = locations_sorted_rating.head(5)
 		locations_sorted_rating = get_distances_from_central(locations_sorted_rating, central_point)
 		# print(locations_sorted_rating)
+		promoted_locations = [random.randint(0,1) for _ in range(len(locations_sorted_rating.index))]
+		locations_sorted_rating['promoted'] = promoted_locations
 		json_formatted_locations = convert_dict_to_json(locations_sorted_rating)
 		return json_formatted_locations
 
