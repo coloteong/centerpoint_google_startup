@@ -101,7 +101,7 @@ function Map({ avgcoordinates, locations, directionsResponse, radius, results, z
           {results && results.map((result, idx) => {
             if (idx >= 0) {
               return (
-                <div>
+                <div key = {idx}>
                   <Marker
                     position={{
                       lat: result.geometry.location.lat,
