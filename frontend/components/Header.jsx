@@ -120,15 +120,15 @@ const Header = ({
     locations.forEach((location, idx) => {
       if (location.name != event.target.textContent) {
         tempLocations.push(location);
-        } else {
+      } else {
         //   // js help to remove the routes
-          var removeRoute = directionsResponse.splice(idx, 1);
-          setDirectionsResponse(directionsResponse);
+        var removeRoute = directionsResponse.splice(idx, 1);
+        setDirectionsResponse(directionsResponse);
       }
     });
     setLocations(tempLocations);
     setCircleoptions(null);
-   
+
 
     if (tempLocations.length === 0) {
       setAvgcoordinates({ lat: 1.347, lng: 103.79 });
@@ -245,21 +245,32 @@ const Header = ({
     setDirectionsResponse([]);
     for (let i = 0; i <= locations.length - 1; i++) {
       const directionsService = new google.maps.DirectionsService();
-      const test = await directionsService.route({
+      const direction = await directionsService.route({
         origin: locations[i].geometry.location,
         destination: place.geometry.location,
 
         travelMode: google.maps.TravelMode.DRIVING,
       });
-
-      getDirections.push(test);
+      getDirections.push(direction);
+      // let moves = direction.routes.legs.steps
+      let moves = direction.routes[0].legs[0].steps;
+      let distance = direction.routes[0].legs[0].distance.text;
+      let duration = direction.routes[0].legs[0].duration.text;
+      console.log("total distance is : " + distance);
+      console.log("total duration is : " + duration);
+      console.log("moves: ");
+      moves.forEach((move, idx) => {
+        console.log(move.instructions);
+        console.log(move.distance.text);
+        console.log(move.duration.text)
+      });
     }
     setDirectionsResponse(getDirections);
 
     // alert('turn left and then walk straight')
-    console.log(getDirections)
-
+    // console.log(getDirections)
     // change the selected place's marker to different marker icon
+
     if (typeof (fixedresults) === "string") {
       fixedresults = JSON.parse(fixedresults)
     }
