@@ -15,24 +15,15 @@ const places = [
 ];
 
 const Home = () => {
-  const [avgcoordinates, setAvgcoordinates] = useState([]);
+  const [avgcoordinates, setAvgcoordinates] = useState({ lat: 1.347, lng: 103.79 });
   const [locations, setLocations] = useState([]);
   const [directionsResponse, setDirectionsResponse] = useState([]);
   const [circleoptions, setCircleoptions] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [results, setResults] = useState(null);
+  const [selectedplace, setSelectedplace] = useState(null);
   const [radius, setRadius] = useState(500);
   const [zoomLevel, setZoomLevel] = useState(12);
-
-
-  useEffect(() => {
-    // fetch user current location by prompting
-    // navigator.geolocation.getCurrentPosition(({coords: {latitude, longitude}}) => {
-    //   avgcoordinates = {lat: latitude, lng: longitude}
-    avgcoordinates = { lat: 1.347, lng: 103.79 };
-    setAvgcoordinates(avgcoordinates);
-    // });
-  }, []);
 
   useEffect(() => {
     //console.log('type of results: ',typeof(results))
@@ -70,6 +61,8 @@ const Home = () => {
         setRadius = {setRadius}
         zoomLevel = {zoomLevel}
         setZoomLevel = {setZoomLevel}
+        selectedplace = {selectedplace}
+        setSelectedplace = {setSelectedplace}
       />
 
       {/* {results && <List places={results} isLoading={isLoading} />} */}
@@ -82,6 +75,7 @@ const Home = () => {
         radius = {radius}
         results = {results}
         zoomLevel = {zoomLevel}
+        selectedplace = {selectedplace}
       />
 
       {/* <PlaceDetail/> */}

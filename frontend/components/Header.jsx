@@ -53,7 +53,8 @@ const Header = ({
   radius,
   setRadius,
   zoomLevel,
-  setZoomLevel
+  setZoomLevel,
+  setSelectedplace
 }) => {
   /** @type React.MutableRefObject<HTMLInputElement> */
   let enterLocation = useRef();
@@ -75,6 +76,7 @@ const Header = ({
 
   const [autocomplete, setAutocomplete] = useState(null);
   const restriction = { country: "sg" };
+  const [fixedresults, setFixedResults] = useState(null);
 
   const list_of_purpose = [
     "Activities",
@@ -155,6 +157,7 @@ const Header = ({
       })
       .then((data) => {
         setResults(data);
+        setFixedResults(data);
 
         let maxRadius = 0;
         data = JSON.parse(data)
@@ -167,27 +170,27 @@ const Header = ({
         let newRadius = Math.ceil(maxRadius * 1000) + 5;
         setRadius(newRadius);
 
-        if (newRadius <= 50){
+        if (newRadius <= 50) {
           setZoomLevel(22);
-        }else if(newRadius <= 50){
+        } else if (newRadius <= 50) {
           setZoomLevel(21);
-        }else if(newRadius <= 100){
+        } else if (newRadius <= 100) {
           setZoomLevel(20);
-        }else if(newRadius <= 161){
+        } else if (newRadius <= 161) {
           setZoomLevel(19);
-        }else if(newRadius <= 250){
+        } else if (newRadius <= 250) {
           setZoomLevel(18);
-        }else if(newRadius <= 500){
+        } else if (newRadius <= 500) {
           setZoomLevel(17);
-        }else if(newRadius <= 1000){
+        } else if (newRadius <= 1000) {
           setZoomLevel(16);
-        }else if(newRadius <= 5000){
+        } else if (newRadius <= 5000) {
           setZoomLevel(15);
-        }else if(newRadius <= 20000){
+        } else if (newRadius <= 20000) {
           setZoomLevel(14);
-        }else if(newRadius <= 200000){
+        } else if (newRadius <= 200000) {
           setZoomLevel(13);
-        }else{
+        } else {
           setZoomLevel(12);
         }
         console.log("largest radius is : " + newRadius);
@@ -251,7 +254,23 @@ const Header = ({
     }
     setDirectionsResponse(getDirections);
     // alert('turn left and then walk straight')
-    console.log (getDirections)
+    console.log(fixedresults)
+
+    // change the selected place's marker to different marker icon
+    if (typeof (fixedresults) === "string") {
+      fixedresults = JSON.parse(fixedresults)
+    }
+    let tempResults = []
+    fixedresults.forEach((result, idx) => {
+      if (result.name != place.name) {
+        tempResults.push(result);
+      } else {
+        setSelectedplace(place)
+      }
+    });
+    setResults(tempResults);
+
+
 
   }
   return (
@@ -301,7 +320,7 @@ const Header = ({
               px={4}
               py={2}
               bg={"white"}
-              rounded={"full"}
+              rounded={"md"}
               ml={5} // margin left
               shadow="lg"
               cursor={"pointer"}
@@ -376,7 +395,7 @@ const Header = ({
             </AccordionButton>
           </h2>
           <AccordionPanel pb={4}>
-            {/**Remove location*/}
+            {/** Location*/}
             {locations.length != 0 ? (
               locations.map((location, idx) => {
                 return (
@@ -409,8 +428,8 @@ const Header = ({
             </AccordionButton>
           </h2>
           <AccordionPanel pb={4}>
-            {results != null ? (
-              <List places={results} isLoading={isLoading} getDirectionsToCenterPoint={getDirectionsToCenterPoint} />
+            {fixedresults != null ? (
+              <List places={fixedresults} isLoading={isLoading} getDirectionsToCenterPoint={getDirectionsToCenterPoint} />
             ) : (
               <Text fontSize="md" color="gray">
                 There are no results to display.

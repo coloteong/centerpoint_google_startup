@@ -16,11 +16,13 @@ import { useRef, useState } from "react";
 
 import { onLoad } from "./Header";
 
-function Map({ avgcoordinates, locations, directionsResponse, radius, results, zoomLevel }) {
+function Map({ avgcoordinates, locations, directionsResponse, radius, results, zoomLevel, selectedplace }) {
   const [map, setMap] = useState(/** @type google.maps.Map */(null));
 
   const colours = ["red", "black", "olive", "green", "blue", "indigo", "violet"];
-  results = JSON.parse(results)
+  if (typeof (results) === "string") {
+    results = JSON.parse(results)
+  }
 
   const defaultOptions = {
     strokeOpacity: 0.5,
@@ -70,7 +72,7 @@ function Map({ avgcoordinates, locations, directionsResponse, radius, results, z
                     options={{
                       polylineOptions: { strokeColor: colours[idx] },
                       markerOptions: { icon: "null", opacaity: 0 },
-                      preserveViewport : true // disable zooming
+                      preserveViewport: true // disable zooming
                     }}
                     key={idx}
                   />
@@ -110,6 +112,20 @@ function Map({ avgcoordinates, locations, directionsResponse, radius, results, z
                     icon="https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"
                   // draggable={true}
                   ></Marker>
+                  {selectedplace && (
+                    <Marker
+                      position={{
+                        lat: selectedplace.geometry.location.lat,
+                        lng: selectedplace.geometry.location.lng,
+                      }}
+                      title={selectedplace.name}
+                      label="😋"
+                    // draggable={true}
+                    ></Marker>
+
+                  )
+
+                  }
                   {defaultOptions && (
                     <Circle options={defaultOptions} />
                   )}
