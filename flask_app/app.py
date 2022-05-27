@@ -96,7 +96,7 @@ def algorithm():
 					str(central_point[1]) + "&radius=" + \
 					str(radius) + "&type=" + \
 					str(type) + \
-					"&key=AIzaSyDPRi8jxCGzccPR34SkCjnEOh8F6ZKK_q0"
+					"&key=AIzaSyCCx4NGMtbdUwEoEkZlnnzkAOZTe4AfQK8"
 				print(url)
 				payload={}
 				headers = {}

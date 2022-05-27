@@ -120,14 +120,15 @@ const Header = ({
     locations.forEach((location, idx) => {
       if (location.name != event.target.textContent) {
         tempLocations.push(location);
-        // } else {
+        } else {
         //   // js help to remove the routes
-        //   var removeRoute = tempRoutes.splice(idx, 1);
+          var removeRoute = directionsResponse.splice(idx, 1);
+          setDirectionsResponse(directionsResponse);
       }
     });
     setLocations(tempLocations);
     setCircleoptions(null);
-    // setDirectionsResponse(directionsResponse);
+   
 
     if (tempLocations.length === 0) {
       setAvgcoordinates({ lat: 1.347, lng: 103.79 });
@@ -144,8 +145,8 @@ const Header = ({
       locations: locations,
     };
 
-    fetch("http://127.0.0.1:8000/test", {
-      // fetch("http://centerpoint.lohseng.com:8000/test", {
+    // fetch("http://127.0.0.1:8000/test", {
+      fetch("http://centerpoint.lohseng.com:8000/test", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -241,6 +242,7 @@ const Header = ({
   //Compute directions to centerpoint
   async function getDirectionsToCenterPoint(place) {
     let getDirections = [];
+    setDirectionsResponse([]);
     for (let i = 0; i <= locations.length - 1; i++) {
       const directionsService = new google.maps.DirectionsService();
       const test = await directionsService.route({
@@ -253,8 +255,9 @@ const Header = ({
       getDirections.push(test);
     }
     setDirectionsResponse(getDirections);
+
     // alert('turn left and then walk straight')
-    console.log(fixedresults)
+    console.log(getDirections)
 
     // change the selected place's marker to different marker icon
     if (typeof (fixedresults) === "string") {
@@ -269,10 +272,8 @@ const Header = ({
       }
     });
     setResults(tempResults);
-
-
-
   }
+
   return (
     <div>
       {/* Enter location, choose purpose and submit button*/}

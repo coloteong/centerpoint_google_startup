@@ -89,7 +89,7 @@ const PlaceDetail = ({ place, getDirectionsToCenterPoint }) => {
           rounded="lg"
           src={
             place.photos
-              ? "https:///maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=" + place.photos[0].photo_reference + "&key=" + "AIzaSyDPRi8jxCGzccPR34SkCjnEOh8F6ZKK_q0"
+              ? "https:///maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=" + place.photos[0].photo_reference + "&key=" + "AIzaSyCCx4NGMtbdUwEoEkZlnnzkAOZTe4AfQK8"
               : "https://firebasestorage.googleapis.com/v0/b/cz3002-5e843.appspot.com/o/64818931817.png?alt=media"
           }
         />
