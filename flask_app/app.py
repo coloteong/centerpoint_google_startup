@@ -96,19 +96,24 @@ def algorithm():
 					str(central_point[1]) + "&radius=" + \
 					str(radius) + "&type=" + \
 					str(type) + \
+<<<<<<< Updated upstream
 					"&key=AIzaSyCCx4NGMtbdUwEoEkZlnnzkAOZTe4AfQK8"
 				print(url)
+=======
+					"&key=AIzaSyDPRi8jxCGzccPR34SkCjnEOh8F6ZKK_q0"
+				# print(url)
+>>>>>>> Stashed changes
 				payload={}
 				headers = {}
 				response = requests.request("GET", url, headers=headers, data=payload)
 				candidate_locations = response.text
 				formatted_candidate_locations = json.loads(candidate_locations)
-				print("Formatted location", formatted_candidate_locations)
+				# print("Formatted location", formatted_candidate_locations)
 				location_data.append(formatted_candidate_locations)
 			
-			print(":-):", location_data[0]['results'])
+			# print(":-):", location_data[0]['results'])
 			final_loc_df = pd.DataFrame.from_dict(location_data[0]['results'])
-			print("final_loc_df",final_loc_df)
+			# print("final_loc_df",final_loc_df)
 			location_data.pop(0)
 			
 			for i in location_data:
@@ -120,7 +125,7 @@ def algorithm():
 			# result_df = pd.DataFrame.from_dict(formatted_candidate_locations['results'])
 			# final_loc_df = pd.DataFrame(location_data)
 			# add checking for whether location is open
-			print("Result df: ", list(final_loc_df))
+			# print("Result df: ", list(final_loc_df))
 			# CLAUDIA LOOK AT THIS!!! OI!!!!! teehee
 			# result_df = check_opening_hours(result_df)
 			no_of_locations = final_loc_df.shape[0]
@@ -173,12 +178,12 @@ def algorithm():
 		# clean the dictionary to get a nice list of all locations
 		# dataframe includes name, rating, operating hrs, address, image
 		result_df = pd.DataFrame.from_dict(candidate_location_dict)
-		print(result_df)
+		# print(result_df)
 		dataframe_locations = result_df[['name', 'rating', 'opening_hours', 'vicinity', 'geometry', 'photos', "user_ratings_total"]]
 		locations_sorted_rating = dataframe_locations.sort_values(by = 'rating', ascending = False)
 		locations_sorted_rating = locations_sorted_rating.head(5)
 		locations_sorted_rating = get_distances_from_central(locations_sorted_rating, central_point)
-		print(locations_sorted_rating)
+		# print(locations_sorted_rating)
 		json_formatted_locations = convert_dict_to_json(locations_sorted_rating)
 		return json_formatted_locations
 
@@ -195,12 +200,13 @@ def algorithm():
 	# Flask cannot return lists; converts the list into a JSON string
 
 	data = request.get_json()
+	print("current data", data)
 	output_coord = get_multiple_coordinates_from_json(data)
-	print(output_coord)
+	# print(output_coord)
 	init_center_point = find_central_point(output_coord)
-	print(init_center_point)
-	init_goog_locs = find_candidate_google_locations(init_center_point, ['restaurant'])
-	print(init_goog_locs)
+	# print(init_center_point)
+	init_goog_locs = find_candidate_google_locations(init_center_point, data['purpose'])
+	# print(init_goog_locs)
 	final_goog_locs = determine_final_google_location (init_goog_locs, init_center_point)
 	print(final_goog_locs)
 
