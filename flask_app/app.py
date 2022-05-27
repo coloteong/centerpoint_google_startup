@@ -89,8 +89,14 @@ def algorithm():
 		while radius < 1000 and no_of_locations < 5:
 			# Take into account the purpose of the meetup
 			location_data = []
-			for i in searches:
-				url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + str(central_point[0]) + "%2C" + str(central_point[1]) + "&radius=" + str(radius) + "&type=" + str(i) + "&key=AIzaSyDPRi8jxCGzccPR34SkCjnEOh8F6ZKK_q0"
+			for type in searches:
+				print('current search' , type)
+				url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + \
+					str(central_point[0]) + "%2C" + \
+					str(central_point[1]) + "&radius=" + \
+					str(radius) + "&type=" + \
+					str(type) + \
+					"&key=AIzaSyDPRi8jxCGzccPR34SkCjnEOh8F6ZKK_q0"
 				print(url)
 				payload={}
 				headers = {}
@@ -99,6 +105,7 @@ def algorithm():
 				formatted_candidate_locations = json.loads(candidate_locations)
 				print("Formatted location", formatted_candidate_locations)
 				location_data.append(formatted_candidate_locations)
+			
 			print(":-):", location_data[0]['results'])
 			final_loc_df = pd.DataFrame.from_dict(location_data[0]['results'])
 			print("final_loc_df",final_loc_df)
@@ -134,7 +141,7 @@ def algorithm():
 		distance_list = []
 		for item in coordinate_list:
 			distance_list.append(distance_between_two_points(item, central_point))
-		locations_sorted_rating['Distance from centre'] = distance_list
+		locations_sorted_rating['distance_from_center] = distance_list
 		return locations_sorted_rating
 
 	# function to parse multiple coordinates from a json containing multiple locations
@@ -192,7 +199,7 @@ def algorithm():
 	print(output_coord)
 	init_center_point = find_central_point(output_coord)
 	print(init_center_point)
-	init_goog_locs = find_candidate_google_locations(init_center_point, 'restaurant')
+	init_goog_locs = find_candidate_google_locations(init_center_point, ['restaurant'])
 	print(init_goog_locs)
 	final_goog_locs = determine_final_google_location (init_goog_locs, init_center_point)
 	print(final_goog_locs)
