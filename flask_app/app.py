@@ -141,7 +141,7 @@ def algorithm():
 		distance_list = []
 		for item in coordinate_list:
 			distance_list.append(distance_between_two_points(item, central_point))
-		locations_sorted_rating['distance_from_center] = distance_list
+		locations_sorted_rating['distance_from_center'] = distance_list
 		return locations_sorted_rating
 
 	# function to parse multiple coordinates from a json containing multiple locations
