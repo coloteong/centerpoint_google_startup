@@ -96,13 +96,8 @@ def algorithm():
 					str(central_point[1]) + "&radius=" + \
 					str(radius) + "&type=" + \
 					str(type) + \
-<<<<<<< Updated upstream
 					"&key=AIzaSyCCx4NGMtbdUwEoEkZlnnzkAOZTe4AfQK8"
-				print(url)
-=======
-					"&key=AIzaSyDPRi8jxCGzccPR34SkCjnEOh8F6ZKK_q0"
-				# print(url)
->>>>>>> Stashed changes
+				#print(url)
 				payload={}
 				headers = {}
 				response = requests.request("GET", url, headers=headers, data=payload)
