@@ -16,8 +16,8 @@ After that, the URL should be listed in the terminal and clicking on the URL sho
 
 ## Tools Used
 APIs:
-Google Places API - Mainly used to get location coordinates and attributes of user-chosen locations and generate final chosen location by our application
-Google Directions API - Used to list directions to suggested locations from user-chosen starting locations
+- Google Places API - Mainly used to get location coordinates and attributes of user-chosen locations and generate final chosen location by our application
+- Google Directions API - Used to list directions to suggested locations from user-chosen starting locations
 
 ## Languages Used
 Python - Backend algorithm to obtain locations, calculate best meetup location
