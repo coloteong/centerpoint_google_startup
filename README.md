@@ -7,7 +7,6 @@ Our website is currently hosted on [CenterPoint](http://www.lohseng.com/centerpo
 
 If you would like to reproduce our application locally and make any edits, please do the following steps: 
 #### Note: Please input your own Google API key. For documentation on how to get your own Google API key:  [Google Developers](https://developers.google.com/maps/documentation/javascript/get-api-key)
-</br>
 1. Clone the repository or download the project code to your preferred disk location.
 2. Open two terminal windows and change the directory to the appropriate disk location.
 3. Make a virtual environment for the project through conda or venv. 
@@ -46,6 +45,7 @@ http://192.168.1.2:3000
 APIs:
 - Google Places API - Mainly used to get location coordinates and attributes of user-chosen locations and generate final chosen location by our application
 - Google Directions API - Used to list directions to suggested locations from user-chosen starting locations
+- Google Maps JavaScript API - ????
 
 ## Languages Used
 Python - Backend algorithm to obtain locations, calculate best meetup location. Communications between the backend and frontend.
