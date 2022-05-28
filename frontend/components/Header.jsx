@@ -18,6 +18,7 @@ import {
   AccordionItem,
   Accordion,
   Text,
+  Tooltip
 } from "@chakra-ui/react";
 
 import { Autocomplete } from "@react-google-maps/api";
@@ -311,7 +312,7 @@ const Header = ({
             onPlaceChanged={onPlaceChanged}
             restrictions={restriction}
           >
-            <InputGroup width={"35vw"} shadow="lg">
+            <InputGroup width={"31.7vw"} shadow="lg"  >
               <InputRightElement
                 pointerEvents={"none"}
                 children={<BiSearch color="gray" fontSize={20} />}
@@ -324,13 +325,60 @@ const Header = ({
                 fontSize={18}
                 bg={"white"}
                 color={"gray.700"}
-                _hover={{ bg: "whiteAlpha.800" }}
-                _focus={{ bg: "whiteAlpha.800" }}
+                _hover={{ bg: "whiteAlpha" }}
+                _focus={{ bg: "whiteAlpha" }}
                 _placeholder={{ color: "gray.400" }}
                 ref={enterLocation}
+                roundedEnd={0}
+                borderEndColor={"gray.500"}
               />
             </InputGroup>
           </Autocomplete>
+
+          {/* History */}
+          <Flex alignItems={"center"} justifyContent={"center"}>
+            <Flex
+              alignItems={"center"}
+              justifyContent={"center"}
+              // px={1}
+              py={2}
+              bg={"white"}
+              shadow="lg"
+              cursor={"pointer"}
+              roundedEnd={"md"}
+              borderEndRadius={"md"}
+            >
+              <Menu>
+                <Tooltip label='History' placement='top-start'>
+                  <MenuButton
+                    bg={"white"}
+                    as={Button}
+                    size="xs"
+                  >
+                    <BiHistory fontSize={25} />
+                  </MenuButton>
+                </Tooltip>
+                <MenuList>
+                  {list_of_purpose.map((purpose, idx) => {
+                    return (
+                      <MenuItem
+                        key={idx}
+                        value={"candy jiejie easteregg"}
+                        onClick={(event) => {
+                          event.preventDefault();
+                          setPurpose(event.target.value);
+                        }}
+                      >
+                        {/* {purpose} */}
+                        topkek
+                      </MenuItem>
+                    );
+                  })}
+                </MenuList>
+              </Menu>
+            </Flex>
+          </Flex>
+
           {/**Purpose dropdown list*/}
           <Flex alignItems={"center"} justifyContent={"center"}>
             <Flex
@@ -345,21 +393,23 @@ const Header = ({
               cursor={"pointer"}
             >
               <Menu>
-                <MenuButton
-                  bg={"white"}
-                  as={Button}
-                  rounded={"full"}
-                  size="xs"
-                  width={"17.6vw"}
-                  fontSize={"15"}
-                  rightIcon={<BiChevronDown fontSize={25}/>}
-                  leftIcon = {(purpose === "Activities" && <BiDirections fontSize={20} />) ||
-                  (purpose === "Food" && <BiRestaurant fontSize={20} />) ||
-                  (purpose === "Hotels & Staycations" && <BiHotel fontSize={20} />) ||
-                  (purpose === "Sports & Fitness" && <BiRun fontSize={20} />)}
-                >
-                  {purpose}
-                </MenuButton>
+                <Tooltip label='Purpose' placement='top'>
+                  <MenuButton
+                    bg={"white"}
+                    as={Button}
+                    rounded={"full"}
+                    size="xs"
+                    width={"17.6vw"}
+                    fontSize={"15"}
+                    rightIcon={<BiChevronDown fontSize={25} />}
+                    leftIcon={(purpose === "Activities" && <BiDirections fontSize={20} />) ||
+                      (purpose === "Food" && <BiRestaurant fontSize={20} />) ||
+                      (purpose === "Hotels & Staycations" && <BiHotel fontSize={20} />) ||
+                      (purpose === "Sports & Fitness" && <BiRun fontSize={20} />)}
+                  >
+                    {purpose}
+                  </MenuButton>
+                </Tooltip>
                 <MenuList>
                   {list_of_purpose.map((purpose, idx) => {
                     return (
@@ -388,12 +438,15 @@ const Header = ({
         <Flex>
           {/**Submit button*/}
           <Button
-            bg={"white"}
-            py = {2}
+            bg={"purple.700"}
+            py={2}
             ml={4} // margin left
             onClick={handleSubmit}
             isLoading={isLoading}
             fontSize={"15"}
+            color="white"
+            _hover={{ bg: "purple" }}
+            _focus={{ bg: "purple" }}
           >
             Submit
           </Button>
@@ -471,7 +524,7 @@ const Header = ({
           </AccordionPanel>
         </AccordionItem>
       </Accordion>
-    </div>
+    </div >
   );
 };
 
