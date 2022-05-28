@@ -48,8 +48,9 @@ APIs:
 
 ## Languages Used
 Python - Backend algorithm to obtain locations, calculate best meetup location. Communications between the backend and frontend.
+</br>
 ReactJS - Frontend 
-<TO WRITE>
+### TO WRITE
 
 ## Packages Used
 Algorithm:
