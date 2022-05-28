@@ -192,7 +192,8 @@ def algorithm():
 		locations_sorted_rating = locations_sorted_rating.head(5)
 		locations_sorted_rating = get_distances_from_central(locations_sorted_rating, central_point)
 		# print(locations_sorted_rating)
-		promoted_locations = [random.randint(0,1) for _ in range(len(locations_sorted_rating.index))]
+		promoted_locations = [int(0) for _ in range(len(locations_sorted_rating.index))]
+		promoted_locations[0] = int(1)
 		locations_sorted_rating['promoted'] = promoted_locations
 		json_formatted_locations = convert_dict_to_json(locations_sorted_rating)
 		return json_formatted_locations
