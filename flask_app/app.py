@@ -1,3 +1,4 @@
+from hashlib import new
 from flask import Flask, request, flash, send_file, render_template, Response, jsonify
 from werkzeug.utils import secure_filename
 from datetime import datetime
@@ -129,18 +130,11 @@ def algorithm():
 			radius += 100
 			if radius >= 1000:
 				if no_of_locations == 0:
-					url = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=" + \
-						str(searches[0]) + \
-						"%20in%20" + \
-						"Singapore%20Orchard&key=AIzaSyCCx4NGMtbdUwEoEkZlnnzkAOZTe4AfQK8"
-					print('url since places = 0', url)
-					payload={}
-					headers = {}
-					response = requests.request("GET", url, headers=headers, data=payload)
-					candidate_locations = response.text
-					formatted_candidate_locations = json.loads(candidate_locations)
-					final_loc_df = pd.DataFrame.from_dict(formatted_candidate_locations['results'])
-				return final_loc_df
+					singapore_central_point = (1.347, 103.79)
+					new_central_point = find_central_point([[singapore_central_point, central_point]])
+					central_point = new_central_point
+					radius = 0
+				# return final_loc_df
 		# add if statement for 1-4 locations
 		# add another if statement for 0 locations
 		return final_loc_df
