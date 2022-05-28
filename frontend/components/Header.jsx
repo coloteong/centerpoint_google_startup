@@ -28,12 +28,12 @@ import {
   BiSearch,
   BiFilter,
   BiChevronDown,
-  BiRestaurant,
-  BiShoppingBag,
-  BiHeartCircle,
-  BiDirections,
-  BiRun,
+  BiRestaurant, // food
+  BiHotel, // hotels and staycation
+  BiDirections, //activities
+  BiRun, //sports
   BiXCircle,
+  BiHistory
 } from "react-icons/bi";
 import { IoChevronUpSharp } from "react-icons/io5";
 
@@ -336,7 +336,7 @@ const Header = ({
             <Flex
               alignItems={"center"}
               justifyContent={"center"}
-              px={4}
+              px={1}
               py={2}
               bg={"white"}
               rounded={"md"}
@@ -346,11 +346,17 @@ const Header = ({
             >
               <Menu>
                 <MenuButton
-                  //isActive={true}
                   bg={"white"}
                   as={Button}
                   rounded={"full"}
-                  rightIcon={<BiChevronDown fontSize={25} />}
+                  size="xs"
+                  width={"17.6vw"}
+                  fontSize={"15"}
+                  rightIcon={<BiChevronDown fontSize={25}/>}
+                  leftIcon = {(purpose === "Activities" && <BiDirections fontSize={20} />) ||
+                  (purpose === "Food" && <BiRestaurant fontSize={20} />) ||
+                  (purpose === "Hotels & Staycations" && <BiHotel fontSize={20} />) ||
+                  (purpose === "Sports & Fitness" && <BiRun fontSize={20} />)}
                 >
                   {purpose}
                 </MenuButton>
@@ -364,6 +370,10 @@ const Header = ({
                           event.preventDefault();
                           setPurpose(event.target.value);
                         }}
+                        icon={(purpose === "Activities" && <BiDirections fontSize={20} />) ||
+                          (purpose === "Food" && <BiRestaurant fontSize={20} />) ||
+                          (purpose === "Hotels & Staycations" && <BiHotel fontSize={20} />) ||
+                          (purpose === "Sports & Fitness" && <BiRun fontSize={20} />)}
                       >
                         {purpose}
                       </MenuItem>
@@ -379,9 +389,11 @@ const Header = ({
           {/**Submit button*/}
           <Button
             bg={"white"}
+            py = {2}
             ml={4} // margin left
             onClick={handleSubmit}
             isLoading={isLoading}
+            fontSize={"15"}
           >
             Submit
           </Button>

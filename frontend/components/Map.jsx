@@ -59,7 +59,7 @@ function Map({ avgcoordinates, locations, directionsResponse, radius, results, z
             // zoomControl: false, //true
             streetViewControl: false,
             mapTypeControl: false,
-            // fullscreenControl: false,
+            fullscreenControl: false,
           }}
           onLoad={(map) => setMap(map)}
         >
