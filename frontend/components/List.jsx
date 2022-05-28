@@ -55,12 +55,14 @@ const List = ({ places, isLoading, getDirectionsToCenterPoint }) => {
         
         let firstcolour = "whiteAlpha.900";
         let secondcolour = "gray.100";
+        let isAd = 0;
         if (idx === 0) { // promoted
-          firstcolour = "gray.300" 
-          secondcolour = "gray.200"
+          firstcolour = "gray.300" ;
+          secondcolour = "gray.200";
+          isAd = 25;
         }
         return (
-          <PlaceDetail place={place} key={idx} firstcolour={firstcolour} secondcolour = {secondcolour} getDirectionsToCenterPoint={getDirectionsToCenterPoint} />
+          <PlaceDetail place={place} key={idx} firstcolour={firstcolour} secondcolour = {secondcolour} isAd = {isAd} getDirectionsToCenterPoint={getDirectionsToCenterPoint} />
         )
       })}
     </Flex>

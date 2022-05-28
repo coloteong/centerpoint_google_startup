@@ -3,11 +3,15 @@ import { Rating } from "@material-ui/lab";
 import React from "react";
 import { IoLocation } from "react-icons/io5";
 import { useEffect, useState } from "react";
+import {RiAdvertisementFill} from "react-icons/ri";
+import { config } from "../pages/config";
 
-const PlaceDetail = ({ place, firstcolour, secondcolour, getDirectionsToCenterPoint }) => {
+const PlaceDetail = ({ place, firstcolour, secondcolour, isAd, getDirectionsToCenterPoint }) => {
 
   const [isSelected, setIsSelected] = useState(false);
   let is_open = (place.opening_hours != null) ? ((place.opening_hours.open_now) ? "Open Now" : "Closed Now") : "Opening hours not available"
+  
+  const api_key = config.REACT_APP_MAPS_API_KEY;
 
   return (
     <Flex
@@ -44,6 +48,7 @@ const PlaceDetail = ({ place, firstcolour, secondcolour, getDirectionsToCenterPo
               isTruncated
             >
               {place.name}
+              <RiAdvertisementFill fontSize={isAd} color = "purple" />
             </Text>
 
             <Text fontSize={"sm"} fontWeight={"500"} color={"gray.500"}>
@@ -87,7 +92,7 @@ const PlaceDetail = ({ place, firstcolour, secondcolour, getDirectionsToCenterPo
           rounded="lg"
           src={
             place.photos
-              ? "https:///maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=" + place.photos[0].photo_reference + "&key=" + "AIzaSyCCx4NGMtbdUwEoEkZlnnzkAOZTe4AfQK8"
+              ? "https:///maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=" + place.photos[0].photo_reference + "&key=" + api_key
               : "https://firebasestorage.googleapis.com/v0/b/cz3002-5e843.appspot.com/o/64818931817.png?alt=media"
           }
         />
