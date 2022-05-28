@@ -7,10 +7,28 @@ Our website is currently hosted on http://www.lohseng.com/centerpoint. If you wo
 
 If you would like to reproduce our application locally and make any edits, please do the following steps: 
 #### Note: Please input your own Google API key. For documentation on how to get your own Google API key: https://developers.google.com/maps/documentation/javascript/get-api-key
-1. Make a virtual environment for the project, either conda or venv, and then run `pip install -r requirements.txt` to install all packages needed.
-2. `cd frontend/` and then `npm install` to download all dependencies for the frontend.
-3. While in the `frontend` dir, run `npm run dev` to compile all frontend scripts.
-4. In another terminal window, `cd flask_app` and then `python3 app.py` to start the Flask server.
+1. Clone the repository or download the project code to your preferred disk location.
+2. Open two terminal windows and change the directory to the appropriate disk location.
+3. Make a virtual environment for the project through conda or venv. 
+4. To install all packages needed, execute the command:
+```
+$ pip install -r requirements.txt
+```
+6. In one terminal window, change the directory to the ``frontend`` folder and download all the dependencies required by executing these commands:
+```
+$ cd frontend
+$ npm install
+```
+7. To compile all frontend scripts and run the , execute this command:
+```
+$ npm run dev
+```
+8. In another terminal window, exectue these commands to start the Flask Server:
+```
+$ cd flask_app
+$ python3 app.py
+```
+9. If either server could not be connected, please disable your network firewall and/or enable port 3000 and 8000 for both inbound and outbound traffic.
 </br> 
 After that, the URL should be listed in the terminal and clicking on the URL should lead you to the working application.
 
