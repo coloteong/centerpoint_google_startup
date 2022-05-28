@@ -49,12 +49,18 @@ const List = ({ places, isLoading, getDirectionsToCenterPoint }) => {
       direction={"column"}
       overflowY={"scroll"}
       height="71vh"
-
-
     >
+
       {places && places.map((place, idx) => {
+        
+        let firstcolour = "whiteAlpha.900";
+        let secondcolour = "gray.100";
+        if (idx === 0) { // promoted
+          firstcolour = "gray.300" 
+          secondcolour = "gray.200"
+        }
         return (
-          <PlaceDetail place={place} key={idx} getDirectionsToCenterPoint={getDirectionsToCenterPoint} />
+          <PlaceDetail place={place} key={idx} firstcolour={firstcolour} secondcolour = {secondcolour} getDirectionsToCenterPoint={getDirectionsToCenterPoint} />
         )
       })}
     </Flex>

@@ -4,16 +4,14 @@ import React from "react";
 import { IoLocation } from "react-icons/io5";
 import { useEffect, useState } from "react";
 
-const PlaceDetail = ({ place, getDirectionsToCenterPoint }) => {
+const PlaceDetail = ({ place, firstcolour, secondcolour, getDirectionsToCenterPoint }) => {
 
-  const [ isSelected, setIsSelected ] = useState(false); 
-  
-
-  let is_open = (place.opening_hours != null) ? ( (place.opening_hours.open_now)? "Open Now" : "Closed Now" ): "Opening hours not available" 
+  const [isSelected, setIsSelected] = useState(false);
+  let is_open = (place.opening_hours != null) ? ((place.opening_hours.open_now) ? "Open Now" : "Closed Now") : "Opening hours not available"
 
   return (
     <Flex
-      bg={ isSelected ? "gray.200" : "whiteAlpha.900" }
+      bg={isSelected ? secondcolour : firstcolour}
       px={4}
       py={2}
       mb={2}
@@ -21,9 +19,9 @@ const PlaceDetail = ({ place, getDirectionsToCenterPoint }) => {
       direction={"column"}
       alignItems={"start"}
       justifyContent="space-between"
-      onMouseOver={() => {setIsSelected(true)}}
-      onMouseLeave={() => {setIsSelected(false)}}
-      onClick = {() => {getDirectionsToCenterPoint(place)}}
+      onMouseOver={() => { setIsSelected(true) }}
+      onMouseLeave={() => { setIsSelected(false) }}
+      onClick={() => { getDirectionsToCenterPoint(place) }}
     >
       <Flex justifyContent={"space-between"} width="full">
         <Flex
