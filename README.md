@@ -6,7 +6,8 @@ Our project aims to help users find the closest central location for meetups for
 Our website is currently hosted on [CenterPoint](http://www.lohseng.com/centerpoint). If you would like to try our application, just click on the link! </br>
 
 If you would like to reproduce our application locally and make any edits, please do the following steps: 
-#### Note: Please input your own Google API key. For documentation on how to get your own Google API key: https://developers.google.com/maps/documentation/javascript/get-api-key
+#### Note: Please input your own Google API key. For documentation on how to get your own Google API key:  [Google Developers](https://developers.google.com/maps/documentation/javascript/get-api-key)
+</br>
 1. Clone the repository or download the project code to your preferred disk location.
 2. Open two terminal windows and change the directory to the appropriate disk location.
 3. Make a virtual environment for the project through conda or venv. 
