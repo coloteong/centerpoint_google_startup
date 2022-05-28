@@ -6,12 +6,18 @@ import { useEffect, useState } from "react";
 import {RiAdvertisementFill} from "react-icons/ri";
 import { config } from "../pages/config";
 
-const PlaceDetail = ({ place, firstcolour, secondcolour, isAd, getDirectionsToCenterPoint }) => {
+const PlaceDetail = ({ place, firstcolour, secondcolour, isAd, getDirectionsToCenterPoint, placePressed, setPlacePressed, placePressedID, setPlacePressed}) => {
 
   const [isSelected, setIsSelected] = useState(false);
   let is_open = (place.opening_hours != null) ? ((place.opening_hours.open_now) ? "Open Now" : "Closed Now") : "Opening hours not available"
   
   const api_key = config.REACT_APP_MAPS_API_KEY;
+
+  const handlePressed = (event) => {
+    event.preventDefault();
+    getDirectionsToCenterPoint(place)
+    setPlacePressed(true)
+  }
 
   return (
     <Flex
@@ -25,7 +31,7 @@ const PlaceDetail = ({ place, firstcolour, secondcolour, isAd, getDirectionsToCe
       justifyContent="space-between"
       onMouseOver={() => { setIsSelected(true) }}
       onMouseLeave={() => { setIsSelected(false) }}
-      onClick={() => { getDirectionsToCenterPoint(place) }}
+      onClick={handlePressed}
     >
       <Flex justifyContent={"space-between"} width="full">
         <Flex

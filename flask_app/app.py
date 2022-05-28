@@ -100,7 +100,6 @@ def algorithm():
 					str(radius) + "&type=" + \
 					str(type) + \
 					str(apikey.KEY)
-				print("url", url)
 				payload={}
 				headers = {}
 				response = requests.request("GET", url, headers=headers, data=payload)

@@ -3,7 +3,11 @@ import React, { useEffect } from 'react'
 import PlaceDetail from "./PlaceDetail";
 
 
-const List = ({ places, isLoading, getDirectionsToCenterPoint }) => {
+const List = ({ places, isLoading, getDirectionsToCenterPoint, suggestedPlacePressed, setSuggestedPlacePressed, suggestedPlacePressedID, setSuggestedPlacePressedID }) => {
+  
+  const [placePressed, setPlacePressed] = useState(null)
+  const [placePressedID, setPlacePressedID] = useState('')
+  
   if (typeof (places) === "string") {
     places = JSON.parse(places)
   }
@@ -45,7 +49,19 @@ const List = ({ places, isLoading, getDirectionsToCenterPoint }) => {
     );
 
   return (
-    <Flex
+    <Fragment>
+      {/**WHen user selects one of the suggested place */}
+      {placePressed? 
+      <Flex
+      direction={"column"}
+      oplacePressedverflowY={"scroll"}
+      height="71vh">
+          
+
+          
+      </Flex>
+      :
+      <Flex
       direction={"column"}
       overflowY={"scroll"}
       height="71vh"
@@ -62,10 +78,25 @@ const List = ({ places, isLoading, getDirectionsToCenterPoint }) => {
           isAd = 25;
         }
         return (
-          <PlaceDetail place={place} key={idx} firstcolour={firstcolour} secondcolour = {secondcolour} isAd = {isAd} getDirectionsToCenterPoint={getDirectionsToCenterPoint} />
+          <PlaceDetail place={place} 
+          key={idx} firstcolour={firstcolour} 
+          secondcolour = {secondcolour} 
+          isAd = {isAd} 
+          getDirectionsToCenterPoint={getDirectionsToCenterPoint} 
+          placePressed = {placePressed}
+          setPlacePressed = {setPlacePressed}
+          placePressedID = {placePressedID}
+          setPlacePressedID = {setPlacePressedID} />
         )
       })}
     </Flex>
+      }
+      
+
+
+    </Fragment>
+    
+    
     // <Flex
     //   direction={"column"}
     //   bg={"whiteAlpha.900"}
