@@ -47,7 +47,9 @@ APIs:
 - Google Directions API - Used to list directions to suggested locations from user-chosen starting locations
 
 ## Languages Used
-Python - Backend algorithm to obtain locations, calculate best meetup location
+Python - Backend algorithm to obtain locations, calculate best meetup location. Communications between the backend and frontend.
+ReactJS - Frontend 
+<TO WRITE>
 
 ## Packages Used
 Algorithm:
