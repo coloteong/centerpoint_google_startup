@@ -5,6 +5,7 @@ from datetime import datetime
 import json
 import os
 from flask_cors import CORS
+import apikey
 
 #algorithm packages
 import requests
@@ -98,7 +99,7 @@ def algorithm():
 					str(central_point[1]) + "&radius=" + \
 					str(radius) + "&type=" + \
 					str(type) + \
-					"&key=AIzaSyCCx4NGMtbdUwEoEkZlnnzkAOZTe4AfQK8"
+					str(apikey.KEY)
 				print("url", url)
 				payload={}
 				headers = {}

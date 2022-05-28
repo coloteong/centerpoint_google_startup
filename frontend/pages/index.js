@@ -1,4 +1,4 @@
-import { Flex } from "@chakra-ui/react";
+import { Flex, requiredChakraThemeKeys } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import Header from "../components/Header";
 import List from "../components/List";
@@ -6,6 +6,7 @@ import Map from "../components/Map";
 import PlaceDetail from "../components/PlaceDetail";
 import { getPlacesData } from "./api";
 import Head from "next/head";
+import {config} from "./config";
 
 const places = [
   { name: "Sample Place1" },
@@ -30,6 +31,9 @@ const Home = () => {
     // });
   }, [results]);
 
+  const api_key = config.REACT_APP_MAPS_API_KEY;
+  const url = `https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${api_key}`;
+
   return (
     <Flex
       justifyContent={"center"}
@@ -41,7 +45,7 @@ const Home = () => {
       position={"relative"}
     >
       <Head>
-        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=AIzaSyCCx4NGMtbdUwEoEkZlnnzkAOZTe4AfQK8"></script>
+        <script src={url}></script>
       </Head>
 
       <Header
