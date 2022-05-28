@@ -1,6 +1,6 @@
 # CenterPoint: Set up your next meeting with ease
 This is our project submission for the Google Startups Hackathon in Singapore. 
-Our project aims to help users find the closest location for meetups for people located in different places.
+Our project aims to help users find the closest central location for meetups for people located in different places.
 
 ## Setup Procedure
 Our website is currently hosted on http://www.lohseng.com/centerpoint. If you would like to try our application, just click on the link! </br>
