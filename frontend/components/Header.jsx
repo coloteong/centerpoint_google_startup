@@ -84,6 +84,7 @@ const Header = ({
   ];
   const [purpose, setPurpose] = useState(list_of_purpose[1]);
   const onLoad = (autoC) => setAutocomplete(autoC);
+  const [history, setHistory] = useState([]);
 
   //Updates whenever a location is added/removed
   const onPlaceChanged = () => {
@@ -91,9 +92,14 @@ const Header = ({
       const lat = autocomplete.getPlace().geometry.location.lat();
       const lng = autocomplete.getPlace().geometry.location.lng();
 
-      let temp = locations.concat(autocomplete.getPlace());
-      locations = temp;
+      let oneLocation = locations.concat(autocomplete.getPlace());
+      locations = oneLocation;
       setLocations(locations);
+
+
+      let oneLocationNotDelete = history.concat(autocomplete.getPlace());
+      history = oneLocationNotDelete;
+      setHistory(history);
 
       enterLocation.current.value = null;
 
@@ -144,8 +150,8 @@ const Header = ({
     };
     setIsLoading(true)
     //  fetch("http://127.0.0.1:5000/test", {
-    fetch("http://127.0.0.1:8000/test", {
-      // fetch("http://centerpoint.lohseng.com:8000/test", {
+    // fetch("http://127.0.0.1:8000/test", {
+      fetch("http://centerpoint.lohseng.com:8000/test", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -354,22 +360,24 @@ const Header = ({
                     <BiHistory fontSize={25} />
                   </MenuButton>
                 </Tooltip>
-                <MenuList>
-                  {list_of_purpose.map((purpose, idx) => {
-                    return (
-                      <MenuItem
-                        key={idx}
-                        value={"candy jiejie easteregg"}
-                        onClick={(event) => {
-                          event.preventDefault();
-                          setPurpose(event.target.value);
-                        }}
-                      >
-                        {/* {purpose} */}
-                        topkek
-                      </MenuItem>
-                    );
-                  })}
+                <MenuList  >
+                  {
+                    history.map((oneHistory, idx) => {
+                      return (
+                        <MenuItem fontSize={10}
+                          key={idx}
+                          onClick={(event) => {
+                            event.preventDefault();
+                            let tempLocation = locations.concat(oneHistory); // add the history to the locations
+                            locations = tempLocation;
+                            setLocations(locations);
+                            // setPurpose(event.target.value);
+                          }}
+                        >
+                          {oneHistory.name}
+                        </MenuItem>
+                      );
+                    })}
                 </MenuList>
               </Menu>
             </Flex>
@@ -452,14 +460,14 @@ const Header = ({
 
         {/* Info */}
         <Flex justifyContent="end">
-        <Tooltip label='About' placement='top'>
-          <IconButton
-            colorScheme="blackAlpha"
-            icon={<BiInfoCircle />}
-            rounded="full"
-            onClick={onOpen}
-          />
-        </Tooltip>
+          <Tooltip label='About' placement='top'>
+            <IconButton
+              colorScheme="blackAlpha"
+              icon={<BiInfoCircle />}
+              rounded="full"
+              onClick={onOpen}
+            />
+          </Tooltip>
           <Modal isOpen={isOpen} onClose={onClose}>
             <ModalOverlay />
             <ModalContent >
@@ -478,9 +486,9 @@ const Header = ({
                   This is our project submission for the Google Startups Hackathon in Singapore. Our project aims to help users find the closest central location for meetups for people located in different places.
                 </Text>
                 <span>
-                <b>Collaborators:</b>
+                  <b>Collaborators:</b>
                   <br />
-                  🍬 Candy Salome Lim 
+                  🍬 Candy Salome Lim
                   <br />
                   😵 Chew Loh Seng
                   <br />
