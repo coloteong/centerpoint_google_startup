@@ -160,44 +160,18 @@ const Header = ({
 
   //Executes the algorithm to find list of suggested places
   const handleSubmit = async (event) => {
-    event.preventDefault();
-
-    let formData = {
-      purpose: getPurposeDefinition(purpose),
-      locations: locations,
-    };
-    setIsLoading(true)
-      fetch("http://127.0.0.1:5000/test", {
-    // fetch("http://127.0.0.1:8000/test", {
-    //fetch("http://centerpoint.lohseng.com:8000/test", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    })
-      .then((response) => {
-        return response.json();
-      })
-      .then( async (data) => {
-        setResults(data);
-        setFixedResults(data);
-        setIsLoading(false)
-        let maxRadius = 0;
-        data = JSON.parse(data)
-        data.forEach((place) => {
     if (locations.length === 0) {
       alert("Please enter at least one location")
-    } else {
-
+    } 
+    else {
       event.preventDefault();
       let formData = {
         purpose: getPurposeDefinition(purpose),
         locations: locations,
       };
       setIsLoading(true)
-      //  fetch("http://127.0.0.1:5000/test", {
-      fetch("http://127.0.0.1:8000/test", {
+        fetch("http://127.0.0.1:5000/test", {
+      // fetch("http://127.0.0.1:8000/test", {
         // fetch("http://centerpoint.lohseng.com:8000/test", {
         method: "POST",
         headers: {
@@ -253,8 +227,7 @@ const Header = ({
           console.error(error);
           console.log("error");
         });
-    }
-
+      }
   };
 
   //Get list of keywords from user selected purpose
@@ -686,7 +659,7 @@ const Header = ({
         </AccordionItem>
       </Accordion>
 
-    </div >
+    </div>
   );
 };
 
