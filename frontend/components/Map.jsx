@@ -91,7 +91,7 @@ function Map({ avgcoordinates, locations, directionsResponse, radius, results, z
                   }}
                   key={idx}
                   title={location.name}
-                  icon= "https://raw.githubusercontent.com/coloteong/centerpoint_google_startup/main/frontend/icons/red.png?token=GHSAT0AAAAAABUUZFRKMGIYQTG64B2FVZO2YUTMOHA"
+                  icon= "https://raw.githubusercontent.com/coloteong/centerpoint_google_startup/main/frontend/icons/red.png?token=GHSAT0AAAAAABUUZFRKYORJKNFB6AL6TX7UYUTMWTA"
                 // draggable={true}
                 ></Marker>
               );
@@ -109,7 +109,7 @@ function Map({ avgcoordinates, locations, directionsResponse, radius, results, z
                     }}
                     key={idx}
                     title={result.name}
-                    icon= "https://raw.githubusercontent.com/coloteong/centerpoint_google_startup/main/frontend/icons/green.png?token=GHSAT0AAAAAABUUZFRLDDOBL7I2SORDMAAAYUTMMQQ" 
+                    icon= "https://raw.githubusercontent.com/coloteong/centerpoint_google_startup/main/frontend/icons/green.png?token=GHSAT0AAAAAABUUZFRL6V2KLFBGOJYIBLIYYUTMWKQ"
                   // draggable={true}
                   ></Marker>
                   {selectedplace && (
@@ -119,7 +119,7 @@ function Map({ avgcoordinates, locations, directionsResponse, radius, results, z
                         lng: selectedplace.geometry.location.lng,
                       }}
                       title={selectedplace.name}
-                      label="😋"
+                      icon="https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"
                     // draggable={true}
                     ></Marker>
 

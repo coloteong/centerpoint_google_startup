@@ -546,7 +546,7 @@ const Header = ({
               <Box flex="1" alignItems={"inherit"}  >
                 <HStack>
                   <Text fontSize="xl">Selected Points </Text>
-                  <Image boxSize="35px" src="https://raw.githubusercontent.com/coloteong/centerpoint_google_startup/main/frontend/icons/red.png?token=GHSAT0AAAAAABUUZFRKMGIYQTG64B2FVZO2YUTMOHA" />
+                  <Image src="https://raw.githubusercontent.com/coloteong/centerpoint_google_startup/main/frontend/icons/red.png?token=GHSAT0AAAAAABUUZFRKYORJKNFB6AL6TX7UYUTMWTA" />
                 </HStack>
               </Box>
               <AccordionIcon />
@@ -582,7 +582,7 @@ const Header = ({
               <Box flex="1" textAlign="left">
                 <HStack>
                   <Text fontSize="xl">Suggested Places </Text>
-                  <Image boxSize="35px" src="https://raw.githubusercontent.com/coloteong/centerpoint_google_startup/main/frontend/icons/green.png?token=GHSAT0AAAAAABUUZFRLDDOBL7I2SORDMAAAYUTMMQQ" />
+                  <Image src="https://raw.githubusercontent.com/coloteong/centerpoint_google_startup/main/frontend/icons/green.png?token=GHSAT0AAAAAABUUZFRL6V2KLFBGOJYIBLIYYUTMWKQ" />
                 </HStack>
               </Box>
               <AccordionIcon />
