@@ -546,7 +546,7 @@ const Header = ({
               <Box flex="1" alignItems={"inherit"}  >
                 <HStack>
                   <Text fontSize="xl">Selected Points </Text>
-                  <Image src="http://maps.google.com/mapfiles/ms/icons/red-dot.png" />
+                  <Image boxSize="35px" src="https://raw.githubusercontent.com/coloteong/centerpoint_google_startup/main/frontend/icons/red.png?token=GHSAT0AAAAAABUUZFRKMGIYQTG64B2FVZO2YUTMOHA" />
                 </HStack>
               </Box>
               <AccordionIcon />
@@ -582,7 +582,7 @@ const Header = ({
               <Box flex="1" textAlign="left">
                 <HStack>
                   <Text fontSize="xl">Suggested Places </Text>
-                  <Image src="http://maps.google.com/mapfiles/ms/icons/blue-dot.png" />
+                  <Image boxSize="35px" src="https://raw.githubusercontent.com/coloteong/centerpoint_google_startup/main/frontend/icons/green.png?token=GHSAT0AAAAAABUUZFRLDDOBL7I2SORDMAAAYUTMMQQ" />
                 </HStack>
               </Box>
               <AccordionIcon />

@@ -91,7 +91,7 @@ function Map({ avgcoordinates, locations, directionsResponse, radius, results, z
                   }}
                   key={idx}
                   title={location.name}
-                  label="😮"
+                  icon= "https://raw.githubusercontent.com/coloteong/centerpoint_google_startup/main/frontend/icons/red.png?token=GHSAT0AAAAAABUUZFRKMGIYQTG64B2FVZO2YUTMOHA"
                 // draggable={true}
                 ></Marker>
               );
@@ -109,7 +109,7 @@ function Map({ avgcoordinates, locations, directionsResponse, radius, results, z
                     }}
                     key={idx}
                     title={result.name}
-                    icon="https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"
+                    icon= "https://raw.githubusercontent.com/coloteong/centerpoint_google_startup/main/frontend/icons/green.png?token=GHSAT0AAAAAABUUZFRLDDOBL7I2SORDMAAAYUTMMQQ" 
                   // draggable={true}
                   ></Marker>
                   {selectedplace && (
