@@ -158,70 +158,74 @@ const Header = ({
 
   //Executes the algorithm to find list of suggested places
   const handleSubmit = async (event) => {
-    event.preventDefault();
-    let formData = {
-      purpose: getPurposeDefinition(purpose),
-      locations: locations,
-    };
-    setIsLoading(true)
-    //  fetch("http://127.0.0.1:5000/test", {
-    fetch("http://127.0.0.1:8000/test", {
-      // fetch("http://centerpoint.lohseng.com:8000/test", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    })
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => {
-        setResults(data);
-        setFixedResults(data);
-        setIsLoading(false)
-        let maxRadius = 0;
-        data = JSON.parse(data)
-        data.forEach((place) => {
+    if (locations.length === 0) {
+      alert("Please enter at least one location")
+    } else {
 
-          if (place.distance_from_center >= maxRadius) {
-            maxRadius = place.distance_from_center;
+      event.preventDefault();
+      let formData = {
+        purpose: getPurposeDefinition(purpose),
+        locations: locations,
+      };
+      setIsLoading(true)
+      //  fetch("http://127.0.0.1:5000/test", {
+      fetch("http://127.0.0.1:8000/test", {
+        // fetch("http://centerpoint.lohseng.com:8000/test", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      })
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          setResults(data);
+          setFixedResults(data);
+          setIsLoading(false)
+          let maxRadius = 0;
+          data = JSON.parse(data)
+          data.forEach((place) => {
+
+            if (place.distance_from_center >= maxRadius) {
+              maxRadius = place.distance_from_center;
+            }
+          });
+          let newRadius = Math.ceil(maxRadius * 1000) + 5;
+          setRadius(newRadius);
+
+          if (newRadius <= 50) {
+            setZoomLevel(22);
+          } else if (newRadius <= 75) {
+            setZoomLevel(21);
+          } else if (newRadius <= 100) {
+            setZoomLevel(20);
+          } else if (newRadius <= 161) {
+            setZoomLevel(19);
+          } else if (newRadius <= 250) {
+            setZoomLevel(18);
+          } else if (newRadius <= 500) {
+            setZoomLevel(17);
+          } else if (newRadius <= 1000) {
+            setZoomLevel(16);
+          } else if (newRadius <= 5000) {
+            setZoomLevel(15);
+          } else if (newRadius <= 20000) {
+            setZoomLevel(14);
+          } else if (newRadius <= 200000) {
+            setZoomLevel(13);
+          } else {
+            setZoomLevel(12);
           }
+          console.log("largest radius is : " + newRadius);
+          console.log("zoom level is : " + zoomLevel);
+        })
+        .catch((error) => {
+          console.error(error);
+          console.log("error");
         });
-        let newRadius = Math.ceil(maxRadius * 1000) + 5;
-        setRadius(newRadius);
-
-        if (newRadius <= 50) {
-          setZoomLevel(22);
-        } else if (newRadius <= 75) {
-          setZoomLevel(21);
-        } else if (newRadius <= 100) {
-          setZoomLevel(20);
-        } else if (newRadius <= 161) {
-          setZoomLevel(19);
-        } else if (newRadius <= 250) {
-          setZoomLevel(18);
-        } else if (newRadius <= 500) {
-          setZoomLevel(17);
-        } else if (newRadius <= 1000) {
-          setZoomLevel(16);
-        } else if (newRadius <= 5000) {
-          setZoomLevel(15);
-        } else if (newRadius <= 20000) {
-          setZoomLevel(14);
-        } else if (newRadius <= 200000) {
-          setZoomLevel(13);
-        } else {
-          setZoomLevel(12);
-        }
-        console.log("largest radius is : " + newRadius);
-        console.log("zoom level is : " + zoomLevel);
-      })
-      .catch((error) => {
-        console.error(error);
-        console.log("error");
-      });
-
+    }
 
   };
 
