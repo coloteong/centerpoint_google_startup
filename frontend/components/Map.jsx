@@ -91,7 +91,7 @@ function Map({ avgcoordinates, locations, directionsResponse, radius, results, z
                   }}
                   key={idx}
                   title={location.name}
-                  icon= "https://raw.githubusercontent.com/coloteong/centerpoint_google_startup/main/frontend/icons/red.png?token=GHSAT0AAAAAABUUZFRKYORJKNFB6AL6TX7UYUTMWTA"
+                  icon= "https://firebasestorage.googleapis.com/v0/b/cz3002-5e843.appspot.com/o/187585711810.png?alt=media"
                 // draggable={true}
                 ></Marker>
               );
@@ -109,7 +109,7 @@ function Map({ avgcoordinates, locations, directionsResponse, radius, results, z
                     }}
                     key={idx}
                     title={result.name}
-                    icon= "https://raw.githubusercontent.com/coloteong/centerpoint_google_startup/main/frontend/icons/green.png?token=GHSAT0AAAAAABUUZFRL6V2KLFBGOJYIBLIYYUTMWKQ"
+                    icon= "https://firebasestorage.googleapis.com/v0/b/cz3002-5e843.appspot.com/o/507985227143.png?alt=media"
                   // draggable={true}
                   ></Marker>
                   {selectedplace && (

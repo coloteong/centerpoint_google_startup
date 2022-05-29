@@ -569,7 +569,7 @@ const Header = ({
               <Box flex="1" alignItems={"inherit"}  >
                 <HStack>
                   <Text fontSize="xl">Selected Points </Text>
-                  <Image src="https://raw.githubusercontent.com/coloteong/centerpoint_google_startup/main/frontend/icons/red.png?token=GHSAT0AAAAAABUUZFRKYORJKNFB6AL6TX7UYUTMWTA" />
+                  <Image src="https://firebasestorage.googleapis.com/v0/b/cz3002-5e843.appspot.com/o/187585711810.png?alt=media" />
                 </HStack>
               </Box>
               <AccordionIcon />
@@ -605,7 +605,7 @@ const Header = ({
               <Box flex="1" textAlign="left">
                 <HStack>
                   <Text fontSize="xl">Suggested Places </Text>
-                  <Image src="https://raw.githubusercontent.com/coloteong/centerpoint_google_startup/main/frontend/icons/green.png?token=GHSAT0AAAAAABUUZFRL6V2KLFBGOJYIBLIYYUTMWKQ" />
+                  <Image src="https://firebasestorage.googleapis.com/v0/b/cz3002-5e843.appspot.com/o/507985227143.png?alt=media" />
                 </HStack>
               </Box>
               <AccordionIcon />
