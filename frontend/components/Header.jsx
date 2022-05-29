@@ -26,7 +26,8 @@ import {
   ModalFooter,
   ModalHeader,
   ModalBody,
-  LinkOverlay
+  Image,
+  HStack
 } from "@chakra-ui/react";
 
 import NextLink from 'next/link'
@@ -134,11 +135,21 @@ const Header = ({
     setCircleoptions(null);
 
 
-    if (tempLocations.length === 0) {
-      setAvgcoordinates({ lat: 1.347, lng: 103.79 });
-      setDirectionsResponse([]);
-      setCircleoptions(null);
-    }
+    // if (tempLocations.length === 0) {
+    //   setAvgcoordinates({ lat: 1.347, lng: 103.79 });
+    //   // setDirectionsResponse([]);
+    //   // setCircleoptions(null);
+    //   // history.push("/");
+    //   // radius.setState(0);
+    //   Home.setState(null);
+    //   // results.setState(null);
+    //   // fixedresults.setState(null);
+    //   // directionsResponse.setState([]);
+    //   // history.setState([])
+    //   locations.setState([])
+    //   // window.location.reload()
+
+    // }
   };
 
   //Executes the algorithm to find list of suggested places
@@ -150,8 +161,8 @@ const Header = ({
     };
     setIsLoading(true)
     //  fetch("http://127.0.0.1:5000/test", {
-    // fetch("http://127.0.0.1:8000/test", {
-      fetch("http://centerpoint.lohseng.com:8000/test", {
+    fetch("http://127.0.0.1:8000/test", {
+      // fetch("http://centerpoint.lohseng.com:8000/test", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -178,7 +189,7 @@ const Header = ({
 
         if (newRadius <= 50) {
           setZoomLevel(22);
-        } else if (newRadius <= 50) {
+        } else if (newRadius <= 75) {
           setZoomLevel(21);
         } else if (newRadius <= 100) {
           setZoomLevel(20);
@@ -348,6 +359,7 @@ const Header = ({
               shadow="lg"
               cursor={"pointer"}
               // roundedEnd={"md"}
+              width = {"3vw"}
               borderEndRadius={"md"}
             >
               <Menu>
@@ -360,7 +372,7 @@ const Header = ({
                     <BiHistory fontSize={25} />
                   </MenuButton>
                 </Tooltip>
-                <MenuList  >
+                <MenuList overflowY={"scroll"} >
                   {
                     history.map((oneHistory, idx) => {
                       return (
@@ -517,7 +529,7 @@ const Header = ({
         allowMultiple
         direction={"column"}
         bg={"whiteAlpha.900"}
-        width={"35vw"}
+        width={"34.7vw"}
         // height="50vh"
         position={"absolute"}
         left={4}
@@ -530,9 +542,12 @@ const Header = ({
       >
         <AccordionItem>
           <h2>
-            <AccordionButton>
-              <Box flex="1" textAlign="left">
-                <Text fontSize="xl">Selected Points</Text>
+            <AccordionButton >
+              <Box flex="1" alignItems={"inherit"}  >
+                <HStack>
+                  <Text fontSize="xl">Selected Points </Text>
+                  <Image src="https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png" />
+                </HStack>
               </Box>
               <AccordionIcon />
             </AccordionButton>
@@ -565,7 +580,10 @@ const Header = ({
           <h2>
             <AccordionButton>
               <Box flex="1" textAlign="left">
-                <Text fontSize="xl">Suggested Places</Text>
+                <HStack>
+                  <Text fontSize="xl">Suggested Places </Text>
+                  <Image src="https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png" />
+                </HStack>
               </Box>
               <AccordionIcon />
             </AccordionButton>
