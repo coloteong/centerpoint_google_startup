@@ -186,15 +186,16 @@ def algorithm():
 		result_df = pd.DataFrame.from_dict(candidate_location_dict)
 		print("Result df", list(result_df))
 		# can this be made dynamic? if any of the column names dont exist, skip
-		dataframe_locations = result_df.loc[:, result_df.columns.isin(['name', 'rating', 'opening_hours', 'vicinity', 'geometry', 'photos', "user_ratings_total"])]
+		dataframe_locations = result_df.loc[:, result_df.columns.isin(['name', 'rating', 'opening_hours', 'vicinity', 'geometry', 'photos', "user_ratings_total", "place_id"])]
 		# dataframe_locations = result_df[['name', 'rating', 'opening_hours', 'geometry', 'photos', "user_ratings_total"]]
 		locations_sorted_rating = dataframe_locations.sort_values(by = 'rating', ascending = False)
 		locations_sorted_rating = locations_sorted_rating.head(5)
 		locations_sorted_rating = get_distances_from_central(locations_sorted_rating, central_point)
-		# print(locations_sorted_rating)
+		
 		promoted_locations = [int(0) for _ in range(len(locations_sorted_rating.index))]
 		promoted_locations[0] = int(1)
 		locations_sorted_rating['promoted'] = promoted_locations
+		print(locations_sorted_rating)
 		json_formatted_locations = convert_dict_to_json(locations_sorted_rating)
 		return json_formatted_locations
 
@@ -211,7 +212,7 @@ def algorithm():
 	# Flask cannot return lists; converts the list into a JSON string
 
 	data = request.get_json()
-	print("current data", data)
+	#print("current data", data)
 	output_coord = get_multiple_coordinates_from_json(data)
 	# print(output_coord)
 	init_center_point = find_central_point(output_coord)
@@ -219,7 +220,7 @@ def algorithm():
 	init_goog_locs = find_candidate_google_locations(init_center_point, data['purpose'])
 	# print(init_goog_locs)
 	final_goog_locs = determine_final_google_location (init_goog_locs, init_center_point)
-	print(final_goog_locs)
+	#print(final_goog_locs)
 
 	#json_data = convert_dict_to_json(final_goog_locs)
 	#print(json_data)

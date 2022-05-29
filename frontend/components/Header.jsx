@@ -19,7 +19,7 @@ import {
   Accordion,
   Text,
 } from "@chakra-ui/react";
-
+import { config } from "../pages/config";
 import { Autocomplete } from "@react-google-maps/api";
 import { React, useRef, useState } from "react";
 import List from "./List";
@@ -78,6 +78,7 @@ const Header = ({
   const restriction = { country: "sg" };
   const [fixedresults, setFixedResults] = useState(null);
   const [displayDirections, setDisplayDirections] = useState([])
+  const [directionFromOnePlaceToMultipleLocations, setdirectionFromOnePlaceToMultipleLocations] = useState([])
 
   const list_of_purpose = [
     "Activities",
@@ -141,14 +142,15 @@ const Header = ({
   //Executes the algorithm to find list of suggested places
   const handleSubmit = async (event) => {
     event.preventDefault();
+
     let formData = {
       purpose: getPurposeDefinition(purpose),
       locations: locations,
     };
     setIsLoading(true)
-    //  fetch("http://127.0.0.1:5000/test", {
+      fetch("http://127.0.0.1:5000/test", {
     // fetch("http://127.0.0.1:8000/test", {
-    fetch("http://centerpoint.lohseng.com:8000/test", {
+    //fetch("http://centerpoint.lohseng.com:8000/test", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -158,7 +160,7 @@ const Header = ({
       .then((response) => {
         return response.json();
       })
-      .then((data) => {
+      .then( async (data) => {
         setResults(data);
         setFixedResults(data);
         setIsLoading(false)
@@ -243,8 +245,10 @@ const Header = ({
 
   //Compute directions to centerpoint
   async function getDirectionsToCenterPoint(place) {
+    setdirectionFromOnePlaceToMultipleLocations([])
     let allDrawingroutes = [];
     let allInstructionroutes = []
+
     setDirectionsResponse([]);
     for (let i = 0; i <= locations.length - 1; i++) {
       const directionsService = new google.maps.DirectionsService();
@@ -274,7 +278,24 @@ const Header = ({
         steps: oneRoute
       }
       allInstructionroutes.push(oneInstructionRoute);
+      //allInstructionroutes = [locations[i].name, ...allInstructionroutes]
+      
+      console.log("getDirects was ran for:"+ locations[i].name +" and " + place.name)
+      console.log("direction is: ")
+      console.log(allInstructionroutes)
+      setdirectionFromOnePlaceToMultipleLocations(allInstructionroutes)
+      console.log("current state of direction is...")
+      console.log(directionFromOnePlaceToMultipleLocations)
+
+      // console.log('this is what this looks like')
+      // console.log(directionFromOnePlaceToMultipleLocations)
+      // directionFromOnePlaceToMultipleLocations.map((d)=>{
+      //   console.log('name: ' + d[0])
+      //   console.log('distance: ' + d[0].total_distance)
+      //   console.log('distance: ' + d[0].total_duration)
+      // })
     }
+    
     setDirectionsResponse(allDrawingroutes);
 
     // change the selected place's marker to different marker icon
@@ -291,7 +312,6 @@ const Header = ({
     });
     setResults(tempResults);
   }
-
   return (
     <div>
       {/* Enter location, choose purpose and submit button*/}
@@ -449,7 +469,11 @@ const Header = ({
           </h2>
           <AccordionPanel pb={4}>
             {fixedresults != null ? (
-              <List places={fixedresults} isLoading={isLoading} getDirectionsToCenterPoint={getDirectionsToCenterPoint} />
+              <List places={fixedresults} 
+              isLoading={isLoading} 
+              getDirectionsToCenterPoint={getDirectionsToCenterPoint} 
+              directionFromOnePlaceToMultipleLocations = {directionFromOnePlaceToMultipleLocations} 
+              locations = {locations}/>
             ) : (
               <Text fontSize="md" color="gray">
                 There are no results to display.
