@@ -27,7 +27,7 @@ import {
   ModalHeader,
   ModalBody,
   Image,
-  HStack
+  HStack,
 } from "@chakra-ui/react";
 
 import NextLink from 'next/link'
@@ -87,9 +87,9 @@ const Header = ({
   const onLoad = (autoC) => setAutocomplete(autoC);
   const [history, setHistory] = useState([]);
 
-  const refreshPage = ()=>{
+  const refreshPage = () => {
     window.location.reload();
- }
+  }
 
   //Updates whenever a location is added/removed
   const onPlaceChanged = () => {
@@ -97,27 +97,36 @@ const Header = ({
       const lat = autocomplete.getPlace().geometry.location.lat();
       const lng = autocomplete.getPlace().geometry.location.lng();
 
-      let oneLocation = locations.concat(autocomplete.getPlace());
-      locations = oneLocation;
-      setLocations(locations);
+      // check if the inputted location is already in the list
+      const isInList = locations.some(
+        (location) =>
+          location.name === autocomplete.getPlace().name
+      );
 
+      if (isInList === true) {
+        alert("This location is already in the list");
+      } else {
+        let oneLocation = locations.concat(autocomplete.getPlace());
+        locations = oneLocation;
+        setLocations(locations);
 
-      let oneLocationNotDelete = history.concat(autocomplete.getPlace());
-      history = oneLocationNotDelete;
-      setHistory(history);
+        let oneLocationNotDelete = history.concat(autocomplete.getPlace());
+        history = oneLocationNotDelete;
+        setHistory(history);
 
-      enterLocation.current.value = null;
+        enterLocation.current.value = null;
 
-      let latAll = null;
-      let lngAll = null;
-      locations.forEach((location) => {
-        latAll += location.geometry.location.lat();
-        lngAll += location.geometry.location.lng();
-      });
-      setAvgcoordinates({
-        lat: latAll / locations.length,
-        lng: lngAll / locations.length,
-      });
+        let latAll = null;
+        let lngAll = null;
+        locations.forEach((location) => {
+          latAll += location.geometry.location.lat();
+          lngAll += location.geometry.location.lng();
+        });
+        setAvgcoordinates({
+          lat: latAll / locations.length,
+          lng: lngAll / locations.length,
+        });
+      }
     }
   };
 
@@ -141,19 +150,8 @@ const Header = ({
 
     if (tempLocations.length === 0) {
       setAvgcoordinates({ lat: 1.347, lng: 103.79 });
-      // setDirectionsResponse([]);
-      // setCircleoptions(null);
-      // history.push("/");
-      // radius.setState(0);
-
-        window.location.reload();
-     
-      // results.setState(null);
-      // fixedresults.setState(null);
-      // directionsResponse.setState([]);
-      // history.setState([])
-      // locations.setState([])
-      // window.location.reload()
+      setRadius(0);
+      window.location.reload();
 
     }
   };
@@ -365,7 +363,7 @@ const Header = ({
               shadow="lg"
               cursor={"pointer"}
               // roundedEnd={"md"}
-              width = {"3.5vw"}
+              width={"3.5vw"}
               borderEndRadius={"md"}
             >
               <Menu>
@@ -373,7 +371,7 @@ const Header = ({
                   <MenuButton
                     bg={"white"}
                     as={Button}
-                    size="xs" 
+                    size="xs"
                   >
                     <BiHistory fontSize={25} />
                   </MenuButton>
@@ -386,11 +384,22 @@ const Header = ({
                           key={idx}
                           onClick={(event) => {
                             event.preventDefault();
-                            let tempLocation = locations.concat(oneHistory); // add the history to the locations
-                            locations = tempLocation;
-                            setLocations(locations);
-                            // setPurpose(event.target.value);
-                          }}
+                            // check if the inputted location is already in the list
+                            const isInListTwo = locations.some(
+                              (location) =>
+                                location.name === autocomplete.getPlace().name
+                            );
+
+                            if (isInListTwo === true) {
+                              alert("This location is already in the list");
+                            } else {
+                              let tempLocation = locations.concat(oneHistory); // add the history to the locations
+                              locations = tempLocation;
+                              setLocations(locations);
+                              // setPurpose(event.target.value);
+                            }
+                          }
+                          }
                         >
                           {oneHistory.name}
                         </MenuItem>
@@ -460,21 +469,21 @@ const Header = ({
         {/**Submit button*/}
         <Flex>
           <Button
-            bg={"purple.700"}
+            bg={"blue.500"}
             py={2}
             ml={4} // margin left
             onClick={handleSubmit}
             isLoading={isLoading}
             fontSize={"15"}
             color="white"
-            _hover={{ bg: "purple" }}
-            _focus={{ bg: "purple" }}
+            _hover={{ bg: "blue.400" }}
+            _focus={{ bg: "blue.400" }}
           >
             Submit
           </Button>
         </Flex>
 
-        {/**Submit button*/}
+        {/**Clear all button*/}
         <Flex>
           <Button
             bg={"red.700"}
@@ -483,13 +492,12 @@ const Header = ({
             onClick={refreshPage}
             fontSize={"15"}
             color="white"
-            _hover={{ bg: "red" }}
-            _focus={{ bg: "red" }}
+            _hover={{ bg: "red.600" }}
+            _focus={{ bg: "red.600" }}
           >
             Clear all
           </Button>
         </Flex>
-
 
         <Spacer />
 
@@ -623,6 +631,7 @@ const Header = ({
           </AccordionPanel>
         </AccordionItem>
       </Accordion>
+
     </div >
   );
 };
