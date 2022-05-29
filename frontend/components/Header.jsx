@@ -7,9 +7,6 @@ import {
   MenuButton,
   MenuItem,
   MenuList,
-  Checkbox,
-  CheckboxGroup,
-  Stack,
   Button,
   Box,
   AccordionPanel,
@@ -18,9 +15,21 @@ import {
   AccordionItem,
   Accordion,
   Text,
-  Tooltip
+  Tooltip,
+  useDisclosure,
+  Spacer,
+  IconButton,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalCloseButton,
+  ModalFooter,
+  ModalHeader,
+  ModalBody,
+  LinkOverlay
 } from "@chakra-ui/react";
 
+import NextLink from 'next/link'
 import { Autocomplete } from "@react-google-maps/api";
 import { React, useRef, useState } from "react";
 import List from "./List";
@@ -34,9 +43,10 @@ import {
   BiDirections, //activities
   BiRun, //sports
   BiXCircle,
-  BiHistory
+  BiHistory,
+  BiInfoCircle
 } from "react-icons/bi";
-import { IoChevronUpSharp } from "react-icons/io5";
+import { BsGithub } from "react-icons/bs";
 
 const Header = ({
   locations,
@@ -60,25 +70,11 @@ const Header = ({
   /** @type React.MutableRefObject<HTMLInputElement> */
   let enterLocation = useRef();
 
-  // const defaultOptions = {
-  //   strokeOpacity: 0.5,
-  //   strokeWeight: 2,
-  //   center: avgcoordinates,
-  //   radius: radius,
-  //   clickable: false,
-  //   draggable: false,
-  //   editable: false,
-  //   visible: true,
-  //   zIndex: 1,
-  //   fillOpacity: 0.05,
-  //   strokeColor: "#FF5252",
-  //   fillColor: "#FF5252",
-  // };
-
   const [autocomplete, setAutocomplete] = useState(null);
   const restriction = { country: "sg" };
   const [fixedresults, setFixedResults] = useState(null);
   const [displayDirections, setDisplayDirections] = useState([])
+  const { isOpen, onOpen, onClose } = useDisclosure()
 
   const list_of_purpose = [
     "Activities",
@@ -149,7 +145,7 @@ const Header = ({
     setIsLoading(true)
     //  fetch("http://127.0.0.1:5000/test", {
     // fetch("http://127.0.0.1:8000/test", {
-    fetch("http://centerpoint.lohseng.com:8000/test", {
+      fetch("http://centerpoint.lohseng.com:8000/test", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -345,7 +341,7 @@ const Header = ({
               bg={"white"}
               shadow="lg"
               cursor={"pointer"}
-              roundedEnd={"md"}
+              // roundedEnd={"md"}
               borderEndRadius={"md"}
             >
               <Menu>
@@ -435,8 +431,8 @@ const Header = ({
           </Flex>
         </Flex>
 
+        {/**Submit button*/}
         <Flex>
-          {/**Submit button*/}
           <Button
             bg={"purple.700"}
             py={2}
@@ -450,6 +446,63 @@ const Header = ({
           >
             Submit
           </Button>
+        </Flex>
+
+        <Spacer />
+
+        {/* Info */}
+        <Flex justifyContent="end">
+          <IconButton
+            colorScheme= "blackAlpha"
+            icon={<BiInfoCircle />}
+            rounded="full"
+            onClick={onOpen}
+          />
+          <Modal isOpen={isOpen} onClose={onClose}>
+            <ModalOverlay />
+            <ModalContent >
+              <ModalHeader  >
+
+                <Text fontWeight='bold' mb='1rem' textAlign={"center"} fontSize={"2xl"}>
+                  Centerpoint
+                  <Text fontWeight='light' fontSize={"xl"}>
+                    Set up your next meeting with ease
+                  </Text>
+                </Text>
+
+                <p></p>
+
+              </ModalHeader>
+
+              <ModalCloseButton />
+              <ModalBody>
+                <Text mb='1rem'>
+                  This is our project submission for the Google Startups Hackathon in Singapore. Our project aims to help users find the closest central location for meetups for people located in different places.
+                </Text>
+
+                <span>
+                  Collaborators:
+                  <br />
+                  Candy Salome Lim
+                  <br />
+                  Chew Loh Seng
+                  <br />
+                  Claudia Beth Ong
+                  <br />
+                  Darryl Tan Kah Heng
+                  <br />
+                  Teo Jia Sheng
+                  <br /> <br/>
+                <Box as='a' href='#' fontWeight='bold' alignItems={"center"}>
+                  <BsGithub fontSize="25" href='#' />
+                </Box>
+                </span>
+       
+              </ModalBody>
+
+              <ModalFooter />
+            </ModalContent>
+          </Modal>
         </Flex>
       </Flex>
 

@@ -8,6 +8,7 @@ function MyApp({ Component, pageProps }) {
     // 2. wrap the app with `ChakraProvider`
   <ChakraProvider>
   <Component {...pageProps} />
+  <title>Centerpoint</title>
   </ChakraProvider>
 )
 }
