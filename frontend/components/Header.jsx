@@ -144,8 +144,8 @@ const Header = ({
     };
     setIsLoading(true)
     //  fetch("http://127.0.0.1:5000/test", {
-    // fetch("http://127.0.0.1:8000/test", {
-      fetch("http://centerpoint.lohseng.com:8000/test", {
+    fetch("http://127.0.0.1:8000/test", {
+      // fetch("http://centerpoint.lohseng.com:8000/test", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -452,26 +452,24 @@ const Header = ({
 
         {/* Info */}
         <Flex justifyContent="end">
+        <Tooltip label='About' placement='top'>
           <IconButton
-            colorScheme= "blackAlpha"
+            colorScheme="blackAlpha"
             icon={<BiInfoCircle />}
             rounded="full"
             onClick={onOpen}
           />
+        </Tooltip>
           <Modal isOpen={isOpen} onClose={onClose}>
             <ModalOverlay />
             <ModalContent >
-              <ModalHeader  >
-
+              <ModalHeader>
                 <Text fontWeight='bold' mb='1rem' textAlign={"center"} fontSize={"2xl"}>
                   Centerpoint
                   <Text fontWeight='light' fontSize={"xl"}>
                     Set up your next meeting with ease
                   </Text>
                 </Text>
-
-                <p></p>
-
               </ModalHeader>
 
               <ModalCloseButton />
@@ -479,25 +477,24 @@ const Header = ({
                 <Text mb='1rem'>
                   This is our project submission for the Google Startups Hackathon in Singapore. Our project aims to help users find the closest central location for meetups for people located in different places.
                 </Text>
-
                 <span>
-                  Collaborators:
+                <b>Collaborators:</b>
                   <br />
-                  Candy Salome Lim
+                  🍬 Candy Salome Lim 
                   <br />
-                  Chew Loh Seng
+                  😵 Chew Loh Seng
                   <br />
-                  Claudia Beth Ong
+                  🌦 Claudia Beth Ong
                   <br />
-                  Darryl Tan Kah Heng
+                  😸 Darryl Tan Kah Heng
                   <br />
-                  Teo Jia Sheng
-                  <br /> <br/>
-                <Box as='a' href='#' fontWeight='bold' alignItems={"center"}>
-                  <BsGithub fontSize="25" href='#' />
-                </Box>
+                  😳 Teo Jia Sheng
+                  <br /> <br />
+
+                  <Box as='a' href='#' fontWeight='bold' alignItems={"center"}>
+                    <BsGithub fontSize="25" href='#' />
+                  </Box>
                 </span>
-       
               </ModalBody>
 
               <ModalFooter />
