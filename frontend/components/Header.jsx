@@ -546,7 +546,7 @@ const Header = ({
               <Box flex="1" alignItems={"inherit"}  >
                 <HStack>
                   <Text fontSize="xl">Selected Points </Text>
-                  <Image src="https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png" />
+                  <Image src="http://maps.google.com/mapfiles/ms/icons/red-dot.png" />
                 </HStack>
               </Box>
               <AccordionIcon />
@@ -582,7 +582,7 @@ const Header = ({
               <Box flex="1" textAlign="left">
                 <HStack>
                   <Text fontSize="xl">Suggested Places </Text>
-                  <Image src="https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png" />
+                  <Image src="http://maps.google.com/mapfiles/ms/icons/blue-dot.png" />
                 </HStack>
               </Box>
               <AccordionIcon />
