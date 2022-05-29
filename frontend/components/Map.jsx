@@ -59,7 +59,7 @@ function Map({ avgcoordinates, locations, directionsResponse, radius, results, z
             // zoomControl: false, //true
             streetViewControl: false,
             mapTypeControl: false,
-            // fullscreenControl: false,
+            fullscreenControl: false,
           }}
           onLoad={(map) => setMap(map)}
         >
@@ -91,7 +91,7 @@ function Map({ avgcoordinates, locations, directionsResponse, radius, results, z
                   }}
                   key={idx}
                   title={location.name}
-                  label="😮"
+                  icon= "https://firebasestorage.googleapis.com/v0/b/cz3002-5e843.appspot.com/o/187585711810.png?alt=media"
                 // draggable={true}
                 ></Marker>
               );
@@ -109,7 +109,7 @@ function Map({ avgcoordinates, locations, directionsResponse, radius, results, z
                     }}
                     key={idx}
                     title={result.name}
-                    icon="https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"
+                    icon= "https://firebasestorage.googleapis.com/v0/b/cz3002-5e843.appspot.com/o/507985227143.png?alt=media"
                   // draggable={true}
                   ></Marker>
                   {selectedplace && (
@@ -119,7 +119,7 @@ function Map({ avgcoordinates, locations, directionsResponse, radius, results, z
                         lng: selectedplace.geometry.location.lng,
                       }}
                       title={selectedplace.name}
-                      label="😋"
+                      icon="https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"
                     // draggable={true}
                     ></Marker>
 

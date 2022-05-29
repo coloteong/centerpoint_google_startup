@@ -4,7 +4,6 @@ import Header from "../components/Header";
 import List from "../components/List";
 import Map from "../components/Map";
 import PlaceDetail from "../components/PlaceDetail";
-import { getPlacesData } from "./api";
 import Head from "next/head";
 import {config} from "./config";
 

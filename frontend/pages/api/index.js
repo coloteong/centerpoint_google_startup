@@ -46,7 +46,6 @@
 // // export async function getPlacesData({  }) {
 
 // // const proxyurl = "https://cors-anywhere.herokuapp.com/";
-// // const url ='https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-33.8599358%2C151.2090295&radius=50&type=restaurant&key=AIzaSyDPRi8jxCGzccPR34SkCjnEOh8F6ZKK_q0';
 // // var axios = require('axios');
 
 // // let headers = new Headers();

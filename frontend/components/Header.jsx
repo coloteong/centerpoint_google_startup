@@ -7,9 +7,6 @@ import {
   MenuButton,
   MenuItem,
   MenuList,
-  Checkbox,
-  CheckboxGroup,
-  Stack,
   Button,
   Box,
   AccordionPanel,
@@ -18,8 +15,23 @@ import {
   AccordionItem,
   Accordion,
   Text,
+  Tooltip,
+  useDisclosure,
+  Spacer,
+  IconButton,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalCloseButton,
+  ModalFooter,
+  ModalHeader,
+  ModalBody,
+  Image,
+  HStack,
 } from "@chakra-ui/react";
 import { config } from "../pages/config";
+
+import NextLink from 'next/link'
 import { Autocomplete } from "@react-google-maps/api";
 import { React, useRef, useState } from "react";
 import List from "./List";
@@ -28,14 +40,15 @@ import {
   BiSearch,
   BiFilter,
   BiChevronDown,
-  BiRestaurant,
-  BiShoppingBag,
-  BiHeartCircle,
-  BiDirections,
-  BiRun,
+  BiRestaurant, // food
+  BiHotel, // hotels and staycation
+  BiDirections, //activities
+  BiRun, //sports
   BiXCircle,
+  BiHistory,
+  BiInfoCircle
 } from "react-icons/bi";
-import { IoChevronUpSharp } from "react-icons/io5";
+import { BsGithub } from "react-icons/bs";
 
 const Header = ({
   locations,
@@ -59,26 +72,12 @@ const Header = ({
   /** @type React.MutableRefObject<HTMLInputElement> */
   let enterLocation = useRef();
 
-  // const defaultOptions = {
-  //   strokeOpacity: 0.5,
-  //   strokeWeight: 2,
-  //   center: avgcoordinates,
-  //   radius: radius,
-  //   clickable: false,
-  //   draggable: false,
-  //   editable: false,
-  //   visible: true,
-  //   zIndex: 1,
-  //   fillOpacity: 0.05,
-  //   strokeColor: "#FF5252",
-  //   fillColor: "#FF5252",
-  // };
-
   const [autocomplete, setAutocomplete] = useState(null);
   const restriction = { country: "sg" };
   const [fixedresults, setFixedResults] = useState(null);
   const [displayDirections, setDisplayDirections] = useState([])
   const [directionFromOnePlaceToMultipleLocations, setdirectionFromOnePlaceToMultipleLocations] = useState([])
+  const { isOpen, onOpen, onClose } = useDisclosure()
 
   const list_of_purpose = [
     "Activities",
@@ -88,6 +87,11 @@ const Header = ({
   ];
   const [purpose, setPurpose] = useState(list_of_purpose[1]);
   const onLoad = (autoC) => setAutocomplete(autoC);
+  const [history, setHistory] = useState([]);
+
+  const refreshPage = () => {
+    window.location.reload();
+  }
 
   //Updates whenever a location is added/removed
   const onPlaceChanged = () => {
@@ -95,22 +99,36 @@ const Header = ({
       const lat = autocomplete.getPlace().geometry.location.lat();
       const lng = autocomplete.getPlace().geometry.location.lng();
 
-      let temp = locations.concat(autocomplete.getPlace());
-      locations = temp;
-      setLocations(locations);
+      // check if the inputted location is already in the list
+      const isInList = locations.some(
+        (location) =>
+          location.name === autocomplete.getPlace().name
+      );
 
-      enterLocation.current.value = null;
+      if (isInList === true) {
+        alert("This location is already in the list");
+      } else {
+        let oneLocation = locations.concat(autocomplete.getPlace());
+        locations = oneLocation;
+        setLocations(locations);
 
-      let latAll = null;
-      let lngAll = null;
-      locations.forEach((location) => {
-        latAll += location.geometry.location.lat();
-        lngAll += location.geometry.location.lng();
-      });
-      setAvgcoordinates({
-        lat: latAll / locations.length,
-        lng: lngAll / locations.length,
-      });
+        let oneLocationNotDelete = history.concat(autocomplete.getPlace());
+        history = oneLocationNotDelete;
+        setHistory(history);
+
+        enterLocation.current.value = null;
+
+        let latAll = null;
+        let lngAll = null;
+        locations.forEach((location) => {
+          latAll += location.geometry.location.lat();
+          lngAll += location.geometry.location.lng();
+        });
+        setAvgcoordinates({
+          lat: latAll / locations.length,
+          lng: lngAll / locations.length,
+        });
+      }
     }
   };
 
@@ -134,8 +152,9 @@ const Header = ({
 
     if (tempLocations.length === 0) {
       setAvgcoordinates({ lat: 1.347, lng: 103.79 });
-      setDirectionsResponse([]);
-      setCircleoptions(null);
+      setRadius(0);
+      window.location.reload();
+
     }
   };
 
@@ -167,45 +186,74 @@ const Header = ({
         let maxRadius = 0;
         data = JSON.parse(data)
         data.forEach((place) => {
+    if (locations.length === 0) {
+      alert("Please enter at least one location")
+    } else {
 
-          if (place.distance_from_center >= maxRadius) {
-            maxRadius = place.distance_from_center;
-          }
-        });
-        let newRadius = Math.ceil(maxRadius * 1000) + 5;
-        setRadius(newRadius);
-
-        if (newRadius <= 50) {
-          setZoomLevel(22);
-        } else if (newRadius <= 50) {
-          setZoomLevel(21);
-        } else if (newRadius <= 100) {
-          setZoomLevel(20);
-        } else if (newRadius <= 161) {
-          setZoomLevel(19);
-        } else if (newRadius <= 250) {
-          setZoomLevel(18);
-        } else if (newRadius <= 500) {
-          setZoomLevel(17);
-        } else if (newRadius <= 1000) {
-          setZoomLevel(16);
-        } else if (newRadius <= 5000) {
-          setZoomLevel(15);
-        } else if (newRadius <= 20000) {
-          setZoomLevel(14);
-        } else if (newRadius <= 200000) {
-          setZoomLevel(13);
-        } else {
-          setZoomLevel(12);
-        }
-        console.log("largest radius is : " + newRadius);
-        console.log("zoom level is : " + zoomLevel);
+      event.preventDefault();
+      let formData = {
+        purpose: getPurposeDefinition(purpose),
+        locations: locations,
+      };
+      setIsLoading(true)
+      //  fetch("http://127.0.0.1:5000/test", {
+      fetch("http://127.0.0.1:8000/test", {
+        // fetch("http://centerpoint.lohseng.com:8000/test", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
       })
-      .catch((error) => {
-        console.error(error);
-        console.log("error");
-      });
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          setResults(data);
+          setFixedResults(data);
+          setIsLoading(false)
+          let maxRadius = 0;
+          data = JSON.parse(data)
+          data.forEach((place) => {
 
+            if (place.distance_from_center >= maxRadius) {
+              maxRadius = place.distance_from_center;
+            }
+          });
+          let newRadius = Math.ceil(maxRadius * 1000) + 5;
+          setRadius(newRadius);
+
+          if (newRadius <= 50) {
+            setZoomLevel(22);
+          } else if (newRadius <= 75) {
+            setZoomLevel(21);
+          } else if (newRadius <= 100) {
+            setZoomLevel(20);
+          } else if (newRadius <= 161) {
+            setZoomLevel(19);
+          } else if (newRadius <= 250) {
+            setZoomLevel(18);
+          } else if (newRadius <= 500) {
+            setZoomLevel(17);
+          } else if (newRadius <= 1000) {
+            setZoomLevel(16);
+          } else if (newRadius <= 5000) {
+            setZoomLevel(15);
+          } else if (newRadius <= 20000) {
+            setZoomLevel(14);
+          } else if (newRadius <= 200000) {
+            setZoomLevel(13);
+          } else {
+            setZoomLevel(12);
+          }
+          console.log("largest radius is : " + newRadius);
+          console.log("zoom level is : " + zoomLevel);
+        })
+        .catch((error) => {
+          console.error(error);
+          console.log("error");
+        });
+    }
 
   };
 
@@ -331,7 +379,7 @@ const Header = ({
             onPlaceChanged={onPlaceChanged}
             restrictions={restriction}
           >
-            <InputGroup width={"35vw"} shadow="lg">
+            <InputGroup width={"31.7vw"} shadow="lg"  >
               <InputRightElement
                 pointerEvents={"none"}
                 children={<BiSearch color="gray" fontSize={20} />}
@@ -344,19 +392,80 @@ const Header = ({
                 fontSize={18}
                 bg={"white"}
                 color={"gray.700"}
-                _hover={{ bg: "whiteAlpha.800" }}
-                _focus={{ bg: "whiteAlpha.800" }}
+                _hover={{ bg: "whiteAlpha" }}
+                _focus={{ bg: "whiteAlpha" }}
                 _placeholder={{ color: "gray.400" }}
                 ref={enterLocation}
+                roundedEnd={0}
+                borderEndColor={"gray.500"}
               />
             </InputGroup>
           </Autocomplete>
+
+          {/* History */}
+          <Flex alignItems={"center"} justifyContent={"center"}>
+            <Flex
+              alignItems={"center"}
+              justifyContent={"center"}
+              // px={1}
+              py={2}
+              bg={"white"}
+              shadow="lg"
+              cursor={"pointer"}
+              // roundedEnd={"md"}
+              width={"3.5vw"}
+              borderEndRadius={"md"}
+            >
+              <Menu>
+                <Tooltip label='History' placement='top-start'>
+                  <MenuButton
+                    bg={"white"}
+                    as={Button}
+                    size="xs"
+                  >
+                    <BiHistory fontSize={25} />
+                  </MenuButton>
+                </Tooltip>
+                <MenuList overflowY={"scroll"} >
+                  {
+                    history.map((oneHistory, idx) => {
+                      return (
+                        <MenuItem fontSize={10}
+                          key={idx}
+                          onClick={(event) => {
+                            event.preventDefault();
+                            // check if the inputted location is already in the list
+                            const isInListTwo = locations.some(
+                              (location) =>
+                                location.name === autocomplete.getPlace().name
+                            );
+
+                            if (isInListTwo === true) {
+                              alert("This location is already in the list");
+                            } else {
+                              let tempLocation = locations.concat(oneHistory); // add the history to the locations
+                              locations = tempLocation;
+                              setLocations(locations);
+                              // setPurpose(event.target.value);
+                            }
+                          }
+                          }
+                        >
+                          {oneHistory.name}
+                        </MenuItem>
+                      );
+                    })}
+                </MenuList>
+              </Menu>
+            </Flex>
+          </Flex>
+
           {/**Purpose dropdown list*/}
           <Flex alignItems={"center"} justifyContent={"center"}>
             <Flex
               alignItems={"center"}
               justifyContent={"center"}
-              px={4}
+              px={1}
               py={2}
               bg={"white"}
               rounded={"md"}
@@ -365,15 +474,23 @@ const Header = ({
               cursor={"pointer"}
             >
               <Menu>
-                <MenuButton
-                  //isActive={true}
-                  bg={"white"}
-                  as={Button}
-                  rounded={"full"}
-                  rightIcon={<BiChevronDown fontSize={25} />}
-                >
-                  {purpose}
-                </MenuButton>
+                <Tooltip label='Purpose' placement='top'>
+                  <MenuButton
+                    bg={"white"}
+                    as={Button}
+                    rounded={"full"}
+                    size="xs"
+                    width={"17.6vw"}
+                    fontSize={"15"}
+                    rightIcon={<BiChevronDown fontSize={25} />}
+                    leftIcon={(purpose === "Activities" && <BiDirections fontSize={20} />) ||
+                      (purpose === "Food" && <BiRestaurant fontSize={20} />) ||
+                      (purpose === "Hotels & Staycations" && <BiHotel fontSize={20} />) ||
+                      (purpose === "Sports & Fitness" && <BiRun fontSize={20} />)}
+                  >
+                    {purpose}
+                  </MenuButton>
+                </Tooltip>
                 <MenuList>
                   {list_of_purpose.map((purpose, idx) => {
                     return (
@@ -384,6 +501,10 @@ const Header = ({
                           event.preventDefault();
                           setPurpose(event.target.value);
                         }}
+                        icon={(purpose === "Activities" && <BiDirections fontSize={20} />) ||
+                          (purpose === "Food" && <BiRestaurant fontSize={20} />) ||
+                          (purpose === "Hotels & Staycations" && <BiHotel fontSize={20} />) ||
+                          (purpose === "Sports & Fitness" && <BiRun fontSize={20} />)}
                       >
                         {purpose}
                       </MenuItem>
@@ -395,16 +516,91 @@ const Header = ({
           </Flex>
         </Flex>
 
+        {/**Submit button*/}
         <Flex>
-          {/**Submit button*/}
           <Button
-            bg={"white"}
+            bg={"blue.500"}
+            py={2}
             ml={4} // margin left
             onClick={handleSubmit}
             isLoading={isLoading}
+            fontSize={"15"}
+            color="white"
+            _hover={{ bg: "blue.400" }}
+            _focus={{ bg: "blue.400" }}
           >
             Submit
           </Button>
+        </Flex>
+
+        {/**Clear all button*/}
+        <Flex>
+          <Button
+            bg={"red.700"}
+            py={2}
+            ml={4} // margin left
+            onClick={refreshPage}
+            fontSize={"15"}
+            color="white"
+            _hover={{ bg: "red.600" }}
+            _focus={{ bg: "red.600" }}
+          >
+            Clear all
+          </Button>
+        </Flex>
+
+        <Spacer />
+
+        {/* Info */}
+        <Flex justifyContent="end">
+          <Tooltip label='About' placement='top'>
+            <IconButton
+              colorScheme="blackAlpha"
+              icon={<BiInfoCircle />}
+              rounded="full"
+              onClick={onOpen}
+            />
+          </Tooltip>
+          <Modal isOpen={isOpen} onClose={onClose}>
+            <ModalOverlay />
+            <ModalContent >
+              <ModalHeader>
+                <Text fontWeight='bold' mb='1rem' textAlign={"center"} fontSize={"2xl"}>
+                  Centerpoint
+                  <Text fontWeight='light' fontSize={"xl"}>
+                    Set up your next meeting with ease
+                  </Text>
+                </Text>
+              </ModalHeader>
+
+              <ModalCloseButton />
+              <ModalBody>
+                <Text mb='1rem'>
+                  This is our project submission for the Google Startups Hackathon in Singapore. Our project aims to help users find the closest central location for meetups for people located in different places.
+                </Text>
+                <span>
+                  <b>Collaborators:</b>
+                  <br />
+                  🍬 Candy Salome Lim
+                  <br />
+                  😵 Chew Loh Seng
+                  <br />
+                  🌦 Claudia Beth Ong
+                  <br />
+                  😸 Darryl Tan Kah Heng
+                  <br />
+                  😳 Teo Jia Sheng
+                  <br /> <br />
+
+                  <Box as='a' href='#' fontWeight='bold' alignItems={"center"}>
+                    <BsGithub fontSize="25" href='#' />
+                  </Box>
+                </span>
+              </ModalBody>
+
+              <ModalFooter />
+            </ModalContent>
+          </Modal>
         </Flex>
       </Flex>
 
@@ -414,7 +610,7 @@ const Header = ({
         allowMultiple
         direction={"column"}
         bg={"whiteAlpha.900"}
-        width={"35vw"}
+        width={"35.2vw"}
         // height="50vh"
         position={"absolute"}
         left={4}
@@ -427,9 +623,12 @@ const Header = ({
       >
         <AccordionItem>
           <h2>
-            <AccordionButton>
-              <Box flex="1" textAlign="left">
-                <Text fontSize="xl">Selected Points</Text>
+            <AccordionButton >
+              <Box flex="1" alignItems={"inherit"}  >
+                <HStack>
+                  <Text fontSize="xl">Selected Points </Text>
+                  <Image src="https://firebasestorage.googleapis.com/v0/b/cz3002-5e843.appspot.com/o/187585711810.png?alt=media" />
+                </HStack>
               </Box>
               <AccordionIcon />
             </AccordionButton>
@@ -462,7 +661,10 @@ const Header = ({
           <h2>
             <AccordionButton>
               <Box flex="1" textAlign="left">
-                <Text fontSize="xl">Suggested Places</Text>
+                <HStack>
+                  <Text fontSize="xl">Suggested Places </Text>
+                  <Image src="https://firebasestorage.googleapis.com/v0/b/cz3002-5e843.appspot.com/o/507985227143.png?alt=media" />
+                </HStack>
               </Box>
               <AccordionIcon />
             </AccordionButton>
@@ -483,7 +685,8 @@ const Header = ({
           </AccordionPanel>
         </AccordionItem>
       </Accordion>
-    </div>
+
+    </div >
   );
 };
 
