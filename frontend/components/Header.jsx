@@ -365,7 +365,7 @@ const Header = ({
               shadow="lg"
               cursor={"pointer"}
               // roundedEnd={"md"}
-              width = {"3vw"}
+              width = {"3.5vw"}
               borderEndRadius={"md"}
             >
               <Menu>
@@ -373,7 +373,7 @@ const Header = ({
                   <MenuButton
                     bg={"white"}
                     as={Button}
-                    size="xs"
+                    size="xs" 
                   >
                     <BiHistory fontSize={25} />
                   </MenuButton>
@@ -552,7 +552,7 @@ const Header = ({
         allowMultiple
         direction={"column"}
         bg={"whiteAlpha.900"}
-        width={"34.7vw"}
+        width={"35.2vw"}
         // height="50vh"
         position={"absolute"}
         left={4}
