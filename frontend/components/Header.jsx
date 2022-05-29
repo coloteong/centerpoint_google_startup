@@ -87,6 +87,10 @@ const Header = ({
   const onLoad = (autoC) => setAutocomplete(autoC);
   const [history, setHistory] = useState([]);
 
+  const refreshPage = ()=>{
+    window.location.reload();
+ }
+
   //Updates whenever a location is added/removed
   const onPlaceChanged = () => {
     if (autocomplete !== null) {
@@ -135,21 +139,23 @@ const Header = ({
     setCircleoptions(null);
 
 
-    // if (tempLocations.length === 0) {
-    //   setAvgcoordinates({ lat: 1.347, lng: 103.79 });
-    //   // setDirectionsResponse([]);
-    //   // setCircleoptions(null);
-    //   // history.push("/");
-    //   // radius.setState(0);
-    //   Home.setState(null);
-    //   // results.setState(null);
-    //   // fixedresults.setState(null);
-    //   // directionsResponse.setState([]);
-    //   // history.setState([])
-    //   locations.setState([])
-    //   // window.location.reload()
+    if (tempLocations.length === 0) {
+      setAvgcoordinates({ lat: 1.347, lng: 103.79 });
+      // setDirectionsResponse([]);
+      // setCircleoptions(null);
+      // history.push("/");
+      // radius.setState(0);
 
-    // }
+        window.location.reload();
+     
+      // results.setState(null);
+      // fixedresults.setState(null);
+      // directionsResponse.setState([]);
+      // history.setState([])
+      // locations.setState([])
+      // window.location.reload()
+
+    }
   };
 
   //Executes the algorithm to find list of suggested places
@@ -161,8 +167,8 @@ const Header = ({
     };
     setIsLoading(true)
     //  fetch("http://127.0.0.1:5000/test", {
-    fetch("http://127.0.0.1:8000/test", {
-      // fetch("http://centerpoint.lohseng.com:8000/test", {
+    // fetch("http://127.0.0.1:8000/test", {
+      fetch("http://centerpoint.lohseng.com:8000/test", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -467,6 +473,23 @@ const Header = ({
             Submit
           </Button>
         </Flex>
+
+        {/**Submit button*/}
+        <Flex>
+          <Button
+            bg={"red.700"}
+            py={2}
+            ml={4} // margin left
+            onClick={refreshPage}
+            fontSize={"15"}
+            color="white"
+            _hover={{ bg: "red" }}
+            _focus={{ bg: "red" }}
+          >
+            Clear all
+          </Button>
+        </Flex>
+
 
         <Spacer />
 
