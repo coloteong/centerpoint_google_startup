@@ -75,6 +75,9 @@ Algorithm:
 - requests
 - pandas
 - json
+- geopy
+
+Communication:
 - flask
 
 Frontend:
@@ -84,8 +87,8 @@ Frontend:
 - react-google-maps/api
 
 ## Collaborators:
-1. Candy Salome Lim
-2. Chew Loh Seng
-3. Claudia Beth Ong
-4. Darryl Tan Kah Heng
-5. Teo Jia Sheng
+1. Candy Salome Lim - [csndylim](https://github.com/csndylim)
+2. Chew Loh Seng - [lohseng97](https://github.com/lohseng97)
+3. Claudia Beth Ong - [coloteong](https://github.com/coloteong)
+4. Darryl Tan Kah Heng - [darryltkh](https://github.com/darryltkh)
+5. Teo Jia Sheng - [detectivemerry](https://github.com/detectivemerry)
