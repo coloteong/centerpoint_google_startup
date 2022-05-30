@@ -559,7 +559,7 @@ const Header = ({
               <ModalCloseButton />
               <ModalBody>
                 <Text mb='1rem'>
-                  This is our project submission for the Google Startups Hackathon in Singapore. Our project aims to help users find the closest central location for meetups for people located in different places.
+                  This is our project submission for the Google for Startups Cloud Hackathon in Singapore. Our project aims to help users find the closest central location for meetups for people located in different places.
                 </Text>
                 <span>
                   <b>Collaborators:</b>
