@@ -73,27 +73,10 @@ def algorithm():
 		no_of_locations = 0
 		# List of search phrases for each purpose
 		searches = purpose
-		# if purpose == "Activities":
-		# 	searches = ["amusement_park",
-		# 				"aquarium",
-		# 				"art_gallery",
-		# 				"bowling_alley",
-		# 				"cafe",
-		# 				"movie_theater",
-		# 				"museum",
-		# 				"night_club",
-		# 				"tourist_attraction"]	
-		# elif purpose == "Food":
-		# 	searches = ["cafe", "restaurant"]
-		# elif purpose == "Hotels & Staycations":
-		# 	searches =  ["lodging"]
-		# else:
-		# 	searches = ["gym", "park"]
 		while radius < 1000 and no_of_locations < 5:
 			# Take into account the purpose of the meetup
 			location_data = []
 			for type in searches:
-				# print('current search' , type)
 				url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + \
 					str(central_point[0]) + "%2C" + \
 					str(central_point[1]) + "&radius=" + \
@@ -105,12 +88,9 @@ def algorithm():
 				response = requests.request("GET", url, headers=headers, data=payload)
 				candidate_locations = response.text
 				formatted_candidate_locations = json.loads(candidate_locations)
-				# print("Formatted location", formatted_candidate_locations)
 				location_data.append(formatted_candidate_locations)
 			
-			# print(":-):", location_data[0]['results'])
 			final_loc_df = pd.DataFrame.from_dict(location_data[0]['results'])
-			# print("final_loc_df",final_loc_df)
 			location_data.pop(0)
 			
 			for i in location_data:
@@ -122,8 +102,6 @@ def algorithm():
 			# result_df = pd.DataFrame.from_dict(formatted_candidate_locations['results'])
 			# final_loc_df = pd.DataFrame(location_data)
 			# add checking for whether location is open
-			# print("Result df: ", list(final_loc_df))
-			# CLAUDIA LOOK AT THIS!!! OI!!!!! teehee
 			# result_df = check_opening_hours(result_df)
 			no_of_locations = final_loc_df.shape[0]
 			print("no of locations =", no_of_locations)
@@ -164,7 +142,6 @@ def algorithm():
 		location_data = data['locations']
 		purpose = data['purpose']
 		for i in range(len(location_data)):
-			print(location_data[i]['geometry']['location'])
 			coordinates = location_data[i]['geometry']['location']
 			latitude = coordinates['lat']
 			longitude = coordinates['lng']
@@ -184,10 +161,7 @@ def algorithm():
 		# clean the dictionary to get a nice list of all locations
 		# dataframe includes name, rating, operating hrs, address, image
 		result_df = pd.DataFrame.from_dict(candidate_location_dict)
-		print("Result df", list(result_df))
-		# can this be made dynamic? if any of the column names dont exist, skip
 		dataframe_locations = result_df.loc[:, result_df.columns.isin(['name', 'rating', 'opening_hours', 'vicinity', 'geometry', 'photos', "user_ratings_total", "place_id"])]
-		# dataframe_locations = result_df[['name', 'rating', 'opening_hours', 'geometry', 'photos', "user_ratings_total"]]
 		locations_sorted_rating = dataframe_locations.sort_values(by = 'rating', ascending = False)
 		locations_sorted_rating = locations_sorted_rating.head(5)
 		locations_sorted_rating = get_distances_from_central(locations_sorted_rating, central_point)
@@ -195,35 +169,18 @@ def algorithm():
 		promoted_locations = [int(0) for _ in range(len(locations_sorted_rating.index))]
 		promoted_locations[0] = int(1)
 		locations_sorted_rating['promoted'] = promoted_locations
-		print(locations_sorted_rating)
 		json_formatted_locations = convert_dict_to_json(locations_sorted_rating)
 		return json_formatted_locations
 
-
-	#for location in data:
-		#Each location is a dictionary
-		#print(type(location))
-		#for key,value in location.items():
-			#print('these are the keys:' + key)
-			#pass
-	
 	# Returns the request back to client
 
 	# Flask cannot return lists; converts the list into a JSON string
 
 	data = request.get_json()
-	#print("current data", data)
 	output_coord = get_multiple_coordinates_from_json(data)
-	# print(output_coord)
-	init_center_point = find_central_point(output_coord)
-	# print(init_center_point)
 	init_goog_locs = find_candidate_google_locations(init_center_point, data['purpose'])
-	# print(init_goog_locs)
 	final_goog_locs = determine_final_google_location (init_goog_locs, init_center_point)
-	#print(final_goog_locs)
 
-	#json_data = convert_dict_to_json(final_goog_locs)
-	#print(json_data)
 
 	return Response(json.dumps(final_goog_locs), mimetype='application/json')
 	#return json_data
