@@ -1,4 +1,4 @@
 key_API = "&key="
-API_KEY = "AIzaSyBfRULXHpiE7P6D68X-H6seTnaZgxw-AOE"
+API_KEY = "AIzaSyCqPa-_gDX4Q1889_wLFqnqglxeavdsviw"
 
 KEY = key_API + API_KEY

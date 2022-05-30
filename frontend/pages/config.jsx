@@ -1,4 +1,4 @@
 export const config = {
-    MAIN_API_KEY: 'AIzaSyATgenUMR1GA5RmylWiu4pEifgDl3XTgps',
-    PHOTOS_API_KEY: 'AIzaSyDes0yJZ2sjVaBtHZwYYh3EEhwm3EXCi0E'
+    MAIN_API_KEY: 'AIzaSyCqPa-_gDX4Q1889_wLFqnqglxeavdsviw',
+    PHOTOS_API_KEY: 'AIzaSyCqPa-_gDX4Q1889_wLFqnqglxeavdsviw'
 }
