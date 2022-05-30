@@ -3,7 +3,8 @@ This is our project submission for the Google Startups Hackathon in Singapore.
 Our project aims to help users find the closest central location for meetups for people located in different places.
 
 ## Setup Procedure
-Our website is currently hosted on [CenterPoint](http://www.lohseng.com/centerpoint). P.S.: Due to the recent DDoS attack detected by CloudFlare, we have turned off the server.
+Our website is currently hosted on [CenterPoint](http://www.lohseng.com/centerpoint). </br> 
+P.S.: Due to the recent DDoS attack detected by CloudFlare, we have turned off the server.
 </br>
 
 If you would like to reproduce our application locally and make any edits, please do the following steps: 
