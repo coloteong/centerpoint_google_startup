@@ -178,7 +178,6 @@ def algorithm():
 
 	data = request.get_json()
 	output_coord = get_multiple_coordinates_from_json(data)
-	init_center_point = find_central_point(output_coord)
 	init_goog_locs = find_candidate_google_locations(init_center_point, data['purpose'])
 	final_goog_locs = determine_final_google_location (init_goog_locs, init_center_point)
 
