@@ -1,5 +1,5 @@
 # CenterPoint: Set up your next meeting with ease
-This is our project submission for the Google Startups Hackathon in Singapore. 
+This is our project submission for Google Cloud Hackathon for Startups in Singapore. 
 Our project aims to help users find the closest central location for meetups for people located in different places.
 
 ## Setup Procedure
