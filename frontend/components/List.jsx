@@ -9,12 +9,12 @@ import {
   GridItem,
   Spacer,
 } from "@chakra-ui/react";
-import { Rating } from "@material-ui/lab";
+
 import React, { useEffect, useState } from "react";
 import PlaceDetail from "./PlaceDetail";
 import PlaceDirections from "./PlaceDirections";
 import { config } from "../pages/config";
-import { IoLocation } from "react-icons/io5";
+
 
 const List = ({
   places,
@@ -130,29 +130,6 @@ const List = ({
         </Flex>
       )}
     </React.Fragment>
-
-    // <Flex
-    //   direction={"column"}
-    //   bg={"whiteAlpha.900"}
-    //   width={"37vw"}
-    //   height="100vh"
-    //   position={"absolute"}
-    //   left={0}
-    //   top={40}
-    //   zIndex={1}
-    //   overflow="hidden"
-    //   px={2}
-    // >
-    //   <Flex flex={1} overflowY={"scroll"} mt={16} direction={"column"}>
-
-    //     {places  && places.map((place, idx) => {
-    //       return(
-    //         <PlaceDetail place = {place} key = {idx} />
-    //       )
-    //     })}
-
-    //   </Flex>
-    // </Flex>
   );
 };
 

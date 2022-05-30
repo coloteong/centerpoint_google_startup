@@ -1,20 +1,15 @@
 import React from "react";
 
 import {
-  useJsApiLoader,
   GoogleMap,
   Marker,
-  Autocomplete,
   DirectionsRenderer,
-  InfoWindow,
   Circle,
 } from "@react-google-maps/api";
 
-import { Box, Flex, SkeletonText } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 
 import { useRef, useState } from "react";
-
-import { onLoad } from "./Header";
 
 function Map({ avgcoordinates, locations, directionsResponse, radius, results, zoomLevel, selectedplace }) {
   const [map, setMap] = useState(/** @type google.maps.Map */(null));

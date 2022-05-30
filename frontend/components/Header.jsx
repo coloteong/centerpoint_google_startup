@@ -105,6 +105,13 @@ const Header = ({
           location.name === autocomplete.getPlace().name
       );
 
+      // check if the inputted location is already in the history
+      const isInHistory = history.some(
+        (hist) =>
+          hist.name === autocomplete.getPlace().name
+      );
+
+
       if (isInList === true) {
         alert("This location is already in the list");
       } else {
@@ -112,10 +119,11 @@ const Header = ({
         locations = oneLocation;
         setLocations(locations);
 
-        let oneLocationNotDelete = history.concat(autocomplete.getPlace());
-        history = oneLocationNotDelete;
-        setHistory(history);
-
+        if (isInHistory === false) {
+          let oneLocationNotDelete = history.concat(autocomplete.getPlace());
+          history = oneLocationNotDelete;
+          setHistory(history);
+        }
         enterLocation.current.value = null;
 
         let latAll = null;
@@ -162,7 +170,7 @@ const Header = ({
   const handleSubmit = async (event) => {
     if (locations.length === 0) {
       alert("Please enter at least one location")
-    } 
+    }
     else {
       event.preventDefault();
       let formData = {
@@ -170,9 +178,9 @@ const Header = ({
         locations: locations,
       };
       setIsLoading(true)
-        fetch("http://127.0.0.1:5000/test", {
+      // fetch("http://127.0.0.1:5000/test", {
       // fetch("http://127.0.0.1:8000/test", {
-        // fetch("http://centerpoint.lohseng.com:8000/test", {
+        fetch("http://centerpoint.lohseng.com:8000/test", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -227,7 +235,7 @@ const Header = ({
           console.error(error);
           console.log("error");
         });
-      }
+    }
   };
 
   //Get list of keywords from user selected purpose
@@ -300,8 +308,8 @@ const Header = ({
       }
       allInstructionroutes.push(oneInstructionRoute);
       //allInstructionroutes = [locations[i].name, ...allInstructionroutes]
-      
-      console.log("getDirects was ran for:"+ locations[i].name +" and " + place.name)
+
+      console.log("getDirects was ran for:" + locations[i].name + " and " + place.name)
       console.log("direction is: ")
       console.log(allInstructionroutes)
       setdirectionFromOnePlaceToMultipleLocations(allInstructionroutes)
@@ -316,7 +324,7 @@ const Header = ({
       //   console.log('distance: ' + d[0].total_duration)
       // })
     }
-    
+
     setDirectionsResponse(allDrawingroutes);
 
     // change the selected place's marker to different marker icon
@@ -644,11 +652,11 @@ const Header = ({
           </h2>
           <AccordionPanel pb={4}>
             {fixedresults != null ? (
-              <List places={fixedresults} 
-              isLoading={isLoading} 
-              getDirectionsToCenterPoint={getDirectionsToCenterPoint} 
-              directionFromOnePlaceToMultipleLocations = {directionFromOnePlaceToMultipleLocations} 
-              locations = {locations}/>
+              <List places={fixedresults}
+                isLoading={isLoading}
+                getDirectionsToCenterPoint={getDirectionsToCenterPoint}
+                directionFromOnePlaceToMultipleLocations={directionFromOnePlaceToMultipleLocations}
+                locations={locations} />
             ) : (
               <Text fontSize="md" color="gray">
                 There are no results to display.

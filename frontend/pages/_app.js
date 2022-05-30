@@ -6,11 +6,13 @@ import { ChakraProvider } from '@chakra-ui/react'
 function MyApp({ Component, pageProps }) {
   return (
     // 2. wrap the app with `ChakraProvider`
-  <ChakraProvider>
-  <Component {...pageProps} />
-
-  </ChakraProvider>
-)
+    <ChakraProvider>
+      <Head>
+        <title>Centerpoint</title>
+      </Head>
+      <Component {...pageProps} />
+    </ChakraProvider>
+  )
 }
 
 export default MyApp;
