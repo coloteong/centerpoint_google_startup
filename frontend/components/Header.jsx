@@ -29,9 +29,7 @@ import {
   Image,
   HStack,
 } from "@chakra-ui/react";
-import { config } from "../pages/config";
 
-import NextLink from 'next/link'
 import { Autocomplete } from "@react-google-maps/api";
 import { React, useRef, useState } from "react";
 import List from "./List";
@@ -178,9 +176,7 @@ const Header = ({
         locations: locations,
       };
       setIsLoading(true)
-      // fetch("http://127.0.0.1:5000/test", {
-      fetch("http://127.0.0.1:8000/test", {
-        // fetch("http://centerpoint.lohseng.com:8000/test", {
+      fetch("http://centerpoint.lohseng.com:8000/test", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -293,13 +289,39 @@ const Header = ({
       let moves = direction.routes[0].legs[0].steps;
       let oneRoute = []
       moves.forEach((move, idx) => {
-        let step = {
-          index: idx,
-          instruction: move.instructions,
-          distance: move.distance.text,
-          duration: move.duration.text
+        // last instruction: Turn leftDestination will be on the left
+        if (idx === moves.length -1){
+          const lastIndex =  move.instructions.lastIndexOf('Destination');
+          let firstHalf =   move.instructions.slice(0,lastIndex); // Turn left
+          let secondHalf =  move.instructions.slice(lastIndex); // Destination will be on the left
+          // remove the last instruction 
+  
+          let firstHalfStep = {
+            index: idx,
+            instruction: firstHalf,
+            distance: move.distance.text,
+            duration: move.duration.text
+          }    
+          let secondtHalfStep = {
+            index: idx,
+            instruction: secondHalf,
+            distance: move.distance.text,
+            duration: move.duration.text
+          }       
+          
+          oneRoute.push(firstHalfStep)
+          oneRoute.push(secondtHalfStep)
+        }else{
+
+          let step = {
+            index: idx,
+            instruction: move.instructions, //allInstructions,
+            distance: move.distance.text,
+            duration: move.duration.text
+          }        
+          oneRoute.push(step)
         }
-        oneRoute.push(step)
+  
       });
       let oneInstructionRoute = {
         total_distance: direction.routes[0].legs[0].distance.text,

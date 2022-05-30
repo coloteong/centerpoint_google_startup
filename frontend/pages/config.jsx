@@ -1,3 +1,4 @@
 export const config = {
-    REACT_APP_MAPS_API_KEY: 'AIzaSyDoWNaNYW7rDDc31FH8zA3arlGQ73c8XVE',
+    MAIN_API_KEY: 'AIzaSyATgenUMR1GA5RmylWiu4pEifgDl3XTgps',
+    PHOTOS_API_KEY: 'AIzaSyDes0yJZ2sjVaBtHZwYYh3EEhwm3EXCi0E'
 }

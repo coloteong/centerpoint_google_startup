@@ -36,7 +36,7 @@ const PlaceDetail = ({
   setcurrentPlace,
   getDirectionsToCenterPoint,
 }) => {
-  const api_key = config.REACT_APP_MAPS_API_KEY;
+  const photos_api_key = config.PHOTOS_API_KEY;
   //   console.log("directionFromOnePlaceToMultipleLocations is this:");
   //   console.log(directionFromOnePlaceToMultipleLocations);
   const handlecurrentPlaceChange = (event) => {
@@ -149,9 +149,9 @@ const PlaceDetail = ({
                       src={
                         place.photos
                           ? "https:///maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=" +
-                          place.photos[0].photo_reference +
-                          "&key=" +
-                          api_key
+                            place.photos[0].photo_reference +
+                            "&key=" +
+                            photos_api_key
                           : "https://firebasestorage.googleapis.com/v0/b/cz3002-5e843.appspot.com/o/64818931817.png?alt=media"
                       }
                     />

@@ -28,7 +28,8 @@ const Home = () => {
     // });
   }, [results]);
 
-  const api_key = config.REACT_APP_MAPS_API_KEY;
+  const api_key = config.MAIN_API_KEY;
+
   const url = `https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${api_key}`;
 
   return (

@@ -11,7 +11,7 @@ const PlaceDetail = ({ place, firstcolour, secondcolour, isAd, getDirectionsToCe
   const [isSelected, setIsSelected] = useState(false);
   let is_open = (place.opening_hours != null) ? ((place.opening_hours.open_now) ? "Open Now" : "Closed Now") : "Opening hours not available"
 
-  const api_key = config.REACT_APP_MAPS_API_KEY;
+  const photos_api_key = config.PHOTOS_API_KEY;
 
   const handlePressed = (event) => {
     event.preventDefault();
@@ -98,7 +98,7 @@ const PlaceDetail = ({ place, firstcolour, secondcolour, isAd, getDirectionsToCe
           rounded="lg"
           src={
             place.photos
-              ? "https:///maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=" + place.photos[0].photo_reference + "&key=" + api_key
+              ? "https:///maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=" + place.photos[0].photo_reference + "&key=" + photos_api_key
               : "https://firebasestorage.googleapis.com/v0/b/cz3002-5e843.appspot.com/o/64818931817.png?alt=media"
           }
         />
