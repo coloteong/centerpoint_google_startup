@@ -68,10 +68,10 @@ const PlaceDetail = ({
   };
 
   return (
-    <Flex overflowY={"scroll"} direction = {"column"}>
+    <Flex overflowY={"scroll"} direction={"column"}>
       <Flex>
         {" "}
-        <Button  bg = {'white'} leftIcon = {<ArrowBackIcon />} onClick={handleGoBack}></Button>
+        <Button bg={'white'} leftIcon={<ArrowBackIcon />} onClick={handleGoBack}></Button>
       </Flex>
       <Tabs variant="soft-rounded" variantColor="green" defaultIndex={1}>
         <TabList>
@@ -149,9 +149,9 @@ const PlaceDetail = ({
                       src={
                         place.photos
                           ? "https:///maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=" +
-                            place.photos[0].photo_reference +
-                            "&key=" +
-                            api_key
+                          place.photos[0].photo_reference +
+                          "&key=" +
+                          api_key
                           : "https://firebasestorage.googleapis.com/v0/b/cz3002-5e843.appspot.com/o/64818931817.png?alt=media"
                       }
                     />
@@ -187,13 +187,28 @@ const PlaceDetail = ({
                               </Flex>
                               <br />
                               <UnorderedList>
-                                {d.steps.map((step) => {
+                                {d.steps.map((step, idx) => {
                                   let instruction = step.instruction
                                     .replace(/(<([^>]+)>)/gi, "")
                                     .trim()
-                                    .replace(/Toll/,'')
-                                    .replace(/Ln/,'')
-                                  return <ListItem>{instruction}</ListItem>;
+                                    .replace(/Toll/, '')
+                                    .replace(/Ln/, '')
+
+                                  if (idx === d.steps.length - 1) {
+                                    const lastIndex = instruction.lastIndexOf('Destination');
+                                    let firstHalf = instruction.slice(0, lastIndex); // Turn left
+                                    let secondHalf = instruction.slice(lastIndex); // Destination will be on the left
+                                    // remove the last instruction 
+
+                                    return (<div>
+                                      <ListItem>{firstHalf}</ListItem>
+                                      <ListItem>{secondHalf}</ListItem>
+                                    </div>)
+                                  } else {
+                                    return <ListItem>{instruction}</ListItem>;
+                                  }
+
+
                                 })}
                               </UnorderedList>
                             </TabPanel>
