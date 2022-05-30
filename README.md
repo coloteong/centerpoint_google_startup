@@ -45,12 +45,14 @@ http://192.168.1.2:3000
 APIs:
 - Google Places API - Mainly used to get location coordinates and attributes of user-chosen locations and generate final chosen location by our application
 - Google Directions API - Used to list directions to suggested locations from user-chosen starting locations
-- Google Maps JavaScript API - ????
+- Google Maps JavaScript API - Used to embed the interactive map layout to the interface
+
+Compute Engine: Host all services from frontend and backend in an always-on Virtual Machine instance using Google Cloud Platform's Compute Engine
 
 ## Languages Used
-Python - Backend algorithm to obtain locations, calculate best meetup location. Communications between the backend and frontend.
+Python - Backend algorithm to obtain locations, calculate best meetup location. Communications between the backend and frontend
 </br>
-ReactJS - Frontend 
+Javascript ES6 - Dynamic web development for the frontend
 ### TO WRITE
 
 ## Packages Used
@@ -59,8 +61,12 @@ Algorithm:
 - pandas
 - json
 - flask
-- 
 
+Frontend:
+- next
+- react
+- chakraUI
+- react-google-maps/api
 
 ## Collaborators:
 1. Candy Salome Lim
