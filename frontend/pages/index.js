@@ -1,10 +1,7 @@
 import { Flex, requiredChakraThemeKeys } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import Header from "../components/Header";
-import List from "../components/List";
 import Map from "../components/Map";
-import PlaceDetail from "../components/PlaceDetail";
-import { getPlacesData } from "./api";
 import Head from "next/head";
 import {config} from "./config";
 
@@ -69,20 +66,16 @@ const Home = () => {
         setSelectedplace = {setSelectedplace}
       />
 
-      {/* {results && <List places={results} isLoading={isLoading} />} */}
-
       <Map
         avgcoordinates={avgcoordinates}
         locations={locations}
         directionsResponse={directionsResponse}
-        // circleoptions={circleoptions}
         radius = {radius}
         results = {results}
         zoomLevel = {zoomLevel}
         selectedplace = {selectedplace}
       />
 
-      {/* <PlaceDetail/> */}
     </Flex>
   );
 };

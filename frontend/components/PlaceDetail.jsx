@@ -6,12 +6,19 @@ import { useEffect, useState } from "react";
 import {RiAdvertisementFill} from "react-icons/ri";
 import { config } from "../pages/config";
 
-const PlaceDetail = ({ place, firstcolour, secondcolour, isAd, getDirectionsToCenterPoint }) => {
+const PlaceDetail = ({ place, firstcolour, secondcolour, isAd, getDirectionsToCenterPoint, isInDirections, setisInDirections, nameOfPlacePressed, setNameOfPlacePressed}) => {
 
   const [isSelected, setIsSelected] = useState(false);
   let is_open = (place.opening_hours != null) ? ((place.opening_hours.open_now) ? "Open Now" : "Closed Now") : "Opening hours not available"
-  
+
   const api_key = config.REACT_APP_MAPS_API_KEY;
+
+  const handlePressed = (event) => {
+    event.preventDefault();
+    getDirectionsToCenterPoint(place)
+    setisInDirections(true)
+    setNameOfPlacePressed(place.name)
+  }
 
   return (
     <Flex
@@ -25,7 +32,7 @@ const PlaceDetail = ({ place, firstcolour, secondcolour, isAd, getDirectionsToCe
       justifyContent="space-between"
       onMouseOver={() => { setIsSelected(true) }}
       onMouseLeave={() => { setIsSelected(false) }}
-      onClick={() => { getDirectionsToCenterPoint(place) }}
+      onClick={handlePressed}
     >
       <Flex justifyContent={"space-between"} width="full">
         <Flex
@@ -45,7 +52,6 @@ const PlaceDetail = ({ place, firstcolour, secondcolour, isAd, getDirectionsToCe
               width={"40"}
               fontSize={"lg"}
               fontWeight={"500"}
-              isTruncated
             >
               {place.name}
               <RiAdvertisementFill fontSize={isAd} color = "purple" />
@@ -63,7 +69,7 @@ const PlaceDetail = ({ place, firstcolour, secondcolour, isAd, getDirectionsToCe
               fontSize={"sm"}
               fontWeight={"500"}
               color={"gray.500"}
-            >{place.user_ratings_total ? `(${place.user_ratings_total})` : " Rating not available"}</Text>
+            >{place.user_ratings_total ? `(${place.user_ratings_total})` : "Rating not available"}</Text>
             <Text
               fontSize={"sm"}
               fontWeight={"500"}
@@ -102,7 +108,6 @@ const PlaceDetail = ({ place, firstcolour, secondcolour, isAd, getDirectionsToCe
         <Flex alignItems={"center"} width={"full"} px={1} my={2}>
           <IoLocation fontSize={20} color="gray" />
           <Text
-            isTruncated
             fontSize={"small"}
             fontWeight={500}
             color={"gray.700"}
