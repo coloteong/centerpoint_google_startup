@@ -179,8 +179,8 @@ const Header = ({
       };
       setIsLoading(true)
       // fetch("http://127.0.0.1:5000/test", {
-      // fetch("http://127.0.0.1:8000/test", {
-        fetch("http://centerpoint.lohseng.com:8000/test", {
+      fetch("http://127.0.0.1:8000/test", {
+        // fetch("http://centerpoint.lohseng.com:8000/test", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -427,7 +427,6 @@ const Header = ({
                               let tempLocation = locations.concat(oneHistory); // add the history to the locations
                               locations = tempLocation;
                               setLocations(locations);
-                              // setPurpose(event.target.value);
                             }
                           }
                           }
@@ -546,12 +545,15 @@ const Header = ({
             <ModalOverlay />
             <ModalContent >
               <ModalHeader>
+                <HStack>
+                  <Image src = "https://firebasestorage.googleapis.com/v0/b/cz3002-5e843.appspot.com/o/626439709591.png?alt=media"></Image>
                 <Text fontWeight='bold' mb='1rem' textAlign={"center"} fontSize={"2xl"}>
-                  Centerpoint
+                  CenterPoint
                   <Text fontWeight='light' fontSize={"xl"}>
                     Set up your next meeting with ease
                   </Text>
                 </Text>
+                </HStack>
               </ModalHeader>
 
               <ModalCloseButton />
