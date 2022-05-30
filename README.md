@@ -8,7 +8,7 @@ P.S.: Due to the recent DDoS attack detected by CloudFlare, we have turned off t
 </br>
 
 If you would like to reproduce our application locally and make any edits, please do the following steps: 
-#### Note: Please input your own Google API key. For documentation on how to get your own Google API key:  [Google Developers](https://developers.google.com/maps/documentation/javascript/get-api-key)
+#### Note: Please input your own Google API key. For documentation on how to get your own Google Maps API key:  [Google Developers](https://developers.google.com/maps/documentation/javascript/get-api-key)
 1. Clone the repository or download the project code to your preferred disk location.
 2. Open two terminal windows and change the directory to the appropriate disk location.
 3. Make a virtual environment for the project through conda or venv. 
@@ -16,10 +16,24 @@ If you would like to reproduce our application locally and make any edits, pleas
 ```
 $ pip install -r requirements.txt
 ```
-6. In one terminal window, change the directory to the ``frontend`` folder and download all the dependencies required by executing these commands:
+5. In one terminal window, change the directory to the ``frontend`` folder and download all the dependencies required by executing these commands:
 ```
 $ cd frontend
 $ npm install
+```
+6. There is a `.gitignore` file in our project, which contains the relative path of 2 files that conatins the Google Map API keys. 
+> Create a `config.jsx` file in `\frontend\pages\`, and copy the code, inserting your API key in `xxx`.
+```
+export const config = {
+    MAIN_API_KEY: 'xxx',
+    PHOTOS_API_KEY: 'xxx'
+}
+```
+> Create a `apikey.py` file in `\flask_app\`, and copy the code, inserting your API key in `xxx`.
+```
+key_API = "&key="
+API_KEY = "xxx"
+KEY = key_API + API_KEY
 ```
 7. Please enable ``port: 3000`` and ``port: 8000`` for both inbound and outbound traffic in your network firewall.
 </br> 
@@ -55,7 +69,6 @@ Compute Engine: Host all services from frontend and backend in an always-on Virt
 Python - Backend algorithm to obtain locations, calculate best meetup location. Communications between the backend and frontend
 </br>
 Javascript ES6 - Dynamic web development for the frontend
-### TO WRITE
 
 ## Packages Used
 Algorithm:
