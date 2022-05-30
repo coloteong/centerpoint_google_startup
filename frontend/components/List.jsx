@@ -27,7 +27,7 @@ const List = ({
   const [nameOfPlacePressed, setNameOfPlacePressed] = useState(null);
   const [currentPlace, setcurrentPlace] = useState(null);
   const [selectedLocation, setSelectedLocation] = useState(null);
-  const api_key = config.REACT_APP_MAPS_API_KEY;
+  const api_key = config.MAIN_API_KEY;
 
   if (typeof places === "string") {
     places = JSON.parse(places);
