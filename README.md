@@ -1,9 +1,17 @@
-# CenterPoint: Set up your next meeting with ease
+<p align="center">
+  <a >
+    <img src="https://firebasestorage.googleapis.com/v0/b/cz3002-5e843.appspot.com/o/626439709591.png?alt=media" alt="logo" width="150" />
+    <h1> CenterPoint: Set up your next meeting with ease </h1>
+  </a>
+</p>
+
+
 This is our project submission for Google Cloud Hackathon for Startups in Singapore. 
 Our project aims to help users find the closest central location for meetups for people located in different places.
 
 ## Setup Procedure
 Our website is currently hosted on [CenterPoint](http://www.lohseng.com/centerpoint). </br> 
+
 P.S.: Due to the recent DDoS attack detected by CloudFlare, we have turned off the server.
 </br>
 
