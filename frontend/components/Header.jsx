@@ -176,8 +176,8 @@ const Header = ({
         locations: locations,
       };
       setIsLoading(true)
-      // fetch("http://127.0.0.1:8000/test", {
-      fetch("http://centerpoint.lohseng.com:8000/test", {
+      fetch("http://127.0.0.1:8000/test", {
+        // fetch("http://centerpoint.lohseng.com:8000/test", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -291,38 +291,38 @@ const Header = ({
       let oneRoute = []
       moves.forEach((move, idx) => {
         // last instruction: Turn leftDestination will be on the left
-        if (idx === moves.length -1){
-          const lastIndex =  move.instructions.lastIndexOf('Destination');
-          let firstHalf =   move.instructions.slice(0,lastIndex); // Turn left
-          let secondHalf =  move.instructions.slice(lastIndex); // Destination will be on the left
+        if (idx === moves.length - 1) {
+          const lastIndex = move.instructions.lastIndexOf('Destination');
+          let firstHalf = move.instructions.slice(0, lastIndex); // Turn left
+          let secondHalf = move.instructions.slice(lastIndex); // Destination will be on the left
           // remove the last instruction 
-  
+
           let firstHalfStep = {
             index: idx,
             instruction: firstHalf,
             distance: move.distance.text,
             duration: move.duration.text
-          }    
+          }
           let secondtHalfStep = {
             index: idx,
             instruction: secondHalf,
             distance: move.distance.text,
             duration: move.duration.text
-          }       
-          
+          }
+
           oneRoute.push(firstHalfStep)
           oneRoute.push(secondtHalfStep)
-        }else{
+        } else {
 
           let step = {
             index: idx,
             instruction: move.instructions, //allInstructions,
             distance: move.distance.text,
             duration: move.duration.text
-          }        
+          }
           oneRoute.push(step)
         }
-  
+
       });
       let oneInstructionRoute = {
         total_distance: direction.routes[0].legs[0].distance.text,
@@ -433,30 +433,40 @@ const Header = ({
                 <MenuList overflowY={"scroll"} >
                   {
                     history.map((oneHistory, idx) => {
-                      return (
-                        <MenuItem fontSize={10}
-                          key={idx}
-                          onClick={(event) => {
-                            event.preventDefault();
-                            // check if the inputted location is already in the list
-                            const isInListTwo = locations.some(
-                              (location) =>
-                                location.name === autocomplete.getPlace().name
-                            );
+                      const isInListTwo = locations.some(
+                        (location) =>
+                          location.name === oneHistory.name
+                      );
 
-                            if (isInListTwo === true) {
-                              alert("This location is already in the list");
-                            } else {
+                      if (isInListTwo === true) {
+                        return (
+                          <MenuItem fontSize={10}
+                            key={idx}
+                            isDisabled={true}
+                          >
+                            {oneHistory.name}
+                          </MenuItem>
+                        );
+                      }else{
+                        return (
+                          <MenuItem fontSize={10}
+                            key={idx}
+                            onClick={(event) => {
+                              event.preventDefault();
+                              // check if the inputted location is already in the list
                               let tempLocation = locations.concat(oneHistory); // add the history to the locations
                               locations = tempLocation;
                               setLocations(locations);
                             }
-                          }
-                          }
-                        >
-                          {oneHistory.name}
-                        </MenuItem>
-                      );
+                            }
+                            isDisabled={false}
+                          >
+                            {oneHistory.name}
+                          </MenuItem>
+                        );
+
+                      }
+
                     })}
                 </MenuList>
               </Menu>
@@ -569,13 +579,13 @@ const Header = ({
             <ModalContent >
               <ModalHeader>
                 <HStack>
-                  <Image src = "https://firebasestorage.googleapis.com/v0/b/cz3002-5e843.appspot.com/o/626439709591.png?alt=media"></Image>
-                <Text fontWeight='bold' mb='1rem' textAlign={"center"} fontSize={"2xl"}>
-                  CenterPoint
-                  <Text fontWeight='light' fontSize={"xl"}>
-                    Set up your next meeting with ease
+                  <Image src="https://firebasestorage.googleapis.com/v0/b/cz3002-5e843.appspot.com/o/626439709591.png?alt=media"></Image>
+                  <Text fontWeight='bold' mb='1rem' textAlign={"center"} fontSize={"2xl"}>
+                    CenterPoint
+                    <Text fontWeight='light' fontSize={"xl"}>
+                      Set up your next meeting with ease
+                    </Text>
                   </Text>
-                </Text>
                 </HStack>
               </ModalHeader>
 
