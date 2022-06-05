@@ -9,10 +9,11 @@ import {
 
 import { Box, Flex } from "@chakra-ui/react";
 
-import { useRef, useState } from "react";
+import { useState, useCallback, useEffect } from "react";
 
-function Map({ avgcoordinates, locations, directionsResponse, radius, results, zoomLevel, selectedplace }) {
-  const [map, setMap] = useState(/** @type google.maps.Map */(null));
+function Map({ avgcoordinates, locations, directionsResponse, radius, results, selectedplace }) {
+  // const [map, setMap] = useState(/** @type google.maps.Map */(null));
+  const [map, setMap] = useState(null);
 
   const colours = ["red", "black", "olive", "green", "blue", "indigo", "violet"];
   if (typeof (results) === "string") {
@@ -34,6 +35,22 @@ function Map({ avgcoordinates, locations, directionsResponse, radius, results, z
     fillColor: "#FF5252",
   };
 
+  useEffect(() => {
+    if (map) {
+      
+      if (results && results.length > 0) {
+        const bounds = new window.google.maps.LatLngBounds();
+        results && results.map(result => {
+          bounds.extend({
+            lat: result.geometry.location.lat,
+            lng: result.geometry.location.lng,
+          });
+          map.fitBounds(bounds);
+        });
+        
+      }
+    }
+  }, [map, results]);
 
   return (
     <Flex
@@ -48,7 +65,7 @@ function Map({ avgcoordinates, locations, directionsResponse, radius, results, z
         <GoogleMap
           center={avgcoordinates}
           margin={[50, 50, 50, 50]}
-          zoom={zoomLevel}
+          zoom={12}
           mapContainerStyle={{ width: "100%", height: "100%" }}
           options={{
             // zoomControl: false, //true
@@ -56,7 +73,8 @@ function Map({ avgcoordinates, locations, directionsResponse, radius, results, z
             mapTypeControl: false,
             fullscreenControl: false,
           }}
-          onLoad={(map) => setMap(map)}
+          // onLoad={(map) => setMap(map)}
+          onLoad={useCallback((map) => setMap(map), [])}
         >
 
           {directionsResponse && directionsResponse.map((direction, idx) => {
@@ -86,7 +104,7 @@ function Map({ avgcoordinates, locations, directionsResponse, radius, results, z
                   }}
                   key={idx}
                   title={location.name}
-                  icon= "https://firebasestorage.googleapis.com/v0/b/cz3002-5e843.appspot.com/o/187585711810.png?alt=media"
+                  icon="https://firebasestorage.googleapis.com/v0/b/cz3002-5e843.appspot.com/o/187585711810.png?alt=media"
                 // draggable={true}
                 ></Marker>
               );
@@ -96,7 +114,7 @@ function Map({ avgcoordinates, locations, directionsResponse, radius, results, z
           {results && results.map((result, idx) => {
             if (idx >= 0) {
               return (
-                <div key = {idx}>
+                <div key={idx}>
                   <Marker
                     position={{
                       lat: result.geometry.location.lat,
@@ -104,7 +122,7 @@ function Map({ avgcoordinates, locations, directionsResponse, radius, results, z
                     }}
                     key={idx}
                     title={result.name}
-                    icon= "https://firebasestorage.googleapis.com/v0/b/cz3002-5e843.appspot.com/o/507985227143.png?alt=media"
+                    icon="https://firebasestorage.googleapis.com/v0/b/cz3002-5e843.appspot.com/o/507985227143.png?alt=media"
                   // draggable={true}
                   ></Marker>
                   {selectedplace && (

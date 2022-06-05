@@ -21,7 +21,7 @@ const Home = () => {
   const [results, setResults] = useState(null);
   const [selectedplace, setSelectedplace] = useState(null);
   const [radius, setRadius] = useState(500);
-  const [zoomLevel, setZoomLevel] = useState(12);
+
 
   useEffect(() => {
     //console.log('type of results: ',typeof(results))
@@ -61,8 +61,6 @@ const Home = () => {
         setIsLoading = {setIsLoading}
         radius = {radius}
         setRadius = {setRadius}
-        zoomLevel = {zoomLevel}
-        setZoomLevel = {setZoomLevel}
         selectedplace = {selectedplace}
         setSelectedplace = {setSelectedplace}
       />
@@ -73,7 +71,6 @@ const Home = () => {
         directionsResponse={directionsResponse}
         radius = {radius}
         results = {results}
-        zoomLevel = {zoomLevel}
         selectedplace = {selectedplace}
       />
 
