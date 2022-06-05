@@ -273,8 +273,8 @@ const Header = ({
         // last instruction: Turn leftDestination will be on the left
         if (idx === moves.length - 1) {
           const lastIndex = move.instructions.lastIndexOf('Destination');
-          let firstHalf = move.instructions.slice(0, lastIndex); // Turn left
-          let secondHalf = move.instructions.slice(lastIndex); // Destination will be on the left
+          let firstHalf = move.instructions.slice(0, lastIndex).replace(/(<([^>]+)>)/gi, ""); // Turn left
+          let secondHalf = move.instructions.slice(lastIndex).replace(/(<([^>]+)>)/gi, ""); // Destination will be on the left
           // remove the last instruction 
 
           let firstHalfStep = {
