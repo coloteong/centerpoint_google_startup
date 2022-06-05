@@ -15,7 +15,7 @@ import {
   Spacer,
 } from "@chakra-ui/react";
 
-import { ArrowBackIcon } from '@chakra-ui/icons'
+import { ArrowBackIcon } from "@chakra-ui/icons";
 import { RiAdvertisementFill } from "react-icons/ri";
 
 import { Rating } from "@material-ui/lab";
@@ -66,39 +66,56 @@ const PlaceDetail = ({
     setisInDirections(false);
   };
 
-  const colours = ["red.100", "gray.200", "olive.100", "green.100", "blue.100", "indigo.100", "violet.100"];
-  const [tabIndex, setTabIndex] = React.useState(0)
-  const bg = colours[tabIndex]
-  console.log(tabIndex)
+  const colours = [
+    "red.100",
+    "gray.200",
+    "olive.100",
+    "green.100",
+    "blue.100",
+    "indigo.100",
+    "violet.100",
+  ];
+  const [tabIndex, setTabIndex] = React.useState(0);
+  const bg = colours[tabIndex];
+  console.log(tabIndex);
 
   return (
     <Flex overflowY={"scroll"} direction={"column"}>
       <Flex>
         {" "}
-        <Button bg={'white'} leftIcon={<ArrowBackIcon />} onClick={handleGoBack}></Button>
+        <Button
+          bg={"white"}
+          leftIcon={<ArrowBackIcon />}
+          onClick={handleGoBack}
+        ></Button>
       </Flex>
-      <Tabs variant="soft-rounded" variantColor="green" defaultIndex={tabIndex}>
-        <TabList>
-          {places.map((place, idx) => {
-            return (
-              <Tab
-                maxWidth={"7vw"}
-                value={place.name}
-                key={idx}
-                onClick={handlecurrentPlaceChange}
-              >
-                <Text noOfLines={2}>{place.name}</Text>
-              </Tab>
-            );
-          })}
-        </TabList>
-        <TabPanels>
-          {places.map((place, idx) => {
-            let isAd = 0;
-            if (idx === 0) {
-              // promoted
-              isAd = 25;
-            }
+      <Flex>
+        <Tabs
+          variant="soft-rounded"
+          variantColor="green"
+          defaultIndex={tabIndex}
+        >
+          <TabList>
+            {places.map((place, idx) => {
+              return (
+                <Tab
+                  maxWidth={"7vw"}
+                  value={place.name}
+                  key={idx}
+                  onClick={handlecurrentPlaceChange}
+                >
+                  <Text noOfLines={2}>{place.name}</Text>
+                </Tab>
+              );
+            })}
+          </TabList>
+          <TabPanels>
+            {places.map((place, idx) => {
+              let isAd = 0;
+              if (idx === 0) {
+                // promoted
+                isAd = 25;
+              }
               return (
                 <TabPanel key={idx}>
                   {/* Place summary */}
@@ -130,7 +147,11 @@ const PlaceDetail = ({
                             : "Rating not available"}
                         </Text>
                       </Flex>
-                      <Text fontSize={"sm"} fontWeight={"500"} color={"gray.400"}>
+                      <Text
+                        fontSize={"sm"}
+                        fontWeight={"500"}
+                        color={"gray.400"}
+                      >
                         {place.opening_hours != null
                           ? place.opening_hours.open_now
                             ? "Open Now"
@@ -146,7 +167,7 @@ const PlaceDetail = ({
                           color={"gray.700"}
                           ml={1}
                         >
-                          {place.vicinity}
+                          {place.vicinity}s
                         </Text>
                       </Flex>
                     </Box>
@@ -160,9 +181,9 @@ const PlaceDetail = ({
                         src={
                           place.photos
                             ? "https:///maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=" +
-                            place.photos[0].photo_reference +
-                            "&key=" +
-                            photos_api_key
+                              place.photos[0].photo_reference +
+                              "&key=" +
+                              photos_api_key
                             : "https://firebasestorage.googleapis.com/v0/b/cz3002-5e843.appspot.com/o/64818931817.png?alt=media"
                         }
                       />
@@ -171,68 +192,88 @@ const PlaceDetail = ({
                   {/* Directions */}
                   <Flex direction={"column"}>
                     <Text>Directions from</Text>
-                    <Tabs size="md" variant="enclosed" 
-                    // onChange={(index) => setTabIndex(index)} bg={bg}
+                    <Tabs
+                      size="md"
+                      variant="enclosed"
+                      // onChange={(index) => setTabIndex(index)} bg={bg}
                     >
                       <TabList>
-                        {locations.map((location,id) => {
+                        {locations.map((location, id) => {
                           return (
-                            <Tab maxWidth={"7vw"} bg= { colours[id]} >
+                            <Tab maxWidth={"7vw"} bg={colours[id]}>
                               <Text noOfLines={2}>{location.name}</Text>
                             </Tab>
                           );
                         })}
                       </TabList>
-                      <TabPanels >
+                      <TabPanels>
                         {directionFromOnePlaceToMultipleLocations.length != 0 &&
-                          directionFromOnePlaceToMultipleLocations.map((d,id) => {
-                            return (
-                              <TabPanel bg = {colours[id]}>
-                                <Flex>
-                                  <Text>Total Distance: {d.total_distance}</Text>
-                                  <Spacer />
-                                  <Text>Total Duration: {d.total_duration}</Text>
-                                </Flex>
-                                <br />
-                                <UnorderedList>
-                                  {d.steps.map((step, idx) => {
-                                    let instruction = step.instruction
-                                      .replace(/(<([^>]+)>)/gi, "")
-                                      .trim()
-                                      .replace(/Toll/, '')
-                                      .replace(/Ln/, '')
+                          directionFromOnePlaceToMultipleLocations.map(
+                            (d, id) => {
+                              return (
+                                <TabPanel bg={colours[id]}>
+                                  <Flex>
+                                    <Text>
+                                      Total Distance: {d.total_distance}
+                                    </Text>
+                                    <Spacer />
+                                    <Text>
+                                      Total Duration: {d.total_duration}
+                                    </Text>
+                                  </Flex>
+                                  <br />
+                                  <UnorderedList>
+                                    {d.steps.map((step, idx) => {
+                                      let instruction = step.instruction
+                                        .replace(/(<([^>]+)>)/gi, "")
+                                        .trim()
+                                        .replace(/Toll/, "")
+                                        .replace(/Ln/, "");
 
-                                    if (idx === d.steps.length - 1) {
-                                      const lastIndex = instruction.lastIndexOf('Destination');
-                                      let firstHalf = instruction.slice(0, lastIndex); // Turn left
-                                      let secondHalf = instruction.slice(lastIndex); // Destination will be on the left
+                                      if (idx === d.steps.length - 1) {
+                                        const lastIndex =
+                                          instruction.lastIndexOf(
+                                            "Destination"
+                                          );
+                                        let firstHalf = instruction.slice(
+                                          0,
+                                          lastIndex
+                                        ); // Turn left
+                                        let secondHalf =
+                                          instruction.slice(lastIndex); // Destination will be on the left
 
-                                      if (firstHalf.length === 0) {
-                                        return <ListItem>{secondHalf}</ListItem>;
+                                        if (firstHalf.length === 0) {
+                                          return (
+                                            <ListItem>{secondHalf}</ListItem>
+                                          );
+                                        } else {
+                                          return (
+                                            <div>
+                                              <ListItem>{firstHalf}</ListItem>
+                                              <ListItem>{secondHalf}</ListItem>
+                                            </div>
+                                          );
+                                        }
                                       } else {
-                                        return (<div>
-                                          <ListItem>{firstHalf}</ListItem>
-                                          <ListItem>{secondHalf}</ListItem>
-                                        </div>)
+                                        return (
+                                          <ListItem>{instruction}</ListItem>
+                                        );
                                       }
-                                    } else {
-                                      return <ListItem>{instruction}</ListItem>;
-                                    }
-
-
-                                  })}
-                                </UnorderedList>
-                              </TabPanel>
-                            );
-                          })}
+                                    })}
+                                  </UnorderedList>
+                                </TabPanel>
+                              );
+                            }
+                          )}
                       </TabPanels>
                     </Tabs>
                   </Flex>
                 </TabPanel>
               );
             })}
-        </TabPanels>
-      </Tabs>
+          </TabPanels>
+        </Tabs>
+      </Flex>
     </Flex>
   );
 };
