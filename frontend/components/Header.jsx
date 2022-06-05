@@ -94,46 +94,54 @@ const Header = ({
   //Updates whenever a location is added/removed
   const onPlaceChanged = () => {
     if (autocomplete !== null) {
-      const lat = autocomplete.getPlace().geometry.location.lat();
-      const lng = autocomplete.getPlace().geometry.location.lng();
-
-      // check if the inputted location is already in the list
-      const isInList = locations.some(
-        (location) =>
-          location.name === autocomplete.getPlace().name
-      );
-
-      // check if the inputted location is already in the history
-      const isInHistory = history.some(
-        (hist) =>
-          hist.name === autocomplete.getPlace().name
-      );
+      try {
+        const lat = autocomplete.getPlace().geometry.location.lat();
+        const lng = autocomplete.getPlace().geometry.location.lng();
 
 
-      if (isInList === true) {
-        alert("This location is already in the list");
-      } else {
-        let oneLocation = locations.concat(autocomplete.getPlace());
-        locations = oneLocation;
-        setLocations(locations);
+        // check if the inputted location is already in the list
+        const isInList = locations.some(
+          (location) =>
+            location.name === autocomplete.getPlace().name
+        );
 
-        if (isInHistory === false) {
-          let oneLocationNotDelete = history.concat(autocomplete.getPlace());
-          history = oneLocationNotDelete;
-          setHistory(history);
+        // check if the inputted location is already in the history
+        const isInHistory = history.some(
+          (hist) =>
+            hist.name === autocomplete.getPlace().name
+        );
+
+        if (isInList === true) {
+          alert("This location is already in the list");
+        } else {
+          let oneLocation = locations.concat(autocomplete.getPlace());
+          locations = oneLocation;
+          setLocations(locations);
+
+          if (isInHistory === false) {
+            let oneLocationNotDelete = history.concat(autocomplete.getPlace());
+            history = oneLocationNotDelete;
+            setHistory(history);
+          }
+          enterLocation.current.value = null;
+
+          let latAll = null;
+          let lngAll = null;
+          try {
+            locations.forEach((location) => {
+              latAll += location.geometry.location.lat();
+              lngAll += location.geometry.location.lng();
+            });
+          } catch (error) {
+            
+          }
+          setAvgcoordinates({
+            lat: latAll / locations.length,
+            lng: lngAll / locations.length,
+          });
         }
-        enterLocation.current.value = null;
-
-        let latAll = null;
-        let lngAll = null;
-        locations.forEach((location) => {
-          latAll += location.geometry.location.lat();
-          lngAll += location.geometry.location.lng();
-        });
-        setAvgcoordinates({
-          lat: latAll / locations.length,
-          lng: lngAll / locations.length,
-        });
+      } catch (error) {
+        alert("Please select a location from the Google's autocomplete list");
       }
     }
   };
@@ -447,7 +455,7 @@ const Header = ({
                             {oneHistory.name}
                           </MenuItem>
                         );
-                      }else{
+                      } else {
                         return (
                           <MenuItem fontSize={10}
                             key={idx}
