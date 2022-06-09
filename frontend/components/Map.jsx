@@ -15,7 +15,17 @@ function Map({ avgcoordinates, locations, directionsResponse, radius, results, s
   // const [map, setMap] = useState(/** @type google.maps.Map */(null));
   const [map, setMap] = useState(null);
 
-  const colours = ["red", "black", "olive", "green", "blue", "indigo", "violet"];
+  const colours = [
+    "red",
+    "DarkOrange",
+    "green",
+    "DarkTurquoise",
+    "SteelBlue",
+    "purple",
+    "Magenta",
+    "gray",
+  ];
+  
   if (typeof (results) === "string") {
     results = JSON.parse(results)
   }

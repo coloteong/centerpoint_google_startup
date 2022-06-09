@@ -67,14 +67,16 @@ const PlaceDetail = ({
   };
 
   const colours = [
-    "red.100",
+    "red.200",
+    "orange.200",
+    "green.200",
+    "teal.200",
+    "blue.200",
+    "purple.200",
+    "pink.200",
     "gray.200",
-    "olive.100",
-    "green.100",
-    "blue.100",
-    "indigo.100",
-    "violet.100",
   ];
+  
   const [tabIndex, setTabIndex] = React.useState(0);
   const bg = colours[tabIndex];
   console.log(tabIndex);

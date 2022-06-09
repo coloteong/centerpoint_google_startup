@@ -162,7 +162,11 @@ def algorithm():
 		# dataframe includes name, rating, operating hrs, address, image
 		result_df = pd.DataFrame.from_dict(candidate_location_dict)
 		dataframe_locations = result_df.loc[:, result_df.columns.isin(['name', 'rating', 'opening_hours', 'vicinity', 'geometry', 'photos', "user_ratings_total", "place_id"])]
-		locations_sorted_rating = dataframe_locations.sort_values(by = 'rating', ascending = False)
+		print('dataframe loc', dataframe_locations)
+		if 'rating' in list(dataframe_locations.columns):
+			locations_sorted_rating = dataframe_locations.sort_values(by = 'rating', ascending = False)
+		else:
+			locations_sorted_rating = dataframe_locations
 		locations_sorted_rating = locations_sorted_rating.head(5)
 		locations_sorted_rating = get_distances_from_central(locations_sorted_rating, central_point)
 		
