@@ -1,4 +1,4 @@
-key_API = "&key="
-API_KEY = "AIzaSyBel0ReWm0qEm4ikux98z2wdFZ-CWhSM_4"
+#Insert your API Key below
+API_KEY = ""
 
-KEY = key_API + API_KEY
+KEY = "&key=" + API_KEY
