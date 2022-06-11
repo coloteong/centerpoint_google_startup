@@ -20,20 +20,14 @@ CORS(app)
 uploadBackendFolder = './uploads/backend/'
 uploadFrontendFolder = './uploads/frontend/'
 ALLOWED_EXTENSIONS = {'json'}
+
+#Random Secret Key (Required)
 SECRET_KEY = 'NUdOUiBTdGFuZGFsb25lIEFjY2Vzcw=='
 
 app.config['SESSION_TYPE'] = 'filesystem'
 app.config['SECRET_KEY'] = SECRET_KEY
 
-#We should remove all these routing before submission of code
-@app.route('/testing' , methods = ["GET","POST"])
-def test2():
-	data = request.get_json()
-	return Response(json.dumps(data), mimetype='application/json')
-	return{"x": 4}
-
-
-@app.route('/test' , methods = ["GET","POST"])
+@app.route('/getresults' , methods = ["GET","POST"])
 def algorithm():
 
 	# Check Opening Hours of the Restaurant
@@ -176,10 +170,7 @@ def algorithm():
 		json_formatted_locations = convert_dict_to_json(locations_sorted_rating)
 		return json_formatted_locations
 
-	# Returns the request back to client
-
-	# Flask cannot return lists; converts the list into a JSON string
-
+	# Returns the request back to client. Note: Flask cannot return lists; converts the list into a JSON string
 	data = request.get_json()
 	output_coord = get_multiple_coordinates_from_json(data)
 	init_center_point = find_central_point(output_coord)
@@ -188,10 +179,8 @@ def algorithm():
 
 
 	return Response(json.dumps(final_goog_locs), mimetype='application/json')
-	#return json_data
 
-
-#Keep the codes below
+#Additional Codes: For Uploading & Downloading of json files	
 def allowed_file(filename):
 	return '.' in filename and \
 		filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
@@ -286,7 +275,6 @@ def downloadFromFrontend():
 	file = downloadHandler(filename, 'toFrontend')
 	return file
 
-
 if(__name__ == "__main__"):
+	#Note: 0.0.0.0:8000 is selected here. Please change to your preferred IPv4 if needed.
 	app.run(debug = True, host = '0.0.0.0', port = 8000)
-
