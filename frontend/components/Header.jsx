@@ -182,8 +182,8 @@ const Header = ({
         locations: locations,
       };
       setIsLoading(true)
-      // fetch("http://127.0.0.1:5000/test", {
-        fetch("http://centerpoint.lohseng.com:8000/test", {
+        //Note: Please change the fetch address to the one issued by the Flask server or your ISP (if allowed)
+        fetch("http://centerpoint.lohseng.com:8000/getresults", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
