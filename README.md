@@ -31,14 +31,14 @@ $ cd frontend
 $ npm install
 ```
 6. There is a `.gitignore` file in our project, which contains the relative path of 2 files that conatins the Google Map API keys. 
-> Create a `config.jsx` file in `\frontend\pages\`, and copy the code, inserting your API key in 'xxx'.
+> Create a `config.jsx` file in `\frontend\pages\`, and copy the code, inserting your API key in `xxx`.
 ```
 export const config = {
     MAIN_API_KEY: 'xxx',
     PHOTOS_API_KEY: 'xxx'
 }
 ```
-> Create a `apikey.py` file in `\flask_app\`, and copy the code, inserting your API key in 'xxx'.
+> Create a `apikey.py` file in `\flask_app\`, and copy the code, inserting your API key in `xxx`.
 ```
 API_KEY = "xxx"
 KEY = "&key=" + API_KEY
