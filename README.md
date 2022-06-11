@@ -13,10 +13,8 @@ Our project aims to help users find the closest central location for meetups for
 [![CenterPoint](http://img.youtube.com/vi/rXnvkzj08fQ/0.jpg)](https://youtu.be/rXnvkzj08fQ)
 
 ## Setup Procedure
-Our website is currently hosted on [CenterPoint](http://www.lohseng.com/centerpoint). </br> 
-
-P.S.: Due to the recent DDoS attack detected by CloudFlare, we have turned off the server.
-</br>
+Our website is currently hosted on [CenterPoint](http://www.lohseng.com/centerpoint).
+> Note: Due to the recent DDoS attacks detected by CloudFlare, we have decided to turned off the server.
 
 If you would like to reproduce our application locally and make any edits, please do the following steps: 
 #### Note: Please input your own Google API key. For documentation on how to get your own Google Maps API key:  [Google Developers](https://developers.google.com/maps/documentation/javascript/get-api-key)
@@ -33,18 +31,17 @@ $ cd frontend
 $ npm install
 ```
 6. There is a `.gitignore` file in our project, which contains the relative path of 2 files that conatins the Google Map API keys. 
-> Create a `config.jsx` file in `\frontend\pages\`, and copy the code, inserting your API key in `xxx`.
+> Create a `config.jsx` file in `\frontend\pages\`, and copy the code, inserting your API key in 'xxx'.
 ```
 export const config = {
     MAIN_API_KEY: 'xxx',
     PHOTOS_API_KEY: 'xxx'
 }
 ```
-> Create a `apikey.py` file in `\flask_app\`, and copy the code, inserting your API key in `xxx`.
+> Create a `apikey.py` file in `\flask_app\`, and copy the code, inserting your API key in 'xxx'.
 ```
-key_API = "&key="
 API_KEY = "xxx"
-KEY = key_API + API_KEY
+KEY = "&key=" + API_KEY
 ```
 7. Please enable ``port: 3000`` and ``port: 8000`` for both inbound and outbound traffic in your network firewall.
 </br> 
