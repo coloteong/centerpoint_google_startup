@@ -1,4 +1,6 @@
 export const config = {
-    MAIN_API_KEY: 'AIzaSyBel0ReWm0qEm4ikux98z2wdFZ-CWhSM_4',
-    PHOTOS_API_KEY: 'AIzaSyBel0ReWm0qEm4ikux98z2wdFZ-CWhSM_4'
+    //Fill in Google Maps API key generated
+    //Can be the same API key or different API key
+    MAIN_API_KEY: '',
+    PHOTOS_API_KEY: ''
 }
