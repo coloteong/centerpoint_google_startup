@@ -9,6 +9,9 @@
 This is our project submission for Google Cloud Hackathon for Startups in Singapore. 
 Our project aims to help users find the closest central location for meetups for people located in different places.
 
+## Demonstration Video
+[![CenterPoint](http://img.youtube.com/vi/rXnvkzj08fQ/0.jpg)](https://youtu.be/rXnvkzj08fQ)
+
 ## Setup Procedure
 Our website is currently hosted on [CenterPoint](http://www.lohseng.com/centerpoint). </br> 
 
