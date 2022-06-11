@@ -1,1 +1,527 @@
 
+[
+    {
+        "address_components": [
+            {
+                "long_name": "100",
+                "short_name": "100",
+                "types": [
+                    "street_number"
+                ]
+            },
+            {
+                "long_name": "Sin Ming Avenue",
+                "short_name": "Sin Ming Ave",
+                "types": [
+                    "route"
+                ]
+            },
+            {
+                "long_name": "Bishan",
+                "short_name": "Bishan",
+                "types": [
+                    "neighborhood",
+                    "political"
+                ]
+            },
+            {
+                "long_name": "Singapore",
+                "short_name": "Singapore",
+                "types": [
+                    "locality",
+                    "political"
+                ]
+            },
+            {
+                "long_name": "Singapore",
+                "short_name": "SG",
+                "types": [
+                    "country",
+                    "political"
+                ]
+            },
+            {
+                "long_name": "575737",
+                "short_name": "575737",
+                "types": [
+                    "postal_code"
+                ]
+            }
+        ],
+        "adr_address": "<span class=\"street-address\">100 Sin Ming Ave</span>, <span class=\"country-name\">Singapore</span> <span class=\"postal-code\">575737</span>",
+        "business_status": "OPERATIONAL",
+        "formatted_address": "100 Sin Ming Ave, Singapore 575737",
+        "geometry": {
+            "location": {
+                "lat": 1.3631946,
+                "lng": 103.8332327
+            },
+            "viewport": {
+                "south": 1.361909319708498,
+                "west": 103.8318607197085,
+                "north": 1.364607280291502,
+                "east": 103.8345586802915
+            }
+        },
+        "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/generic_business-71.png",
+        "icon_background_color": "#7B9EB0",
+        "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/generic_pinlet",
+        "name": "Bright Hill MRT Station (TE7)",
+        "opening_hours": {
+            "open_now": true,
+            "periods": [
+                {
+                    "close": {
+                        "day": 1,
+                        "time": "0000",
+                        "hours": 0,
+                        "minutes": 0,
+                        "nextDate": 1653235200000
+                    },
+                    "open": {
+                        "day": 0,
+                        "time": "0545",
+                        "hours": 5,
+                        "minutes": 45,
+                        "nextDate": 1653774300000
+                    }
+                },
+                {
+                    "close": {
+                        "day": 2,
+                        "time": "0000",
+                        "hours": 0,
+                        "minutes": 0,
+                        "nextDate": 1653321600000
+                    },
+                    "open": {
+                        "day": 1,
+                        "time": "0545",
+                        "hours": 5,
+                        "minutes": 45,
+                        "nextDate": 1653255900000
+                    }
+                },
+                {
+                    "close": {
+                        "day": 3,
+                        "time": "0000",
+                        "hours": 0,
+                        "minutes": 0,
+                        "nextDate": 1653408000000
+                    },
+                    "open": {
+                        "day": 2,
+                        "time": "0545",
+                        "hours": 5,
+                        "minutes": 45,
+                        "nextDate": 1653342300000
+                    }
+                },
+                {
+                    "close": {
+                        "day": 4,
+                        "time": "0000",
+                        "hours": 0,
+                        "minutes": 0,
+                        "nextDate": 1653494400000
+                    },
+                    "open": {
+                        "day": 3,
+                        "time": "0545",
+                        "hours": 5,
+                        "minutes": 45,
+                        "nextDate": 1653428700000
+                    }
+                },
+                {
+                    "close": {
+                        "day": 5,
+                        "time": "0000",
+                        "hours": 0,
+                        "minutes": 0,
+                        "nextDate": 1653580800000
+                    },
+                    "open": {
+                        "day": 4,
+                        "time": "0545",
+                        "hours": 5,
+                        "minutes": 45,
+                        "nextDate": 1653515100000
+                    }
+                },
+                {
+                    "close": {
+                        "day": 6,
+                        "time": "0000",
+                        "hours": 0,
+                        "minutes": 0,
+                        "nextDate": 1653667200000
+                    },
+                    "open": {
+                        "day": 5,
+                        "time": "0545",
+                        "hours": 5,
+                        "minutes": 45,
+                        "nextDate": 1653601500000
+                    }
+                },
+                {
+                    "close": {
+                        "day": 0,
+                        "time": "0000",
+                        "hours": 0,
+                        "minutes": 0,
+                        "nextDate": 1653753600000
+                    },
+                    "open": {
+                        "day": 6,
+                        "time": "0545",
+                        "hours": 5,
+                        "minutes": 45,
+                        "nextDate": 1653687900000
+                    }
+                }
+            ],
+            "weekday_text": [
+                "Monday: 5:45 AM – 12:00 AM",
+                "Tuesday: 5:45 AM – 12:00 AM",
+                "Wednesday: 5:45 AM – 12:00 AM",
+                "Thursday: 5:45 AM – 12:00 AM",
+                "Friday: 5:45 AM – 12:00 AM",
+                "Saturday: 5:45 AM – 12:00 AM",
+                "Sunday: 5:45 AM – 12:00 AM"
+            ]
+        },
+        "photos": [
+            {
+                "height": 4032,
+                "html_attributions": [
+                    "<a href=\"https://maps.google.com/maps/contrib/109240975964032279493\">Keiko Shan</a>"
+                ],
+                "width": 3024
+            },
+            {
+                "height": 3008,
+                "html_attributions": [
+                    "<a href=\"https://maps.google.com/maps/contrib/112902494495552373008\">Peter</a>"
+                ],
+                "width": 4000
+            },
+            {
+                "height": 1836,
+                "html_attributions": [
+                    "<a href=\"https://maps.google.com/maps/contrib/105877449322822053371\">GoAheadGroupFan</a>"
+                ],
+                "width": 3264
+            },
+            {
+                "height": 3024,
+                "html_attributions": [
+                    "<a href=\"https://maps.google.com/maps/contrib/109619546309906985004\">Kok Beng</a>"
+                ],
+                "width": 4032
+            },
+            {
+                "height": 4032,
+                "html_attributions": [
+                    "<a href=\"https://maps.google.com/maps/contrib/100862091370139995967\">U O</a>"
+                ],
+                "width": 3024
+            },
+            {
+                "height": 1536,
+                "html_attributions": [
+                    "<a href=\"https://maps.google.com/maps/contrib/100792161459528850818\">Ken Lee</a>"
+                ],
+                "width": 2048
+            },
+            {
+                "height": 3024,
+                "html_attributions": [
+                    "<a href=\"https://maps.google.com/maps/contrib/116879265180627438463\">Daryl Bay</a>"
+                ],
+                "width": 4032
+            },
+            {
+                "height": 3456,
+                "html_attributions": [
+                    "<a href=\"https://maps.google.com/maps/contrib/113519368330602656277\">no name</a>"
+                ],
+                "width": 4608
+            },
+            {
+                "height": 1536,
+                "html_attributions": [
+                    "<a href=\"https://maps.google.com/maps/contrib/100792161459528850818\">Ken Lee</a>"
+                ],
+                "width": 2048
+            },
+            {
+                "height": 5760,
+                "html_attributions": [
+                    "<a href=\"https://maps.google.com/maps/contrib/110131863317722641777\">Yock Song Law</a>"
+                ],
+                "width": 3240
+            }
+        ],
+        "place_id": "ChIJo9b1a0EX2jERh-QTLY9m18A",
+        "plus_code": {
+            "compound_code": "9R7M+77 Singapore",
+            "global_code": "6PH59R7M+77"
+        },
+        "rating": 4.5,
+        "reference": "ChIJo9b1a0EX2jERh-QTLY9m18A",
+        "reviews": [
+            {
+                "author_name": "SP Lee",
+                "author_url": "https://www.google.com/maps/contrib/107802563297429330493/reviews",
+                "language": "en",
+                "profile_photo_url": "https://lh3.googleusercontent.com/a-/AOh14GjUHcBdD_SsJs2cUAAaHEXSLiSCQhu-UMad7riVHbg=s128-c0x00000000-cc-rp-mo-ba4",
+                "rating": 5,
+                "relative_time_description": "a month ago",
+                "text": "Clean and not much people .. but still feel safe.",
+                "time": 1649174533
+            },
+            {
+                "author_name": "Khoo Tiong Tat",
+                "author_url": "https://www.google.com/maps/contrib/108831456056877466595/reviews",
+                "language": "en",
+                "profile_photo_url": "https://lh3.googleusercontent.com/a/AATXAJxpAFw8oJoW0240ZA38kBnkPeZFi329CxASEV2m=s128-c0x00000000-cc-rp-mo-ba2",
+                "rating": 5,
+                "relative_time_description": "a month ago",
+                "text": "Always bring along a Thanksgiving heart when I need to travel from this station because I can imagine the tremendous effort put in by all stakeholders!",
+                "time": 1649727715
+            },
+            {
+                "author_name": "Yong Meng Leong",
+                "author_url": "https://www.google.com/maps/contrib/116156911819894005164/reviews",
+                "language": "en",
+                "profile_photo_url": "https://lh3.googleusercontent.com/a/AATXAJzOebdWW3ewLAEy9yd92Am1XrQNVM74OMZup9ip=s128-c0x00000000-cc-rp-mo-ba3",
+                "rating": 5,
+                "relative_time_description": "2 weeks ago",
+                "text": "The good thing about this place, it is not busy compare to the rest of the other mrt stations",
+                "time": 1651394116
+            },
+            {
+                "author_name": "General Twilight",
+                "author_url": "https://www.google.com/maps/contrib/114314523990529053400/reviews",
+                "language": "en",
+                "profile_photo_url": "https://lh3.googleusercontent.com/a-/AOh14GgSk8-K5N5HhHuCn6Kj_WkT3_IsDJ-cx7UCTAKd=s128-c0x00000000-cc-rp-mo-ba5",
+                "rating": 5,
+                "relative_time_description": "a month ago",
+                "text": "This is a very clean station and that the platform is very wide, likely with future needs in mind. The station is located near Ang Mo Kio Bishan park and that it is very accessible to nearby facilities. There are ticket stations with video assistance, allowing those who need help in topping up their card to get help from another person. Furthermore, the toilets in the stations are very clean and the station has nice artworks displayed along the walls. Overall, a great station that helps to connect the residents here to the MRT network.",
+                "time": 1650269107
+            },
+            {
+                "author_name": "Steven Lim",
+                "author_url": "https://www.google.com/maps/contrib/102516712382946920846/reviews",
+                "language": "en",
+                "profile_photo_url": "https://lh3.googleusercontent.com/a-/AOh14Ggge4WX0FGUwe5Qq7qttbOZMsetOC7xwWb7DzzJ6rs=s128-c0x00000000-cc-rp-mo-ba5",
+                "rating": 5,
+                "relative_time_description": "3 months ago",
+                "text": "It's now very convenient to  bright hill temples for those who have ancestors' tablets for prayers",
+                "time": 1644557075
+            }
+        ],
+        "types": [
+            "point_of_interest",
+            "establishment"
+        ],
+        "url": "https://maps.google.com/?cid=13895687940397589639",
+        "user_ratings_total": 104,
+        "utc_offset": 480,
+        "vicinity": "100 Sin Ming Avenue, Singapore",
+        "website": "https://www.lta.gov.sg/",
+        "html_attributions": [],
+        "utc_offset_minutes": 480
+    },
+    {
+        "address_components": [
+            {
+                "long_name": "Singapore",
+                "short_name": "SG",
+                "types": [
+                    "country",
+                    "political"
+                ]
+            },
+            {
+                "long_name": "Bishan",
+                "short_name": "Bishan",
+                "types": [
+                    "neighborhood",
+                    "political"
+                ]
+            },
+            {
+                "long_name": "Singapore",
+                "short_name": "Singapore",
+                "types": [
+                    "locality",
+                    "political"
+                ]
+            }
+        ],
+        "adr_address": "<span class=\"country-name\">Singapore</span>",
+        "business_status": "OPERATIONAL",
+        "formatted_address": "Singapore",
+        "geometry": {
+            "location": {
+                "lat": 1.3478836,
+                "lng": 103.8400259
+            },
+            "viewport": {
+                "south": 1.346619219708498,
+                "west": 103.8387174697085,
+                "north": 1.349317180291502,
+                "east": 103.8414154302915
+            }
+        },
+        "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/generic_business-71.png",
+        "icon_background_color": "#7B9EB0",
+        "icon_mask_base_uri": "https://maps.gstatic.com/mapfiles/place_api/icons/v2/generic_pinlet",
+        "name": "Marymount MRT Exit B",
+        "photos": [
+            {
+                "height": 3000,
+                "html_attributions": [
+                    "<a href=\"https://maps.google.com/maps/contrib/101455389808961859280\">Z A</a>"
+                ],
+                "width": 4000
+            },
+            {
+                "height": 4000,
+                "html_attributions": [
+                    "<a href=\"https://maps.google.com/maps/contrib/101225646575004847300\">Ying Keng</a>"
+                ],
+                "width": 2992
+            },
+            {
+                "height": 1920,
+                "html_attributions": [
+                    "<a href=\"https://maps.google.com/maps/contrib/107786169341036645779\">SG mk sayed</a>"
+                ],
+                "width": 1080
+            },
+            {
+                "height": 2448,
+                "html_attributions": [
+                    "<a href=\"https://maps.google.com/maps/contrib/118298782296293155581\">Roy Dai</a>"
+                ],
+                "width": 3264
+            },
+            {
+                "height": 4000,
+                "html_attributions": [
+                    "<a href=\"https://maps.google.com/maps/contrib/101225646575004847300\">Ying Keng</a>"
+                ],
+                "width": 2992
+            },
+            {
+                "height": 4000,
+                "html_attributions": [
+                    "<a href=\"https://maps.google.com/maps/contrib/101225646575004847300\">Ying Keng</a>"
+                ],
+                "width": 2992
+            },
+            {
+                "height": 2448,
+                "html_attributions": [
+                    "<a href=\"https://maps.google.com/maps/contrib/118298782296293155581\">Roy Dai</a>"
+                ],
+                "width": 3264
+            },
+            {
+                "height": 3024,
+                "html_attributions": [
+                    "<a href=\"https://maps.google.com/maps/contrib/107632212599288835891\">Adi Saputra</a>"
+                ],
+                "width": 4032
+            },
+            {
+                "height": 4000,
+                "html_attributions": [
+                    "<a href=\"https://maps.google.com/maps/contrib/101225646575004847300\">Ying Keng</a>"
+                ],
+                "width": 2992
+            },
+            {
+                "height": 2936,
+                "html_attributions": [
+                    "<a href=\"https://maps.google.com/maps/contrib/118298782296293155581\">Roy Dai</a>"
+                ],
+                "width": 13632
+            }
+        ],
+        "place_id": "ChIJ5zxm0D4X2jERtlFpGlr3ceQ",
+        "plus_code": {
+            "compound_code": "8RXR+52 Singapore",
+            "global_code": "6PH58RXR+52"
+        },
+        "rating": 4.2,
+        "reference": "ChIJ5zxm0D4X2jERtlFpGlr3ceQ",
+        "reviews": [
+            {
+                "author_name": "Prolicios Itonali",
+                "author_url": "https://www.google.com/maps/contrib/106975655868116003652/reviews",
+                "language": "en",
+                "profile_photo_url": "https://lh3.googleusercontent.com/a/AATXAJzvH53Y8nH_CpENbNavcvUDLWuSu8XzeNe_JA7Z=s128-c0x00000000-cc-rp-mo-ba3",
+                "rating": 5,
+                "relative_time_description": "2 months ago",
+                "text": "Leads to mrt train. What else?",
+                "time": 1646224642
+            },
+            {
+                "author_name": "Ying Keng",
+                "author_url": "https://www.google.com/maps/contrib/101225646575004847300/reviews",
+                "language": "en",
+                "profile_photo_url": "https://lh3.googleusercontent.com/a/AATXAJykHre9aXSgD986eCEpbTwgvUVnHiaNGDQXO4iy=s128-c0x00000000-cc-rp-mo-ba5",
+                "rating": 5,
+                "relative_time_description": "4 months ago",
+                "text": "One of the circle line MRT station at slightly outskirt.\nClean interior with stair case and escalators",
+                "time": 1642813197
+            },
+            {
+                "author_name": "Jasim uddin",
+                "author_url": "https://www.google.com/maps/contrib/102739945804248884111/reviews",
+                "language": "en",
+                "profile_photo_url": "https://lh3.googleusercontent.com/a-/AOh14Ghb54lKkKFr_cMfbF7iS8v7ACCEo0okTNtc1P_3kw=s128-c0x00000000-cc-rp-mo-ba5",
+                "rating": 4,
+                "relative_time_description": "3 months ago",
+                "text": "Busy exit and entrance",
+                "time": 1644036278
+            },
+            {
+                "author_name": "SG mk sayed",
+                "author_url": "https://www.google.com/maps/contrib/107786169341036645779/reviews",
+                "language": "en",
+                "profile_photo_url": "https://lh3.googleusercontent.com/a-/AOh14Gjm64QpGgy2gGlWzvtnEmVf2sX_kysKnOtP8nw=s128-c0x00000000-cc-rp-mo",
+                "rating": 1,
+                "relative_time_description": "4 months ago",
+                "text": "Nice",
+                "time": 1640852225
+            },
+            {
+                "author_name": "Chenghong Ong",
+                "author_url": "https://www.google.com/maps/contrib/115608502076778230218/reviews",
+                "language": "en",
+                "profile_photo_url": "https://lh3.googleusercontent.com/a/AATXAJyuP93epXExEp9IseCuINT-1AUx_sNGkuHQH5tj=s128-c0x00000000-cc-rp-mo-ba3",
+                "rating": 4,
+                "relative_time_description": "10 months ago",
+                "text": "I mainly use this station for transit to north / south line . Not far away from the station there is  a little eating house . Some Chinese food , Indian food and western food are sold .",
+                "time": 1626266210
+            }
+        ],
+        "types": [
+            "point_of_interest",
+            "establishment"
+        ],
+        "url": "https://maps.google.com/?cid=16461210079378100662",
+        "user_ratings_total": 56,
+        "utc_offset": 480,
+        "vicinity": "Singapore",
+        "html_attributions": [],
+        "utc_offset_minutes": 480
+    }
+]
