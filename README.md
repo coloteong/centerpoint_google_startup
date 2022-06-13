@@ -10,6 +10,11 @@ This is our project submission for Google Cloud Hackathon for Startups in Singap
 Our project aims to help users find the closest central location for meetups for people located in different places.
 
 ## Demonstration Video
+<img src="./screenshots/short_demo.gif" alt="" width="100%"/>
+<p align="center">
+<small align="center" >ScanLens Tour</small>
+</p>
+
 [![CenterPoint](http://img.youtube.com/vi/rXnvkzj08fQ/0.jpg)](https://youtu.be/rXnvkzj08fQ)
 
 ## Setup Procedure
@@ -65,13 +70,13 @@ http://127.0.0.1:3000
 http://192.168.1.2:3000
 ```
 
-## Tools Used
-APIs:
+## Google Cloud Platform Tools Used
+APIs [Please enable these APIs during the Setup procedure]:
 - Google Places API - Mainly used to get location coordinates and attributes of user-chosen locations and generate final chosen location by our application
 - Google Directions API - Used to list directions to suggested locations from user-chosen starting locations
 - Google Maps JavaScript API - Used to embed the interactive map layout to the interface
 
-Compute Engine: Host all services from frontend and backend in an always-on Virtual Machine instance using Google Cloud Platform's Compute Engine
+Compute Engine: Host all services from frontend and backend in an always-on Virtual Machine instance [Not needed for localhost]
 
 ## Languages Used
 Python - Backend algorithm to obtain locations, calculate best meetup location. Communications between the backend and frontend
