@@ -1,5 +1,4 @@
 import {
-  Badge,
   Flex,
   Image,
   Text,
@@ -16,38 +15,26 @@ import {
 } from "@chakra-ui/react";
 
 import { ArrowBackIcon } from "@chakra-ui/icons";
-
 import { Rating } from "@material-ui/lab";
 import React from "react";
 import { IoLocation } from "react-icons/io5";
-import { useEffect, useState } from "react";
-
 import { config } from "../pages/config";
-import theme from "../pages/theme";
 
 const PlaceDetail = ({
   places,
   locations,
   directionFromOnePlaceToMultipleLocations,
   setisInDirections,
-  currentPlace,
   setcurrentPlace,
   getDirectionsToCenterPoint,
 }) => {
-  const photos_api_key = config.PHOTOS_API_KEY;
-  //   console.log("directionFromOnePlaceToMultipleLocations is this:");
-  //   console.log(directionFromOnePlaceToMultipleLocations);
+  const api_key = config.MAIN_API_KEY;
+
   const handlecurrentPlaceChange = (event) => {
     event.preventDefault();
     let currentPlace = getPlaceObject(event.target.textContent);
     setcurrentPlace(currentPlace);
-    // console.log("current place is: " + currentPlace.name)
     getDirectionsToCenterPoint(currentPlace);
-    //console.log(event.target.textContent)
-    // event.preventDefault();
-    // getDirectionsToCenterPoint(place)
-    // setisInDirections(true)
-    // setNameOfPlacePressed(place.name)
   };
 
   const getPlaceObject = (placeName) => {
@@ -77,8 +64,6 @@ const PlaceDetail = ({
   ];
   
   const [tabIndex, setTabIndex] = React.useState(0);
-  const bg = colours[tabIndex];
-  console.log(tabIndex);
 
   return (
     <Flex overflowY={"scroll"} direction={"column"}>
@@ -178,7 +163,7 @@ const PlaceDetail = ({
                             ? "https:///maps.googleapis.com/maps/api/place/photo?maxwidth=400&photo_reference=" +
                               place.photos[0].photo_reference +
                               "&key=" +
-                              photos_api_key
+                              api_key
                             : "https://firebasestorage.googleapis.com/v0/b/cz3002-5e843.appspot.com/o/64818931817.png?alt=media"
                         }
                       />
@@ -190,7 +175,6 @@ const PlaceDetail = ({
                     <Tabs
                       size="md"
                       variant="enclosed"
-                      // onChange={(index) => setTabIndex(index)} bg={bg}
                     >
                       <TabList>
                         {locations.map((location, id) => {

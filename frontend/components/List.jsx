@@ -9,8 +9,6 @@ import {
 import React, { useEffect, useState } from "react";
 import PlaceDetail from "./PlaceDetail";
 import PlaceDirections from "./PlaceDirections";
-import { config } from "../pages/config";
-
 
 const List = ({
   places,
@@ -22,8 +20,6 @@ const List = ({
   const [isInDirections, setisInDirections] = useState(null);
   const [nameOfPlacePressed, setNameOfPlacePressed] = useState(null);
   const [currentPlace, setcurrentPlace] = useState(null);
-  const [selectedLocation, setSelectedLocation] = useState(null);
-  const api_key = config.MAIN_API_KEY;
 
   if (typeof places === "string") {
     places = JSON.parse(places);

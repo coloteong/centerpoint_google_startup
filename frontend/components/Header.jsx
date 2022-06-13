@@ -51,17 +51,12 @@ import { BsGithub } from "react-icons/bs";
 const Header = ({
   locations,
   setLocations,
-  avgcoordinates,
   setAvgcoordinates,
   directionsResponse,
   setDirectionsResponse,
-  circleoptions,
-  setCircleoptions,
-  results,
   setResults,
   isLoading,
   setIsLoading,
-  radius,
   setRadius,
   setSelectedplace
 }) => {
@@ -71,7 +66,6 @@ const Header = ({
   const [autocomplete, setAutocomplete] = useState(null);
   const restriction = { country: "sg" };
   const [fixedresults, setFixedResults] = useState(null);
-  const [displayDirections, setDisplayDirections] = useState([])
   const [directionFromOnePlaceToMultipleLocations, setdirectionFromOnePlaceToMultipleLocations] = useState([])
   const { isOpen, onOpen, onClose } = useDisclosure()
 
@@ -159,8 +153,6 @@ const Header = ({
       }
     });
     setLocations(tempLocations);
-    setCircleoptions(null);
-
 
     if (tempLocations.length === 0) {
       setAvgcoordinates({ lat: 1.347, lng: 103.79 });
@@ -312,22 +304,7 @@ const Header = ({
         steps: oneRoute
       }
       allInstructionroutes.push(oneInstructionRoute);
-      //allInstructionroutes = [locations[i].name, ...allInstructionroutes]
-
-      console.log("getDirects was ran for:" + locations[i].name + " and " + place.name)
-      console.log("direction is: ")
-      console.log(allInstructionroutes)
       setdirectionFromOnePlaceToMultipleLocations(allInstructionroutes)
-      console.log("current state of direction is...")
-      console.log(directionFromOnePlaceToMultipleLocations)
-
-      // console.log('this is what this looks like')
-      // console.log(directionFromOnePlaceToMultipleLocations)
-      // directionFromOnePlaceToMultipleLocations.map((d)=>{
-      //   console.log('name: ' + d[0])
-      //   console.log('distance: ' + d[0].total_distance)
-      //   console.log('distance: ' + d[0].total_duration)
-      // })
     }
 
     setDirectionsResponse(allDrawingroutes);

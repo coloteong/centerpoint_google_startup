@@ -16,7 +16,6 @@ const Home = () => {
   const [avgcoordinates, setAvgcoordinates] = useState({ lat: 1.347, lng: 103.79 });
   const [locations, setLocations] = useState([]);
   const [directionsResponse, setDirectionsResponse] = useState([]);
-  const [circleoptions, setCircleoptions] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [results, setResults] = useState(null);
   const [selectedplace, setSelectedplace] = useState(null);
@@ -53,15 +52,10 @@ const Home = () => {
         setAvgcoordinates={setAvgcoordinates}
         directionsResponse={directionsResponse}
         setDirectionsResponse={setDirectionsResponse}
-        circleoptions={circleoptions}
-        setCircleoptions={setCircleoptions}
-        results={results}
         setResults={setResults}
         isLoading = {isLoading}
         setIsLoading = {setIsLoading}
-        radius = {radius}
         setRadius = {setRadius}
-        selectedplace = {selectedplace}
         setSelectedplace = {setSelectedplace}
       />
 

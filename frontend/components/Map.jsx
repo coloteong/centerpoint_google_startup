@@ -12,7 +12,6 @@ import { Box, Flex } from "@chakra-ui/react";
 import { useState, useCallback, useEffect } from "react";
 
 function Map({ avgcoordinates, locations, directionsResponse, radius, results, selectedplace }) {
-  // const [map, setMap] = useState(/** @type google.maps.Map */(null));
   const [map, setMap] = useState(null);
 
   const colours = [
@@ -78,12 +77,10 @@ function Map({ avgcoordinates, locations, directionsResponse, radius, results, s
           zoom={12}
           mapContainerStyle={{ width: "100%", height: "100%" }}
           options={{
-            // zoomControl: false, //true
             streetViewControl: false,
             mapTypeControl: false,
             fullscreenControl: false,
           }}
-          // onLoad={(map) => setMap(map)}
           onLoad={useCallback((map) => setMap(map), [])}
         >
 
@@ -143,9 +140,7 @@ function Map({ avgcoordinates, locations, directionsResponse, radius, results, s
                       }}
                       title={selectedplace.name}
                       icon="https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"
-                    // draggable={true}
                     ></Marker>
-
                   )
 
                   }
@@ -155,9 +150,7 @@ function Map({ avgcoordinates, locations, directionsResponse, radius, results, s
                 </div>
               );
             }
-
           })}
-
         </GoogleMap>
       </Box>
     </Flex>

@@ -1,8 +1,8 @@
-import { Badge, Flex, Image, Text } from "@chakra-ui/react";
+import { Flex, Image, Text } from "@chakra-ui/react";
 import { Rating } from "@material-ui/lab";
 import React from "react";
 import { IoLocation } from "react-icons/io5";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { config } from "../pages/config";
 
 const PlaceDetail = ({ place, getDirectionsToCenterPoint, isInDirections, setisInDirections, nameOfPlacePressed, setNameOfPlacePressed}) => {
