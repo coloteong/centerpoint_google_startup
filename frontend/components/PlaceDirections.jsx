@@ -16,7 +16,6 @@ import {
 } from "@chakra-ui/react";
 
 import { ArrowBackIcon } from "@chakra-ui/icons";
-import { RiAdvertisementFill } from "react-icons/ri";
 
 import { Rating } from "@material-ui/lab";
 import React from "react";
@@ -113,11 +112,6 @@ const PlaceDetail = ({
           </TabList>
           <TabPanels>
             {places.map((place, idx) => {
-              let isAd = 0;
-              if (idx === 0) {
-                // promoted
-                isAd = 25;
-              }
               return (
                 <TabPanel key={idx}>
                   {/* Place summary */}
@@ -131,7 +125,6 @@ const PlaceDetail = ({
                       >
                         {place.name}
 
-                        <RiAdvertisementFill fontSize={isAd} color="purple" />
                       </Text>
                       <Flex alignItems={"center"} width={"full"}>
                         <Rating

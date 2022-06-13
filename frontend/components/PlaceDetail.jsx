@@ -3,10 +3,9 @@ import { Rating } from "@material-ui/lab";
 import React from "react";
 import { IoLocation } from "react-icons/io5";
 import { useEffect, useState } from "react";
-import {RiAdvertisementFill} from "react-icons/ri";
 import { config } from "../pages/config";
 
-const PlaceDetail = ({ place, firstcolour, secondcolour, isAd, getDirectionsToCenterPoint, isInDirections, setisInDirections, nameOfPlacePressed, setNameOfPlacePressed}) => {
+const PlaceDetail = ({ place, getDirectionsToCenterPoint, isInDirections, setisInDirections, nameOfPlacePressed, setNameOfPlacePressed}) => {
 
   const [isSelected, setIsSelected] = useState(false);
   let is_open = (place.opening_hours != null) ? ((place.opening_hours.open_now) ? "Open Now" : "Closed Now") : "Opening hours not available"
@@ -22,7 +21,7 @@ const PlaceDetail = ({ place, firstcolour, secondcolour, isAd, getDirectionsToCe
 
   return (
     <Flex
-      bg={isSelected ? secondcolour : firstcolour}
+      bg={isSelected ? "gray.100" : "whiteAlpha.900"}
       px={4}
       py={2}
       mb={2}
@@ -54,7 +53,6 @@ const PlaceDetail = ({ place, firstcolour, secondcolour, isAd, getDirectionsToCe
               fontWeight={"500"}
             >
               {place.name}
-              <RiAdvertisementFill fontSize={isAd} color = "purple" />
             </Text>
 
             <Text fontSize={"sm"} fontWeight={"500"} color={"gray.500"}>
