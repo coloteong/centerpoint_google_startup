@@ -6,8 +6,8 @@
 </p>
 
 
-This is our project submission for Google Cloud Hackathon for Startups in Singapore. 
-Our project aims to help users find the closest central location for meetups for people located in different places.
+This is our project submission for Google Cloud Hackathon for Startups in Singapore, and we are the top 5 finalist team!
+<br> Our project aims to help users find the closest central location for meetups for people located in different places.
 
 ## Demonstration Video
 Link to [detailed video](https://youtu.be/rXnvkzj08fQ).
