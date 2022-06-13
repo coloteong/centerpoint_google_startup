@@ -12,8 +12,6 @@ This is our project submission for Google Cloud Hackathon for Startups in Singap
 ## Demonstration Video
 Link to [detailed video](https://youtu.be/_yuw1PTpqZA)
 
-[![CenterPoint](http://img.youtube.com/vi/_yuw1PTpqZA/0.jpg)](https://youtu.be/_yuw1PTpqZA)
-
 <img src="./screenshots/short_demo.gif" alt="" width="100%"/>
 
 ## Setup Procedure
