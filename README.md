@@ -10,7 +10,9 @@ This is our project submission for Google Cloud Hackathon for Startups in Singap
 <br> Our project aims to help users find the closest central location for meetups for people located in different places.
 
 ## Demonstration Video
-Link to [detailed video](https://youtu.be/_yuw1PTpqZA).
+Link to [detailed video](https://youtu.be/_yuw1PTpqZA)
+
+[![CenterPoint](http://img.youtube.com/vi/_yuw1PTpqZA/0.jpg)](https://youtu.be/_yuw1PTpqZA)
 
 <img src="./screenshots/short_demo.gif" alt="" width="100%"/>
 
