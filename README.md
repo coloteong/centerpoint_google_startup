@@ -9,15 +9,15 @@
 This is our project submission for Google Cloud Hackathon for Startups in Singapore, and we are the top 5 finalist team!
 <br> Our project aims to help users find the closest central location for meetups for people located in different places.
 
-## Demonstration Video
+## Demonstration
 Link to [detailed video](https://youtu.be/_yuw1PTpqZA)
 
 <img src="./screenshots/short_demo.gif" alt="" width="100%"/>
 
-## Setup Procedure
 Our website is currently hosted on [CenterPoint](http://www.lohseng.com/centerpoint).
-> Note: Due to the recent DDoS attacks detected by CloudFlare, we have decided to turned off the server.
+> Note: We have stopped the server due to the recent DDoS attacks detected by CloudFlare.
 
+## Setup Procedure
 If you would like to reproduce our application locally and make any edits, please do the following steps: 
 #### Note: Please input your own Google API key. For documentation on how to get your own Google Maps API key:  [Google Developers](https://developers.google.com/maps/documentation/javascript/get-api-key)
 1. Clone the repository or download the project code to your preferred disk location.
